@@ -185,6 +185,25 @@ def test_formal_missing_smoke_evidence_preserves_all_nine_blocked_slots_without_
     assert index["live_budget"]["http_attempts"] == 0
 
 
+def test_new_smoke_uses_old_service_evidence_against_current_provider_config(tmp_path, monkeypatch):
+    cfg, _, calls = comparison_fixture(tmp_path, monkeypatch, result_status='blocked')
+    old_run=tmp_path/'saved_jev';old_run.mkdir()
+    (old_run/'manifest.json').write_text(json.dumps({'config':config()}))
+    (old_run/'evaluation.json').write_text(json.dumps({'execution_status':'integration_error'}))
+    common={'attempt_id':'http_1','logical_request_id':'model_1','role':'jev_tool_choice'}
+    events=[{'event_id':0,'event':'http_attempt_start',**common},
+            {'event_id':1,'event':'http_attempt_end',**common,'http_status':451,'raw_response_body':'region refusal'}]
+    (old_run/'trace.jsonl').write_text(''.join(json.dumps(e)+'\n' for e in events))
+    prior=tmp_path/'old_smoke_index.json';prior.write_text(json.dumps({'runs':[{'architecture':'jev','path':str(old_run)}]}))
+    cfg['prior_smoke_indices']=[str(prior)]
+    base=config();base['llm']={'provider':'vllm','model':'local-qwen','base_url':'http://fixture/v1','authentication_mode':'none'}
+    index=agent_comparison.run_stage(cfg,base,'smoke')
+    by_arch={c['architecture']:c['external_blockers'] for c in calls}
+    assert not by_arch['llm_native']
+    assert by_arch['jev'][0]['http_status']==by_arch['hybrid'][0]['http_status']==451
+    assert index['smoke_access_review']['source_indices']==[str(prior)]
+
+
 def test_logical_request_without_http_and_empty_usage_remain_honest(tmp_path):
     with TraceWriter(tmp_path / "trace.jsonl", "offline") as trace:
         runtime = EpisodeRuntime(trace)

@@ -55,11 +55,8 @@ def source_identity(trace=None):
 
 
 def credential_requirements(config, architecture):
-    requirements = []
-    if architecture in {"jev", "hybrid"}:
-        requirements.append(config.get("api_key_env", "TYPESAFE_API_KEY"))
-    if architecture in {"llm_native", "hybrid"}:
-        requirements.append(config["llm"].get("api_key_env", "DEEPSEEK_API_KEY"))
+    from .credentials import required_credential_names
+    requirements = required_credential_names(config, architecture)
     return [name for name in requirements if not os.environ.get(name)]
 
 

@@ -30,19 +30,15 @@ def _service(config, family):
 
 
 def _requirements(config, architecture):
-    result = []
-    if architecture in {"jev", "hybrid"}:
-        result.append(config.get("api_key_env", "TYPESAFE_API_KEY"))
-    if architecture in {"llm_native", "hybrid"}:
-        result.append(config.get("llm", {}).get("api_key_env", "DEEPSEEK_API_KEY"))
-    return result
+    from .credentials import required_credential_names
+    return required_credential_names(config, architecture)
 
 
 def _uses(architecture, family):
     return architecture == "hybrid" or architecture == ("jev" if family == "jev" else "llm_native")
 
 
-def service_blockers_from_smoke(index):
+def service_blockers_from_smoke(index, *, target_configs=None, available_credentials=()):
     """Return deterministic blockers/evidence by architecture, without mutation.
 
     ``index`` is the saved smoke index dict or its path. Only actual paired
@@ -51,6 +47,9 @@ def service_blockers_from_smoke(index):
     when that smoke did not establish integration; they are not called permanent.
     A source block transfers only to architectures configured for the same service
     identity (or the same missing credential variable), never to an unrelated LLM.
+    When configurations change, callers provide their actual current target
+    configs. A newly available credential resolves only a prior missing-variable
+    observation, never an actual HTTP access refusal. Source files remain intact.
     """
     if isinstance(index, (str, Path)):
         index = _json(Path(index))
@@ -77,6 +76,9 @@ def service_blockers_from_smoke(index):
         loaded.append({"architecture": architecture, "root": root, "manifest": manifest,
                        "evaluation": evaluation, "events": events, "trace_sha256": _hash(trace_path)})
 
+    targets = (target_configs if target_configs is not None else
+               {item['architecture']: item['manifest'].get('config', {}) for item in loaded})
+    available_credentials = set(available_credentials)
     for source in loaded:
         architecture, root = source["architecture"], source["root"]
         config = source["manifest"].get("config", {})
@@ -133,11 +135,10 @@ def service_blockers_from_smoke(index):
                     "classification": "informational", "persistent_block": False})
         for blocker in source_blocks:
             observations.append(blocker)
-            for target in loaded:
-                target_architecture = target["architecture"]
-                target_config = target["manifest"].get("config", {})
+            for target_architecture, target_config in targets.items():
                 if blocker["reason"] == "missing_credentials":
-                    applies = bool(set(blocker["missing_credentials"]) & set(_requirements(target_config, target_architecture)))
+                    applies = bool((set(blocker["missing_credentials"]) - available_credentials)
+                                   & set(_requirements(target_config, target_architecture)))
                 else:
                     service = blocker["service"]
                     applies = _uses(target_architecture, service["family"]) and _service(target_config, service["family"]) == service

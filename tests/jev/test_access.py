@@ -80,3 +80,23 @@ def test_other_llm_configuration_does_not_inherit_refusal(tmp_path):
     result = service_blockers_from_smoke({"runs": records})
     assert result["by_architecture"]["llm_native"]
     assert not result["by_architecture"]["hybrid"]
+
+
+def test_current_local_configuration_drops_old_key_block_but_preserves_jev_451(tmp_path):
+    skipped = [{"event":"run_skipped", "reason":"missing_credentials", "missing_credentials":["DEEPSEEK_API_KEY"]}]
+    records = [source(tmp_path, "llm_native", skipped), source(tmp_path, "jev", http(451))]
+    old = json.loads((Path(records[0]['path'])/'manifest.json').read_text())['config']
+    current = {**old, 'llm': {'provider':'vllm', 'model':'Qwen3.6-35B-A3B-FP8',
+        'base_url':'http://local-fixture:8000/v1', 'authentication_mode':'none'}}
+    result = service_blockers_from_smoke({'runs':records},target_configs={a:current for a in ('llm_native','jev','hybrid')})
+    assert not result['by_architecture']['llm_native']
+    for architecture in ('jev','hybrid'):
+        assert [x['http_status'] for x in result['by_architecture'][architecture]] == [451]
+    assert any(x['reason']=='missing_credentials' for x in result['observations'])
+
+
+def test_available_credential_only_resolves_missing_variable_not_real_denial(tmp_path):
+    skipped = [{"event":"run_skipped", "reason":"missing_credentials", "missing_credentials":["DEEPSEEK_API_KEY"]}]
+    record = source(tmp_path,'llm_native',skipped+http(401,role='llm_native_decision'))
+    result = service_blockers_from_smoke({'runs':[record]},available_credentials={'DEEPSEEK_API_KEY'})
+    assert [x['reason'] for x in result['by_architecture']['llm_native']] == ['service_authentication_denied']

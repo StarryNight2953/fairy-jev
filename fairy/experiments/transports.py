@@ -114,8 +114,9 @@ def instrument_http_client(client, runtime):
 def build_instrumented_llm(config, runtime, role="llm_native_decision"):
     """Construct the configured FAIRY client and observe its unchanged request path."""
     from fairy.agents.llm.base_llm import BaseLLM
+    from .credentials import prepare_llm_config
 
-    llm = BaseLLM.llm_builder(dict(config))
+    llm = BaseLLM.llm_builder(prepare_llm_config(config))
     if role == "llm_context_update":
         # Updater owns its single retry/format repair; no nested SDK retries.
         llm.api_client.max_retries = 0

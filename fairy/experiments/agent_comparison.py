@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from copy import deepcopy
 import json
+import os
 from pathlib import Path
 import statistics
 
@@ -53,14 +54,22 @@ def run_stage(comparison,base,stage):
     index['planned_slots']=[slot for slot,_,_ in plan]
     stopped=False
     access_by_architecture={}
-    if stage=='formal':
+    if stage in {'smoke','formal'}:
         from .access import service_blockers_from_smoke
         smoke_path=out/'smoke_index.json'
-        if smoke_path.exists():
-            access=service_blockers_from_smoke(json.loads(smoke_path.read_text()))
+        evidence_paths=[Path(p) if Path(p).is_absolute() else ROOT/p for p in comparison.get('prior_smoke_indices',[])]
+        if smoke_path.exists():evidence_paths.append(smoke_path)
+        if evidence_paths:
+            records=[]
+            for evidence_path in evidence_paths:
+                records.extend(json.loads(evidence_path.read_text())['runs'])
+            targets={a:effective_config(base,comparison,a,comparison.get('smoke_seed',1904)) for a in ('llm_native','jev','hybrid')}
+            access=service_blockers_from_smoke({'runs':records},target_configs=targets,
+                available_credentials={name for name,value in os.environ.items() if value})
             access_by_architecture=access['by_architecture']
             index['smoke_access_review']=access
-        else:
+            index['smoke_access_review']['source_indices']=[str(p) for p in evidence_paths]
+        elif stage=='formal':
             access_by_architecture={a:[{'reason':'smoke_evidence_unavailable','failure_layer':'preflight','source_path':str(smoke_path)}] for a in ('llm_native','jev','hybrid')}
     for slot,architecture,seed in plan:
         previous=[r for r in index['runs'] if r['slot']==slot and r.get('execution_status')!='blocked']
@@ -99,7 +108,9 @@ def report(comparison):
     rows=[]
     for record in indices.get('formal',{}).get('runs',[]):
         p=Path(record['path']);e=json.loads((p/'evaluation.json').read_text());m=json.loads((p/'metrics.json').read_text());manifest=json.loads((p/'manifest.json').read_text())
-        rows.append({**record,'code_commit':manifest['code_commit'],'task_assertions':{k:v['passed'] for k,v in e['task_assertions'].items()},'native_validation':e['native_validation'],'first_issue':e.get('first_issue'),'metrics':m,'integration_coverage':e.get('integration_coverage',{}),'legacy_task_success':e.get('legacy_evaluation_v1',{}).get('task_success')})
+        rows.append({**record,'code_commit':manifest['code_commit'],'task_assertions':{k:v['passed'] for k,v in e['task_assertions'].items()},'native_validation':e['native_validation'],'first_issue':e.get('first_issue'),'metrics':m,'integration_coverage':e.get('integration_coverage',{}),'legacy_task_success':e.get('legacy_evaluation_v1',{}).get('task_success'),
+            'blockers':e.get('blockers',[]),'missing_credentials':e.get('missing_credentials',[]),
+            'trace_verification':e.get('trace_verification'),'replay_verification':e.get('replay_verification')})
     groups={}
     for architecture in ('llm_native','jev','hybrid'):
         group=[r for r in rows if r['architecture']==architecture]

@@ -1,0 +1,49 @@
+{
+  "experiment_id": "hn58-three-agents-qwen-v1",
+  "baseline_tag": "baseline/llm-jev-20261018",
+  "experiment_tag": "experiment/hn58-three-agents-qwen-v1",
+  "base_config": "configs/jev/hn58_hybrid_sync_k4_qwen.json",
+  "output_dir": "runs/agent_comparison/hn58-three-agents-qwen-v1",
+  "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+  "max_live_episodes": 12,
+  "max_total_http_attempts": 1440,
+  "formal_order": [
+    [
+      "llm_native",
+      "jev",
+      "hybrid"
+    ],
+    [
+      "jev",
+      "hybrid",
+      "llm_native"
+    ],
+    [
+      "hybrid",
+      "llm_native",
+      "jev"
+    ]
+  ],
+  "block_seeds": [
+    1904,
+    1905,
+    1906
+  ],
+  "smoke_order": [
+    "llm_native",
+    "jev",
+    "hybrid"
+  ],
+  "smoke_seed": 1904,
+  "implementation_versions": {
+    "llm_native": "fairy_native_observed_v1",
+    "jev": "jev_mvp_v1_observed",
+    "hybrid": "hybrid_sync_v1"
+  },
+  "price_policy": "unavailable: no verified pricing or billed cost configured",
+  "formal_require_clean_commit": true,
+  "prior_smoke_indices": [
+    "runs/agent_comparison/hn58-three-agents-v1/smoke_index.json"
+  ],
+  "configuration_note": "New user-selected LLM configuration; old experiment and smoke evidence retained. Same task-wide live ledger, caps, and used smoke slots."
+}
