@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import inspect
 import importlib.metadata
 import json
 import os
@@ -18,9 +19,8 @@ from fairy.agents.Jev.agent import JevAgent
 from fairy.agents.Jev.candidates import CandidateResolver
 from fairy.agents.Jev.client import OfficialBackend, ScriptedBackend
 from fairy.agents.Jev.environment import create_fixture, snapshot_environment
-from .evaluation import evaluate_task, apply_semantic_contract
+from .evaluation import evaluate_task, apply_semantic_contract, semantic_first_issue
 from fairy.agents.Jev.replay import replay_run
-from fairy.agents.Jev.runner import _first_issue
 from fairy.agents.Jev.scripted import ScriptedPolicy
 from fairy.agents.Jev.tools import ToolCatalog
 from fairy.agents.Jev.trace import TraceWriter, digest, write_json
@@ -146,7 +146,7 @@ def artifact_hashes(output):
 
 
 def run_episode(config, output_dir, *, architecture=None, mode="live", stage="debug", experiment_id=None,
-                slot=None, ledger=None, require_clean=False, offline_native_llm=None):
+                slot=None, ledger=None, require_clean=False, offline_native_llm=None, external_blockers=None):
     episode_started=time.monotonic()
     architecture=architecture or config.get("architecture","jev")
     if architecture not in IMPLEMENTATIONS:raise ValueError("unknown architecture")
@@ -159,6 +159,7 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         ledger=LiveLedger(ROOT/config.get("global_live_ledger","runs/agent_comparison/live_budget_20261018.json"))
     runtime=EpisodeRuntime(trace,config.get("experiment_limits"),ledger=ledger)
     manifest={"run_id":run_id,"experiment_id":experiment_id,"slot":slot,"stage":stage,"mode":mode,
+        "external_blockers":external_blockers or [],
         "architecture":architecture,"implementation_version":config.get("implementation_version",IMPLEMENTATIONS[architecture]),
         "backend":"scripted" if mode=="scripted" else "llm_native" if architecture=="llm_native" else "typesafe_sdk",
         **source_identity(trace),"config":trace.sanitize(config),"config_hash":digest(trace.sanitize(config)),
@@ -188,6 +189,8 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         missing=credential_requirements(config,architecture) if mode=="live" else []
         scenario,engine,metadata=create_fixture(config)
         manifest.update(metadata)
+        manifest["scenario_source"]={"path":inspect.getfile(type(scenario)),"sha256":file_hash(inspect.getfile(type(scenario)))}
+        manifest["visibility_rule_hash"]=file_hash(ROOT/"fairy/controllers/agent_builder.py")
         before=snapshot_environment(scenario,engine)
         catalog=ToolCatalog(scenario.apps)
         resolver=CandidateResolver(catalog.entries,config)
@@ -195,7 +198,10 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         write_json(output/"tool_catalog.json",catalog.to_dict())
         write_json(output/"parameter_support_matrix.json",resolver.support_matrix())
         trace.emit("fixture_ready",metadata=metadata,catalog_hash=catalog.hash)
-        if missing:
+        if external_blockers:
+            evaluation.update(stop_reason="preflight_blocked",failure_layer="external_access",blockers=external_blockers)
+            trace.emit("run_skipped",reason="preflight_blocked",blockers=external_blockers)
+        elif missing:
             evaluation.update(stop_reason="missing_credentials",failure_layer="external_credentials",missing_credentials=missing)
             trace.emit("run_skipped",reason="missing_credentials",missing_credentials=missing)
         elif metadata["environment_check"]!="passed":
@@ -213,9 +219,9 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
                     if mode=="scripted":
                         backend=ScriptedBackend(ScriptedPolicy())
                     else:
-                        import httpx2
-                        from .transports import ObservedTransport
-                        backend=OfficialBackend(config,transport=ObservedTransport(httpx2.HTTPTransport(),runtime))
+                        from .transports import instrument_http_client
+                        backend=OfficialBackend(config)
+                        instrument_http_client(backend.client._http_client,runtime)
                     cls=JevAgent
                     kwargs={"runtime":runtime}
                     if architecture=="hybrid":
@@ -239,7 +245,7 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
                     agent.poll_environment=poll
                     workflow=engine.run_scenario_agent(setup_scenario=False)
                     reason=agent.stop_reason
-                evaluation.update(stop_reason=reason)
+                evaluation.update(stop_reason=reason,failure_layer=getattr(agent,"failure_layer",None))
     except BudgetStop as exc:
         evaluation.update(stop_reason=exc.reason,execution_status="budget_exhausted",failure_layer="budget")
         trace.emit("episode_budget_stop",reason=exc.reason,side_effects=exc.side_effects)
@@ -261,12 +267,14 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
                 evaluation["task_assertions"]=strict["assertions"]
                 evaluation["task_success"]=success if mode=="live" else None
                 evaluation["scripted_task_success"]=success if mode=="scripted" else None
-                evaluation["first_issue"]=_first_issue(trace.events,engine._resolve_agent_task(),strict["assertions"])
+                evaluation["first_issue"]=semantic_first_issue(trace.events,engine._resolve_agent_task(),strict["assertions"])
                 evaluation["first_violation_event_id"]=evaluation["first_issue"]["event_id"] if evaluation["first_issue"] else None
             except Exception as exc:
                 evaluation.update(execution_status="integration_error",failure_layer="evaluation",evaluation_error=f"{type(exc).__name__}: {exc}")
                 trace.emit("evaluation_error",error=f"{type(exc).__name__}: {exc}")
-        if evaluation.get("stop_reason") not in {"missing_credentials","invalid_environment"}:
+        evaluation["first_issue"]=semantic_first_issue(trace.events,engine._resolve_agent_task() if engine else "",evaluation.get("assertions"))
+        evaluation["first_violation_event_id"]=evaluation["first_issue"]["event_id"] if evaluation["first_issue"] else None
+        if evaluation.get("stop_reason") not in {"missing_credentials","invalid_environment","preflight_blocked"}:
             evaluation.update(integration_coverage(trace.events,architecture,mode=="live"))
             reason=evaluation.get("stop_reason") or "unknown_termination"
             if evaluation["execution_status"]=="integration_error":

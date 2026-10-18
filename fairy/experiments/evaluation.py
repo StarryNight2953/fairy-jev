@@ -88,3 +88,94 @@ def apply_semantic_contract(legacy, workflow, events=()):
 
 def evaluate_task(scenario,engine,workflow,before,*,events=(),**kwargs):
     return apply_semantic_contract(evaluate_v1(scenario,engine,workflow,before,**kwargs),workflow,events)
+
+
+def semantic_first_issue(events, task, assertions=None):
+    """Locate the first evidenced error under v2, after the run only.
+
+    This never manufactures an observation or feeds a verdict back to an agent.
+    Diagnostic observation rules match the returned-content acceptance rules.
+    Failed HTTP/tool attempts remain technical evidence even if later recovered.
+    """
+    from fairy.agents.Jev.candidates import extract_task_parameters
+
+    parameters = extract_task_parameters(task)
+    bounds = parameters["target_range"]
+    target = set(range(bounds[0], bounds[1] + 1)) if bounds else set()
+    hours = parameters["irrigation_hours"]
+    state, soil, doses = set(), set(), {}
+    weather = quota = False
+    for event in events:
+        kind = event.get("event")
+        reason = layer = None
+        detail = {}
+        decision_id = event.get("decision_id")
+        if kind == "http_attempt_end" and event.get("status") in {"error", "http_error"}:
+            reason = f"Model HTTP attempt failed: {event.get('http_status') or event.get('error_type') or 'transport error'}"
+            layer = "model_service"
+            detail = {"http_status": event.get("http_status"), "role": event.get("role"),
+                "request_id": event.get("logical_request_id"), "attempt_id": event.get("attempt_id"),
+                "error": event.get("error"), "raw_response_body": event.get("raw_response_body"),
+                "meaning": "Earliest technical failure; later recovery does not erase this event."}
+        elif kind == "decision_end" and event.get("status") == "error":
+            reason, layer = event.get("error") or "Decision failed", "decision_backend"
+        elif kind in {"hybrid_update_error", "llm_update_error"}:
+            reason, layer = event.get("error") or "Context update failed", "llm_context_update"
+        elif kind == "state_budget_exceeded":
+            reason, layer = "Complete model input exceeded its declared size budget", "context_budget"
+            detail = {"measurements": event.get("measurements")}
+        elif kind == "controller_feedback":
+            reason, layer = event.get("reason") or event.get("status") or "Parameter preparation failed", "parameter_candidates"
+        elif kind == "tool_end" and event.get("status") == "error":
+            reason = event.get("error") or "Tool execution returned an error"
+            layer = "execution_adapter" if not event.get("executed") else "native_tool"
+            detail = {"executed": event.get("executed"), "error_stage": event.get("error_stage")}
+        elif kind == "tool_end" and event.get("status") == "ok":
+            content = event.get("result")
+            if isinstance(content, dict) and content.get("status") == "irrigation_started":
+                actual = set(content.get("irrigated_ridges", []))
+                dose = content.get("duration_hours_per_ridge", content.get("duration_hours"))
+                for ridge in actual:
+                    if type(dose) in (int, float):
+                        doses[ridge] = doses.get(ridge, 0.0) + dose
+                missing = [name for name, seen in {"current_weather": weather, "soil_moisture": target <= soil,
+                    "target_state": target <= state, "remaining_quota": quota}.items() if not seen]
+                outside = sorted(actual - target)
+                overdose = sorted(ridge for ridge, dose in doses.items() if hours is not None and dose > hours + 1e-9)
+                if missing:
+                    reason, layer = "Irrigation executed before required visible observations were completed", "tool_selection"
+                    decision_id = next(iter(event.get("decision_ids", [])), None)
+                elif outside or overdose:
+                    reason, layer = "Irrigation extended outside the target or exceeded the cumulative requested dose", "parameter_selection"
+                    decision_id = next(iter(event.get("decision_ids", [])[1:]), None)
+                detail = {"missing_pre_irrigation_observations": missing, "outside_target_ridges": outside,
+                    "overdosed_ridges": overdose, "cumulative_hours_by_ridge": dict(doses),
+                    "irreversible_for_task_assertions": bool(missing or outside or overdose)}
+            # Only the actual returned payload can establish an observation.
+            if isinstance(content, dict):
+                state.update(returned_coverage(content, target_state=True))
+                if "soil_sensors" in content or "vwc" in content:
+                    soil.update(returned_coverage(content))
+                weather = weather or all(key in content for key in ("temp_c", "rainfall_mm", "wind_speed_ms"))
+                regime = content.get("management_regime", {})
+                quota = quota or isinstance(regime, dict) and all(key in regime for key in ("irrigation_quota_mm_total", "irrigation_used_mm_total"))
+        else:
+            native = event.get("native_event", {})
+            finish = kind == "model_finish" or (kind == "native_event" and native.get("event_type") == "llm_call_end"
+                and native.get("status") == "ok" and not native.get("tool_calls"))
+            stopped = kind in {"run_end", "native_run_end", "episode_budget_stop"}
+            if finish or stopped:
+                unmet = [name for name, assertion in (assertions or {}).items() if not assertion["passed"]]
+                if unmet:
+                    reason = "Agent ended while independently checked original-task requirements remained unmet"
+                    layer = "termination" if finish else "run_budget" if str(event.get("stop_reason", event.get("reason", ""))).startswith(("max_", "wall_", "total_")) else "controller"
+                    detail = {"unmet_task_assertions": unmet,
+                        "scope": "Post-run diagnostic; no evaluator result was supplied to the agent."}
+                    decision_id = native.get("request_id", decision_id)
+        if reason:
+            return {"event_id": event.get("event_id"), "step_id": event.get("step_id"),
+                "decision_id": decision_id, "decision_ids": event.get("decision_ids"),
+                "tool_call_id": event.get("tool_call_id"), "failure_layer": layer, "reason": reason,
+                "details": detail, "evaluator_version": VERSION, "evidence": "trace.jsonl",
+                "assertion_evidence": "evaluation.json:assertions" if assertions else None}
+    return None

@@ -6,7 +6,7 @@ import math
 import pytest
 
 from fairy.agents.Jev.environment import snapshot_environment
-from fairy.experiments.evaluation import evaluate_task
+from fairy.experiments.evaluation import evaluate_task, semantic_first_issue
 from test_evaluation_replay import fixture, observations
 
 
@@ -146,4 +146,25 @@ def test_returned_overview_can_supply_pre_irrigation_target_operational_state(tm
     assert result["assertions"]["pre_irrigation_observations"]["passed"] is True
     assert result["legacy_evaluation_v1"]["assertions"]["pre_irrigation_observations"]["passed"] is False
     assert result["task_success"] is True
+    assert semantic_first_issue(trace.events, engine._resolve_agent_task(), result["assertions"]) is None
     trace.close()
+
+
+def test_native_premature_terminal_response_has_evidenced_termination_issue():
+    task = "HEINONG58 ridges 43-63 执行0.8小时灌溉。"
+    events = [{"event_id": 4, "event": "native_event", "native_event": {
+        "event_type": "llm_call_end", "status": "ok", "tool_calls": [], "assistant_content": "Done"}}]
+    issue = semantic_first_issue(events, task, {"pre_irrigation_observations": {"passed": False}})
+    assert issue["event_id"] == 4
+    assert issue["failure_layer"] == "termination"
+    assert issue["details"]["unmet_task_assertions"] == ["pre_irrigation_observations"]
+
+
+def test_service_failure_located_before_decision_error_without_task_assertions():
+    events = [{"event_id": 2, "event": "http_attempt_end", "status": "http_error", "http_status": 451,
+               "role": "jev_tool_choice", "logical_request_id": "model_0001", "attempt_id": "http_0001",
+               "raw_response_body": "Service unavailable in request region"},
+              {"event_id": 3, "event": "decision_end", "status": "error", "error": "Backend error"}]
+    issue = semantic_first_issue(events, "HEINONG58 ridges 43-63 执行0.8小时灌溉。")
+    assert issue["event_id"] == 2 and issue["failure_layer"] == "model_service"
+    assert issue["details"]["http_status"] == 451

@@ -35,6 +35,25 @@ def test_missing_credentials_is_blocked_null_and_spends_no_live_allowance(tmp_pa
     assert metrics["cost"]["status"] == "unavailable"
 
 
+def test_saved_access_block_prevents_backend_construction_even_when_key_present(tmp_path, monkeypatch):
+    cfg = config()
+    cfg["api_key_env"] = "PRESENT_OFFLINE_TEST_KEY"
+    monkeypatch.setenv("PRESENT_OFFLINE_TEST_KEY", "offline-fixture-key")
+    monkeypatch.setattr(episode, "OfficialBackend", lambda *args, **kwargs: pytest.fail("blocked run constructed model backend"))
+    ledger = LiveLedger(tmp_path / "ledger.json")
+    blockers = [{"reason": "service_access_restricted", "http_status": 451,
+                 "source_run": "saved-offline-evidence", "event_id": 3}]
+    _, result = episode.run_episode(cfg, tmp_path / "runs", architecture="jev", mode="live",
+                                   ledger=ledger, external_blockers=blockers)
+    assert result["execution_status"] == "blocked"
+    assert result["stop_reason"] == "preflight_blocked"
+    assert result["blockers"] == blockers
+    assert result["task_success"] is result["live_integration_success"] is None
+    assert result["model_http_attempts"] == result["tool_call_count"] == 0
+    assert ledger.snapshot()["episodes"] == []
+    assert ledger.snapshot()["http_attempts"] == 0
+
+
 def test_evaluator_exception_cannot_be_overwritten_by_model_finish(tmp_path, monkeypatch):
     def fail(*args, **kwargs):
         raise ValueError("injected evaluator defect")
@@ -48,6 +67,36 @@ def test_evaluator_exception_cannot_be_overwritten_by_model_finish(tmp_path, mon
     assert result["tool_call_count"] == 10
     assert "injected evaluator defect" in result["evaluation_error"]
     assert (output / "workflow.json").exists()
+
+
+def test_episode_uses_semantic_diagnosis_for_valid_overview_route(tmp_path, monkeypatch):
+    from fairy.agents.Jev.scripted import ScriptedPolicy
+    class OverviewPolicy(ScriptedPolicy):
+        sequence = list(ScriptedPolicy.sequence)
+        sequence[2] = "FarmWorldApp__get_farm_overview"
+    monkeypatch.setattr(episode, "ScriptedPolicy", OverviewPolicy)
+    _, result = episode.run_episode(config(), tmp_path, architecture="jev", mode="scripted")
+    assert result["scripted_task_success"] is True
+    assert result["legacy_evaluation_v1"]["task_success"] is False
+    assert result["first_issue"] is None
+    assert result["first_violation_event_id"] is None
+
+
+def test_native_early_finish_is_task_failure_with_specific_terminal_event(tmp_path):
+    from openai.types.chat import ChatCompletion
+    from fairy.experiments.scripted_native import NativeFixtureLLM
+    class EarlyFinish(NativeFixtureLLM):
+        def chat_completion(self, messages, tools=None):
+            return ChatCompletion.model_validate({"id": "fixture", "object": "chat.completion", "created": 0,
+                "model": self.model, "choices": [{"index": 0, "finish_reason": "stop",
+                    "message": {"role": "assistant", "content": "Done."}}]})
+    _, result = episode.run_episode(config(), tmp_path, architecture="llm_native", mode="scripted",
+                                   offline_native_llm=lambda runtime: EarlyFinish(runtime))
+    assert result["execution_status"] == "completed"
+    assert result["scripted_task_success"] is False
+    assert result["tool_call_count"] == result["model_http_attempts"] == 0
+    assert result["first_issue"]["failure_layer"] == "termination"
+    assert type(result["first_violation_event_id"]) is int
 
 
 def test_ledger_caps_persist_across_instances_and_smoke_slot_rename(tmp_path):
@@ -119,6 +168,21 @@ def test_formal_dirty_commit_rejected_before_any_episode(tmp_path, monkeypatch):
     with pytest.raises(ValueError, match="clean"):
         agent_comparison.run_stage(cfg, config(), "formal")
     assert calls == []
+
+
+def test_formal_missing_smoke_evidence_preserves_all_nine_blocked_slots_without_http(tmp_path, monkeypatch):
+    cfg, _, calls = comparison_fixture(tmp_path, monkeypatch, result_status="blocked")
+    actual = json.loads(Path("configs/experiments/hn58_three_agents_v1.json").read_text())
+    cfg["formal_order"], cfg["block_seeds"] = actual["formal_order"], actual["block_seeds"]
+    index = agent_comparison.run_stage(cfg, config(), "formal")
+    assert len(index["planned_slots"]) == len(index["runs"]) == len(calls) == 9
+    assert all(call["external_blockers"] for call in calls)
+    assert [record["architecture"] for record in index["runs"]] == [a for block in actual["formal_order"] for a in block]
+    assert all(record["execution_status"] == "blocked" for record in index["runs"])
+    assert all(record["model_http_attempts"] == 0 for record in index["runs"])
+    assert index["complete"] is False
+    assert index["live_budget"]["episodes"] == []
+    assert index["live_budget"]["http_attempts"] == 0
 
 
 def test_logical_request_without_http_and_empty_usage_remain_honest(tmp_path):

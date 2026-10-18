@@ -52,6 +52,16 @@ def run_stage(comparison,base,stage):
         plan=[(f'{stage}_{a}',a,comparison.get('smoke_seed',1904)) for a in order]
     index['planned_slots']=[slot for slot,_,_ in plan]
     stopped=False
+    access_by_architecture={}
+    if stage=='formal':
+        from .access import service_blockers_from_smoke
+        smoke_path=out/'smoke_index.json'
+        if smoke_path.exists():
+            access=service_blockers_from_smoke(json.loads(smoke_path.read_text()))
+            access_by_architecture=access['by_architecture']
+            index['smoke_access_review']=access
+        else:
+            access_by_architecture={a:[{'reason':'smoke_evidence_unavailable','failure_layer':'preflight','source_path':str(smoke_path)}] for a in ('llm_native','jev','hybrid')}
     for slot,architecture,seed in plan:
         previous=[r for r in index['runs'] if r['slot']==slot and r.get('execution_status')!='blocked']
         if previous:continue
@@ -65,7 +75,7 @@ def run_stage(comparison,base,stage):
             native=lambda runtime:NativeFixtureLLM(runtime)
         output,result=run_episode(cfg,out/stage,architecture=architecture,mode='scripted' if stage=='offline' else 'live',
             stage=stage,experiment_id=comparison['experiment_id'],slot=slot,ledger=ledger,
-            require_clean=stage=='formal',offline_native_llm=native)
+            require_clean=stage=='formal',offline_native_llm=native,external_blockers=access_by_architecture.get(architecture))
         result=verify_and_replay(output,cfg)
         summary={k:result.get(k) for k in ('execution_status','task_success','scripted_task_success','live_integration_success','stop_reason','failure_layer','model_http_attempts','model_request_count','tool_call_count','wall_elapsed_seconds')}
         record={'slot':slot,'architecture':architecture,'seed':seed,'path':str(output),**summary,'evaluation_sha256':file_hash(output/'evaluation.json'),'manifest_sha256':file_hash(output/'manifest.json'),'trace_sha256':file_hash(output/'trace.jsonl'),'verification_passed':result['trace_verification']['passed'],'replay_passed':result.get('replay_verification',{}).get('passed')}
