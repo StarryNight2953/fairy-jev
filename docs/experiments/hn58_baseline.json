@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "purpose": "Identity index for the preserved existing LLM/Jev baseline, not a claim that historical live used this commit.",
+  "source_worktree": "/Users/ouyangkun/PHD/Project/Fairy-Jev",
+  "development_worktree": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid",
+  "development_branch": "feat/llm-jev-hybrid-hn58",
+  "source_head_at_freeze": "215f8c3b7afca66f24ccdcc007f81e0c7cbf4dc8",
+  "baseline_commit": "f5bd5dc861f1eb5006ac1a8d089769f595620d1f",
+  "baseline_tag": "baseline/llm-jev-20261018",
+  "baseline_description": "Existing uncommitted Jev MVP, Engine hooks, scenario workbook path correction, configs, required tests and workbook copied by reviewed whitelist with matching hashes; not new hybrid work.",
+  "copy_evidence": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/checkpoints/H0/baseline_copy.json",
+    "sha256": "a43b9754c9ebd1508c2c77af7da2ad73d6e216c4dd40798df71d48ca56950154",
+    "all_whitelisted_files_match_source": true,
+    "excluded": [
+      "env.sh",
+      ".git",
+      ".venv",
+      "runs",
+      "caches"
+    ]
+  },
+  "contract_evidence": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/checkpoints/H0/contract.json",
+    "sha256": "7f37e55f4a18f399ae4577fe7d305554c986b7d1582d27d838f27bfd0206a560"
+  },
+  "baseline_validation": {
+    "command": "DEEPSEEK_API_KEY=offline-regression-placeholder DASHSCOPE_API_KEY=offline-regression-placeholder .venv/bin/python -m pytest -q tests/jev tests/test_replay_contract.py tests/test_fairy_migration_smoke.py",
+    "result": "165 passed in 6.25s",
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/checkpoints/H0/baseline_tests.txt",
+    "sha256": "f03a6816c7d2486f583045ca44ed377a4dca0115f0df8b7647323fbe967d1465",
+    "new_run_not_historical_count": true
+  },
+  "scenario": {
+    "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+    "seed": 1904,
+    "clock_source": "checkpoint",
+    "declared_start_time": 1785974400.0,
+    "effective_start_time": 1786057131.7453332,
+    "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+    "shared_time_manager": true
+  },
+  "tool_counts": {
+    "registered": 59,
+    "visible": 58,
+    "choices": 59
+  },
+  "parameter_categories": {
+    "required": 34,
+    "no_parameters": 20,
+    "optional_only": 4
+  },
+  "max_initial_candidates": 192,
+  "sdk_version": "0.7.5",
+  "existing_llm_defaults": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "temperature": 0.1,
+    "max_output_tokens": 2048,
+    "parallel_tool_calls": true
+  },
+  "historical_live": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/runs/jev/live/20261017T112501_live_db897d9a",
+    "code_commit": "unknown",
+    "reported_head": "215f8c3b7afca66f24ccdcc007f81e0c7cbf4dc8",
+    "live_integration_success": true,
+    "task_success": false,
+    "requests": 69,
+    "tools": 40,
+    "not_new_test": true
+  },
+  "planned_experiment_tag": "experiment/hn58-three-agents-v1",
+  "formal_identity_status": "Not frozen when this baseline index was written; actual formal manifests and the immutable experiment tag determine later executed code identity.",
+  "credential_note": "No credential values recorded. H0 reported missing DEEPSEEK_API_KEY; later stage records determine current execution status."
+}

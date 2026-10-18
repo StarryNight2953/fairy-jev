@@ -14,7 +14,7 @@ from scripts.rebatch_fos_from_traces import (
 
 from .environment import create_fixture, snapshot_environment
 from .evaluation import evaluate_task
-from .tools import ToolCatalog, ToolExecutor
+from .tools import ToolCatalog, ToolExecutor, validate_arguments
 from .trace import TraceWriter, digest, write_json
 
 
@@ -55,7 +55,8 @@ def replay_run(workflow_path, config, output_dir):
     executor = ToolExecutor(catalog, engine.time_manager, executed_workflow, trace)
     info = {"source_workflow": str(source_path), "source_manifest": str(manifest_path),
             "n_executed": 0, "n_restored_error_events": 0, "exact_timing_steps": 0,
-            "legacy_timing_steps": 0, "divergences": [], "model_request_count": 0}
+            "legacy_timing_steps": 0, "divergences": [], "model_request_count": 0,
+            "argument_default_equivalences": []}
     previous_post_time = metadata["effective_start_time"]
     try:
         trace.emit("replay_start", source_workflow=str(source_path), source_manifest=str(manifest_path), metadata=metadata)
@@ -89,7 +90,20 @@ def replay_run(workflow_path, config, output_dir):
                     info["divergences"].append({"step": name, "kind": "execution_status", "source_error": recorded_error,
                                                 "actual_error": row["error"], "actual_result": row["result"]})
                 if row["arguments"] != step.get("tool_args"):
-                    info["divergences"].append({"step": name, "kind": "arguments_changed", "source": step.get("tool_args"), "actual": row["arguments"]})
+                    # Native function calling may omit optional kwargs. Replay
+                    # still receives exactly recorded kwargs; ToolExecutor then
+                    # binds the same signature defaults as Python originally did.
+                    # Compare that explicit default binding, retaining both forms.
+                    try:
+                        bound_source = validate_arguments(catalog.by_name[tool_name], step.get("tool_args") or {})
+                    except (KeyError, TypeError, ValueError):
+                        bound_source = None
+                    if bound_source is not None and bound_source == row["arguments"]:
+                        info["argument_default_equivalences"].append({"step": name,
+                            "recorded_arguments": step.get("tool_args"), "bound_arguments": bound_source,
+                            "rule": "Only native signature defaults filled by the existing ToolExecutor; source evidence unchanged"})
+                    else:
+                        info["divergences"].append({"step": name, "kind": "arguments_changed", "source": step.get("tool_args"), "actual": row["arguments"]})
                 # Sensor noise/time stamps differ. Compare meaningful action results.
                 source_result = step.get("content")
                 if isinstance(source_result, dict) and isinstance(row["result"], dict):
