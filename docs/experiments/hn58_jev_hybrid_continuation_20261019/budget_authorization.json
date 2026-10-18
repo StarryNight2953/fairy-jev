@@ -1,0 +1,10 @@
+{
+  "authorized": true,
+  "at": "2026-10-18T17:38:48.212519+00:00",
+  "user_instruction": "这一次测试别管你的预算账本约束，我就要结果",
+  "scope": "Exactly one new Jev and one new Hybrid episode, no replacement samples. Retain all cumulative consumption and unchanged per-episode execution limits.",
+  "previous_max_episodes": 12,
+  "new_max_episodes": 13,
+  "max_http_attempts": 1440,
+  "ledger_id": "ba456f29add04993a04ac60636f1dc0f"
+}

@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "regression": "302 passed in 3.81s",
+  "regression_network_denied": true,
+  "both_trace_verifications_passed": true,
+  "both_action_replays_passed": true,
+  "replays_model_requests": 0,
+  "true_task_failure_reproduced": true,
+  "all_29_http_responses_status200": true,
+  "http_retries": 0,
+  "production_changes_this_experiment": [],
+  "preservation": {
+    "checked_paths": 1676,
+    "checked_existing_files": 1675,
+    "checked_prior_absences": 1,
+    "changed": [],
+    "passed": true,
+    "original_ledger_rows_unchanged": true,
+    "ledger_id_unchanged": true,
+    "old_tags_not_moved": true
+  },
+  "config_and_common_initial_identity_equal": true,
+  "quota_misstatement_verified_in_raw_request_response": true,
+  "wire_propagation": {
+    "jev": {
+      "all_real_tool_choice_menus_have_58_tools_plus_FINISH": true,
+      "tool_choice_requests": 11,
+      "new_inventory_description_in_all_real_tool_choice_requests": true,
+      "first_request_event_id": 5
+    },
+    "hybrid": {
+      "all_real_tool_choice_menus_have_58_tools_plus_FINISH": true,
+      "tool_choice_requests": 8,
+      "new_inventory_description_in_all_real_tool_choice_requests": true,
+      "first_request_event_id": 19,
+      "new_inventory_description_in_both_real_updater_requests": true
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "catalog_hash": {
+    "llm_native_old": "11315fbbc99523ada8dc88f256cec22d5e21a6840a8d164e22d216af7f0184f6",
+    "jev": "11315fbbc99523ada8dc88f256cec22d5e21a6840a8d164e22d216af7f0184f6",
+    "hybrid": "11315fbbc99523ada8dc88f256cec22d5e21a6840a8d164e22d216af7f0184f6"
+  },
+  "checkpoint_hash": {
+    "llm_native_old": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+    "jev": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+    "hybrid": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d"
+  },
+  "effective_start_time": {
+    "llm_native_old": 1786057131.7453332,
+    "jev": 1786057131.7453332,
+    "hybrid": 1786057131.7453332
+  },
+  "checkpoint_sim_time": {
+    "llm_native_old": 1786057131.7453332,
+    "jev": 1786057131.7453332,
+    "hybrid": 1786057131.7453332
+  },
+  "prompt_hash": {
+    "llm_native_old": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+    "jev": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+    "hybrid": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96"
+  },
+  "candidate_strategy_hash": {
+    "llm_native_old": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+    "jev": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+    "hybrid": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9"
+  },
+  "parameter_catalog_hash": {
+    "llm_native_old": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+    "jev": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+    "hybrid": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34"
+  },
+  "evaluator_hash": {
+    "llm_native_old": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+    "jev": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+    "hybrid": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8"
+  },
+  "lockfile_hash": {
+    "llm_native_old": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+    "jev": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+    "hybrid": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a"
+  },
+  "data_assets": {
+    "llm_native_old": {
+      "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+    },
+    "jev": {
+      "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+    },
+    "hybrid": {
+      "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+    }
+  },
+  "scenario_source": {
+    "llm_native_old": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_three_cultivar_wet_disease_dry_harvest_sequence/scenario_l1_three_cultivar_hn58_action_ready_irrigation.py",
+      "sha256": "36a6c83bdb0b8d73548c372fc8ad9da21c262fe7f63b1080598581b1e11bddd7"
+    },
+    "jev": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_three_cultivar_wet_disease_dry_harvest_sequence/scenario_l1_three_cultivar_hn58_action_ready_irrigation.py",
+      "sha256": "36a6c83bdb0b8d73548c372fc8ad9da21c262fe7f63b1080598581b1e11bddd7"
+    },
+    "hybrid": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_three_cultivar_wet_disease_dry_harvest_sequence/scenario_l1_three_cultivar_hn58_action_ready_irrigation.py",
+      "sha256": "36a6c83bdb0b8d73548c372fc8ad9da21c262fe7f63b1080598581b1e11bddd7"
+    }
+  },
+  "visibility_rule_hash": {
+    "llm_native_old": "bd195c77d16a92d9b6ac576e6eaf0db842c163a59f2a63765ed3df8c658e353d",
+    "jev": "bd195c77d16a92d9b6ac576e6eaf0db842c163a59f2a63765ed3df8c658e353d",
+    "hybrid": "bd195c77d16a92d9b6ac576e6eaf0db842c163a59f2a63765ed3df8c658e353d"
+  },
+  "sdk_version": {
+    "llm_native_old": "0.7.5",
+    "jev": "0.7.5",
+    "hybrid": "0.7.5"
+  },
+  "openai_sdk_version": {
+    "llm_native_old": "2.44.0",
+    "jev": "2.44.0",
+    "hybrid": "2.44.0"
+  },
+  "seed": {
+    "llm_native_old": 1904,
+    "jev": 1904,
+    "hybrid": 1904
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+  "episodes": [
+    {
+      "run_id": "20261018T094403_jev_live_3ec48d66",
+      "architecture": "jev",
+      "stage": "smoke",
+      "slot": "smoke_jev",
+      "http_attempts": 1,
+      "status": "integration_error"
+    },
+    {
+      "run_id": "20261018T131742_llm_native_live_4b089439",
+      "architecture": "llm_native",
+      "stage": "smoke",
+      "slot": "smoke_llm_native",
+      "http_attempts": 5,
+      "status": "completed"
+    },
+    {
+      "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+      "architecture": "llm_native",
+      "stage": "formal",
+      "slot": "formal_block_1_llm_native",
+      "http_attempts": 5,
+      "status": "completed"
+    },
+    {
+      "run_id": "20261018T131959_llm_native_live_a52947cf",
+      "architecture": "llm_native",
+      "stage": "formal",
+      "slot": "formal_block_2_llm_native",
+      "http_attempts": 5,
+      "status": "completed"
+    },
+    {
+      "run_id": "20261018T132025_llm_native_live_82c497e7",
+      "architecture": "llm_native",
+      "stage": "formal",
+      "slot": "formal_block_3_llm_native",
+      "http_attempts": 3,
+      "status": "completed"
+    },
+    {
+      "run_id": "20261018T140025_hybrid_live_9fd09d81",
+      "architecture": "hybrid",
+      "stage": "smoke",
+      "slot": "smoke_hybrid",
+      "http_attempts": 11,
+      "status": "completed"
+    },
+    {
+      "run_id": "20261018T165324_llm_native_live_3b5f3748",
+      "architecture": "llm_native",
+      "stage": "tool_description_v2",
+      "slot": "hn58-tool-description-v2-20261019_llm_native_seed1904",
+      "http_attempts": 3,
+      "status": "completed"
+    },
+    {
+      "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+      "architecture": "llm_native",
+      "stage": "frozen_request_diagnostic",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+      "http_attempts": 1,
+      "status": "completed"
+    },
+    {
+      "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+      "architecture": "llm_native",
+      "stage": "frozen_request_diagnostic",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+      "http_attempts": 1,
+      "status": "completed"
+    },
+    {
+      "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+      "architecture": "llm_native",
+      "stage": "frozen_request_diagnostic",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+      "http_attempts": 1,
+      "status": "completed"
+    },
+    {
+      "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+      "architecture": "llm_native",
+      "stage": "frozen_request_diagnostic",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+      "http_attempts": 1,
+      "status": "completed"
+    }
+  ],
+  "http_attempts": 37,
+  "max_episodes": 12,
+  "max_http_attempts": 1440
+}

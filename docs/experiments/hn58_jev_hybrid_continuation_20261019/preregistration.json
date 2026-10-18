@@ -1,0 +1,214 @@
+{
+  "experiment_id": "hn58_jev_hybrid_continuation_20261019T013628+0800",
+  "registered_at": "2026-10-18T17:38:32.839261+00:00",
+  "purpose": "N=1 each pure Jev and Hybrid; diagnose premature completion after irrigation",
+  "experiment_commit": "da7330ea625c675c4321083f062891e8061486c4",
+  "source_clean": true,
+  "order": [
+    "jev",
+    "hybrid"
+  ],
+  "slots": [
+    {
+      "architecture": "jev",
+      "seed": 1904,
+      "slot": "hn58_jev_hybrid_continuation_20261019T013628+0800_jev_seed1904",
+      "config_hash": "d38c7625f115b362cd5188d4378f2ee25f832c9d4968b63c41f9cf69775264f1",
+      "source_config": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/config_jev.json",
+      "source_config_sha256": "d31b5b6c27c6d5b9577a2c6924966e3bcd697bf1073f1f6dc1100562ac5f8d61",
+      "limits": {
+        "max_tool_attempts": 40,
+        "max_decision_rounds": 40,
+        "max_http_attempts": 120,
+        "max_jev_http_attempts": 100,
+        "max_updater_attempts": 20,
+        "max_updates": 10,
+        "wall_timeout_seconds": 600
+      }
+    },
+    {
+      "architecture": "hybrid",
+      "seed": 1904,
+      "slot": "hn58_jev_hybrid_continuation_20261019T013628+0800_hybrid_seed1904",
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "source_config": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/config_hybrid.json",
+      "source_config_sha256": "e7bb90685f4cbfb003046eb316030a299ff222bbdd23c44f84942d594ad7f3a6",
+      "limits": {
+        "max_tool_attempts": 40,
+        "max_decision_rounds": 40,
+        "max_http_attempts": 120,
+        "max_jev_http_attempts": 100,
+        "max_updater_attempts": 20,
+        "max_updates": 10,
+        "wall_timeout_seconds": 600
+      }
+    }
+  ],
+  "max_new_live_episodes": 2,
+  "max_new_http_attempts": 240,
+  "ledger_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+  "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+  "budget_before": {
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "episodes": [
+      {
+        "run_id": "20261018T094403_jev_live_3ec48d66",
+        "architecture": "jev",
+        "stage": "smoke",
+        "slot": "smoke_jev",
+        "http_attempts": 1,
+        "status": "integration_error"
+      },
+      {
+        "run_id": "20261018T131742_llm_native_live_4b089439",
+        "architecture": "llm_native",
+        "stage": "smoke",
+        "slot": "smoke_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_1_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131959_llm_native_live_a52947cf",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_2_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T132025_llm_native_live_82c497e7",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_3_llm_native",
+        "http_attempts": 3,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T140025_hybrid_live_9fd09d81",
+        "architecture": "hybrid",
+        "stage": "smoke",
+        "slot": "smoke_hybrid",
+        "http_attempts": 11,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T165324_llm_native_live_3b5f3748",
+        "architecture": "llm_native",
+        "stage": "tool_description_v2",
+        "slot": "hn58-tool-description-v2-20261019_llm_native_seed1904",
+        "http_attempts": 3,
+        "status": "completed"
+      },
+      {
+        "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+        "architecture": "llm_native",
+        "stage": "frozen_request_diagnostic",
+        "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+        "http_attempts": 1,
+        "status": "completed"
+      },
+      {
+        "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+        "architecture": "llm_native",
+        "stage": "frozen_request_diagnostic",
+        "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+        "http_attempts": 1,
+        "status": "completed"
+      },
+      {
+        "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+        "architecture": "llm_native",
+        "stage": "frozen_request_diagnostic",
+        "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+        "http_attempts": 1,
+        "status": "completed"
+      },
+      {
+        "run_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+        "architecture": "llm_native",
+        "stage": "frozen_request_diagnostic",
+        "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+        "http_attempts": 1,
+        "status": "completed"
+      }
+    ],
+    "http_attempts": 37,
+    "max_episodes": 12,
+    "max_http_attempts": 1440
+  },
+  "proposed_budget_amendment": {
+    "max_episodes_before": 12,
+    "max_episodes_after": 13,
+    "max_http_attempts_unchanged": 1440,
+    "authorization_pending": true
+  },
+  "rules": [
+    "No changes to prompt, K=4, tools, candidates, loops, evaluator, model, route, task, checkpoint or seed",
+    "Do not add the frozen-request B rule",
+    "No replacement samples regardless of task failure",
+    "Retain SDK/updater retry policies and charge actual HTTP attempts",
+    "Historical native E48/E49 is the reference; no new native run",
+    "No manual actions; replay only after live capture with no model requests"
+  ],
+  "outcome_dimensions": [
+    "five hn58_semantic_v2 assertions",
+    "quota observation before irrigation",
+    "positive wait reaching effect ETA",
+    "post-ETA target recheck",
+    "report communication",
+    "FINISH selected while pending required actions",
+    "first evidenced issue",
+    "live_integration_success separate from task_success"
+  ],
+  "early_stop_interpretation": "Premature FINISH with unexecuted requirements is analogous outcome, not the native empty-tool-calls mechanism; max rounds/time/HTTP or integration errors are distinct stop mechanisms.",
+  "sample_size_caveat": "N=1 per architecture, scenario seed only; no claim about prevalence or isolated causal contribution",
+  "script_sha256": "d60cd659fead50b61e0142cf16f484915cd0f87b706f2799798b2e46cb645789",
+  "worktrees": [
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp",
+      "head": "215f8c3b7afca66f24ccdcc007f81e0c7cbf4dc8",
+      "status": "M .gitignore\n M fairy/apps/farm_world/farm_world_app.py\n M fairy/controllers/engine.py\n M fairy/scenarios/farm_world_fullseason/tangyan5_table_fitted/scenario_tangyan5_table_fitted.py\n M pyproject.toml\n M uv.lock\n?? FAIRY_Jev_MVP_Codex_Instructions.txt\n?? FAIRY_LLM_Jev_Hybrid_Codex_Instructions_20261018.txt\n?? configs/\n?? docs/jev_mvp.md\n?? fairy/agents/Jev/\n?? tests/jev/"
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid",
+      "head": "da7330ea625c675c4321083f062891e8061486c4",
+      "status": ""
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/hn58-reproduce",
+      "head": "89aa4e0e2491cff488428cef1941d1ba182c78d7",
+      "status": "M fairy/apps/farm_world/farm_world_app.py"
+    }
+  ],
+  "production_diff_from_native_v2": "fairy/experiments/access.py",
+  "sdk_versions": {
+    "typesafe-sdk": "0.7.5",
+    "openai": "2.44.0"
+  },
+  "route_selection": {
+    "jev": {
+      "transport": "HTTPTransport",
+      "pool": "HTTPProxy",
+      "proxy_host": "127.0.0.1",
+      "proxy_port": 7897
+    },
+    "qwen": {
+      "transport": "HTTPTransport",
+      "pool": "HTTPProxy",
+      "proxy_host": "127.0.0.1",
+      "proxy_port": 7897
+    }
+  },
+  "credential_present": {
+    "TYPESAFE_API_KEY": true
+  },
+  "model_http_attempts_during_prepare": 0
+}

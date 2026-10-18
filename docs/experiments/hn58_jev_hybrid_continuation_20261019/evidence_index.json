@@ -1,0 +1,592 @@
+{
+  "experiment_id": "hn58_jev_hybrid_continuation_20261019T013628+0800",
+  "evidence_root": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800",
+  "versioned_docs": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/docs/experiments/hn58_jev_hybrid_continuation_20261019",
+  "execution_commit": "da7330ea625c675c4321083f062891e8061486c4",
+  "archive": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800.tar.gz",
+  "archive_sha256_sidecar": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800.tar.gz.sha256",
+  "rows": {
+    "jev": {
+      "run_id": "20261018T173848_jev_live_a0df2d85",
+      "directory": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173848_jev_live_a0df2d85",
+      "trace": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173848_jev_live_a0df2d85/trace.jsonl",
+      "evaluation": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173848_jev_live_a0df2d85/evaluation.json",
+      "model_calls": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/analysis/jev/model_calls.jsonl",
+      "tool_timeline": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/analysis/jev/tool_timeline.json",
+      "live_integration_success": true,
+      "task_success": false
+    },
+    "hybrid": {
+      "run_id": "20261018T173915_hybrid_live_41d9cea1",
+      "directory": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173915_hybrid_live_41d9cea1",
+      "trace": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173915_hybrid_live_41d9cea1/trace.jsonl",
+      "evaluation": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173915_hybrid_live_41d9cea1/evaluation.json",
+      "model_calls": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/analysis/hybrid/model_calls.jsonl",
+      "tool_timeline": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/analysis/hybrid/tool_timeline.json",
+      "live_integration_success": true,
+      "task_success": false
+    }
+  },
+  "files": {
+    "access_preflight.json": {
+      "sha256": "e2c1b39bf8d747bcddb4c4c9138b7d7a159ff4488f4c47991ac26ec870cb91ba",
+      "bytes": 7494
+    },
+    "analysis/hybrid/finish_window.json": {
+      "sha256": "81e03c165b3370823940b36c5ae0e1bf980f279f40b6cdbdbd26f9776f385687",
+      "bytes": 149939
+    },
+    "analysis/hybrid/irrigation_window.json": {
+      "sha256": "c1d02aa00b6069491a755a6769371e00800a3e7335c5a89ede09a5b1b40600c1",
+      "bytes": 60758
+    },
+    "analysis/hybrid/model_calls.jsonl": {
+      "sha256": "76fee11acb5d48741f7f0d2132ebc992dce287c485fbb7f316fe67c781cd1145",
+      "bytes": 437492
+    },
+    "analysis/hybrid/packets.json": {
+      "sha256": "22fc4a2db0246b19d4115942ff963cdd1758b3f5b87ee0f9010c3a3d70dfaef2",
+      "bytes": 3471
+    },
+    "analysis/hybrid/quota_contradiction.json": {
+      "sha256": "083afd50c14e5a750ceeed00c61f7f62d540d0a590ce5f3492c4e9c1ec4d745f",
+      "bytes": 1064
+    },
+    "analysis/hybrid/quota_contradiction_window.json": {
+      "sha256": "38068c6102721fa6195f4a35c5db3e6f35875a75cfd2c3ce7b203b7009b5303d",
+      "bytes": 193367
+    },
+    "analysis/hybrid/tool_timeline.json": {
+      "sha256": "12bf9837290cf19e15909ea3736c5fee1f72c1616a80c3bd108d25e0bbd498f3",
+      "bytes": 2445
+    },
+    "analysis/jev/finish_window.json": {
+      "sha256": "3ca7d091205f7d8fc27e301f99d1cf1b4edee38f9ec130d811edbcf79f8d8274",
+      "bytes": 194895
+    },
+    "analysis/jev/irrigation_window.json": {
+      "sha256": "28ceffc7a261b0898330373642489f6628b433322528ddaf26ad49f8c0e65594",
+      "bytes": 123149
+    },
+    "analysis/jev/model_calls.jsonl": {
+      "sha256": "0eefba9edd6418631a919b2f22176e18d9d241472346d3ec383859d362f0579c",
+      "bytes": 594814
+    },
+    "analysis/jev/packets.json": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "analysis/jev/tool_timeline.json": {
+      "sha256": "38ec1bdcb16ab9a1884f38ad6fa6052124897d44fe82bbceef391dd5191d3271",
+      "bytes": 4659
+    },
+    "budget_after.json": {
+      "sha256": "02bf88a9e4538a4551805c3bd580ebca6f33d6e3ceee82a6f6b048eb56c38466",
+      "bytes": 3524
+    },
+    "budget_after_authorization.json": {
+      "sha256": "d1cd56875be7b472f364d40c8bd7cebcae69e631fdfba88fca1a5a67f0302e9d",
+      "bytes": 2964
+    },
+    "budget_authorization.json": {
+      "sha256": "47cfac7edbf9ddb4a9cc006ecaef37f07d8468697ebc39070a6852230cf14aea",
+      "bytes": 458
+    },
+    "budget_before.json": {
+      "sha256": "0fd73768d9b136b995b4054fad4b5bdcf6f5417a4fce4c356c3e3ff3aac40084",
+      "bytes": 2963
+    },
+    "build_delivery.py": {
+      "sha256": "e0e738b243a2fe464547dd459924b82ff107ba730c88b580ff96722407dc6801",
+      "bytes": 18767
+    },
+    "commands.json": {
+      "sha256": "8e9b73599232baa66a8d0b09931e7adb037d2a91f2ced4a7d393639158e04a84",
+      "bytes": 2434
+    },
+    "comparison.json": {
+      "sha256": "da9e0f0191c4ea174399dd7a37c1a16f51845a43506a1fb297a94a7d25f8baa6",
+      "bytes": 29810
+    },
+    "config_hybrid.json": {
+      "sha256": "e7bb90685f4cbfb003046eb316030a299ff222bbdd23c44f84942d594ad7f3a6",
+      "bytes": 8406
+    },
+    "config_jev.json": {
+      "sha256": "d31b5b6c27c6d5b9577a2c6924966e3bcd697bf1073f1f6dc1100562ac5f8d61",
+      "bytes": 8408
+    },
+    "console_hybrid.log": {
+      "sha256": "48f1a153f2c351d118b8cc9a9bd72b10577bd3fdb68b4493a52cbaae9b21adc5",
+      "bytes": 1213
+    },
+    "console_jev.log": {
+      "sha256": "93a90301af33d49a993dc68599dc06c85c91c331aafbee602d572d2a71a8071a",
+      "bytes": 1208
+    },
+    "identity_comparison.json": {
+      "sha256": "97c41a4f1e27e73ccd529b84cc1cccf57dd36329ab3a74bdb726cdbb03120515",
+      "bytes": 4233
+    },
+    "live/20261018T173848_jev_live_a0df2d85/evaluation.json": {
+      "sha256": "953f38714116963ef1c19e5c425f98ee92e2ebe1c52fe5bdc7cbc6e43a8890dc",
+      "bytes": 74065
+    },
+    "live/20261018T173848_jev_live_a0df2d85/files.sha256": {
+      "sha256": "a32a4fd18c9dd355966a21d62b90a5f90df6b0e00b531544ae910778e4e46502",
+      "bytes": 2031
+    },
+    "live/20261018T173848_jev_live_a0df2d85/manifest.json": {
+      "sha256": "9ad8fd350c844c31e24d075cacf1ea6d7129d0b0e54412602b838a9ec7f616ff",
+      "bytes": 16773
+    },
+    "live/20261018T173848_jev_live_a0df2d85/metrics.json": {
+      "sha256": "07ae4947656a794788ebc60eae055466b0f29579c6c613177a3e109ff2259cad",
+      "bytes": 2199
+    },
+    "live/20261018T173848_jev_live_a0df2d85/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/actual_replay_workflow.json": {
+      "sha256": "22c849bae74c8513db56c00bf865b4eebcda97f3c6012cf8c57c4b953b27631a",
+      "bytes": 22061
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/evaluation.json": {
+      "sha256": "65e0c75fe7f7d45fc9ca3e59088ed480adb5f07d65c2c5cab3c06b01fa5cf5d7",
+      "bytes": 49133
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/evaluation_semantic_v2.json": {
+      "sha256": "c3bb1626415e49fb87033233b4a453c8460e7cb31aff589b6a627bbaf2dc1ab7",
+      "bytes": 59394
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/manifest.json": {
+      "sha256": "add163ead23ca106a7f463058cedc5e3ae8b9c4889ddbdd30aad2a7c6080fb99",
+      "bytes": 17196
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/tool_catalog.json": {
+      "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+      "bytes": 60841
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/trace.jsonl": {
+      "sha256": "92111d11f849abbd7313910425898b6afe7c361854bd0f9014b6265289d973dc",
+      "bytes": 24119
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/workflow.json": {
+      "sha256": "eb101849e7b30960edbb9499254f80d31c1f34b15873d73c9ab1301bd3396a12",
+      "bytes": 22063
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "eb101849e7b30960edbb9499254f80d31c1f34b15873d73c9ab1301bd3396a12",
+      "bytes": 22063
+    },
+    "live/20261018T173848_jev_live_a0df2d85/replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "live/20261018T173848_jev_live_a0df2d85/tool_catalog.json": {
+      "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+      "bytes": 60841
+    },
+    "live/20261018T173848_jev_live_a0df2d85/trace.jsonl": {
+      "sha256": "50e832b028ac7a2e8acd30751cd46530e5059e7c4bd3105982e3531df3bd73fa",
+      "bytes": 1410767
+    },
+    "live/20261018T173848_jev_live_a0df2d85/verification.json": {
+      "sha256": "b57276c46bdafee2b7d19ad4cdca437efce5795374d2ec61f94347be8fbe3923",
+      "bytes": 2243
+    },
+    "live/20261018T173848_jev_live_a0df2d85/workflow.json": {
+      "sha256": "eb101849e7b30960edbb9499254f80d31c1f34b15873d73c9ab1301bd3396a12",
+      "bytes": 22063
+    },
+    "live/20261018T173848_jev_live_a0df2d85/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "eb101849e7b30960edbb9499254f80d31c1f34b15873d73c9ab1301bd3396a12",
+      "bytes": 22063
+    },
+    "live/20261018T173848_jev_live_a0df2d85/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/evaluation.json": {
+      "sha256": "37b53695dcb325bbe33135c919315d19c9d676fa5c4ee4663e35a1a9a3e52410",
+      "bytes": 69525
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/files.sha256": {
+      "sha256": "024cf4022487cdbb8eaf6d7508c5eaf613cf17e66b07e15199f9d09c539918b7",
+      "bytes": 2031
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/manifest.json": {
+      "sha256": "820ad089fb353e4dd0600e55dac5434793390715fb9af60b8f325aa88be0c968",
+      "bytes": 16791
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/metrics.json": {
+      "sha256": "cd8a5bb0fbd1f70ac6cb40aa06bbd370f833dc610d59b37f24ecc951be5c4898",
+      "bytes": 2565
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/actual_replay_workflow.json": {
+      "sha256": "bfa805557ae34922784b0ad72e54773d7ae0c77f1b44874f0cca8a0f512831c4",
+      "bytes": 7854
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/evaluation.json": {
+      "sha256": "b107b55a80ec324711863b34d49c119133947412534ee538cace206aae154a17",
+      "bytes": 48678
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/evaluation_semantic_v2.json": {
+      "sha256": "69612a2d5eb460a406008340cf714ded1eaecd5c00073e8924dd876f273fe56e",
+      "bytes": 56432
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/manifest.json": {
+      "sha256": "a86c3a7d55f0d42f29ff64a75d67e3329b580a7f8e1c5e231b85e92ec0ec1034",
+      "bytes": 17217
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/tool_catalog.json": {
+      "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+      "bytes": 60841
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/trace.jsonl": {
+      "sha256": "0508d5643037091dd2ddda1a4f72a0ad10699b41eb6ed56cd19081c861c216ee",
+      "bytes": 11160
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/workflow.json": {
+      "sha256": "956bc4d9b83701c821caacd8c9bf7ad3df3c2cc5e6a5b065e38418aef007c810",
+      "bytes": 7855
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "956bc4d9b83701c821caacd8c9bf7ad3df3c2cc5e6a5b065e38418aef007c810",
+      "bytes": 7855
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/tool_catalog.json": {
+      "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+      "bytes": 60841
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/trace.jsonl": {
+      "sha256": "651e8d051a781f14f1f2269aea50fa57160a8c38fda08557a297879acda66a30",
+      "bytes": 1283525
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/verification.json": {
+      "sha256": "6afdf9fff5215c086c1ae9d93b37ada26c0e2d1b980d49a2bba84d59970cf9f0",
+      "bytes": 3062
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/workflow.json": {
+      "sha256": "956bc4d9b83701c821caacd8c9bf7ad3df3c2cc5e6a5b065e38418aef007c810",
+      "bytes": 7855
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "956bc4d9b83701c821caacd8c9bf7ad3df3c2cc5e6a5b065e38418aef007c810",
+      "bytes": 7855
+    },
+    "live/20261018T173915_hybrid_live_41d9cea1/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "old_controls/hybrid_v1/evaluation.json": {
+      "sha256": "c27292d0c24818eb3a661f3274f2bf99712f2691b38f103a62f8537e7f48db5e",
+      "bytes": 69441
+    },
+    "old_controls/hybrid_v1/files.sha256": {
+      "sha256": "b58db226fd86b46a57423efb6758538848d7cd05c7ea6253371167360f806e04",
+      "bytes": 2031
+    },
+    "old_controls/hybrid_v1/manifest.json": {
+      "sha256": "bd6ee2772f75b654c57844b618f7aeb8bba02569a42d0f4dd2c9611e37fc7223",
+      "bytes": 16709
+    },
+    "old_controls/hybrid_v1/metrics.json": {
+      "sha256": "237f05421731ff34e749af112aa0223d45c9207d014af7782d8c9e15fcef364d",
+      "bytes": 2562
+    },
+    "old_controls/hybrid_v1/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "old_controls/hybrid_v1/replay/actual_replay_workflow.json": {
+      "sha256": "d185934155ce84f982f5da3de7ec1cce67f9e9330de0b006514c8b4025b62cda",
+      "bytes": 6035
+    },
+    "old_controls/hybrid_v1/replay/evaluation.json": {
+      "sha256": "0aa7d8cefab8cdd08786bfb4fbebc1e3c37cf0b60f4cbf3c0001d385753efab4",
+      "bytes": 48588
+    },
+    "old_controls/hybrid_v1/replay/evaluation_semantic_v2.json": {
+      "sha256": "f7143c67fc08538393f3bb81cfb831ddfad9cefd8473ef22b3ab9b6de16e96f6",
+      "bytes": 56342
+    },
+    "old_controls/hybrid_v1/replay/manifest.json": {
+      "sha256": "0e0b1aa25a53fbf7a3d8f1588ed15c60fe012d4d1ebafbe19ebf19555e485387",
+      "bytes": 17089
+    },
+    "old_controls/hybrid_v1/replay/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "old_controls/hybrid_v1/replay/tool_catalog.json": {
+      "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5",
+      "bytes": 60737
+    },
+    "old_controls/hybrid_v1/replay/trace.jsonl": {
+      "sha256": "1b827107a75beede9bb5e355cb6ce811850898cc5a1fca2ea6ed2f52b8e16464",
+      "bytes": 9192
+    },
+    "old_controls/hybrid_v1/replay/workflow.json": {
+      "sha256": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+      "bytes": 6034
+    },
+    "old_controls/hybrid_v1/replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+      "bytes": 6034
+    },
+    "old_controls/hybrid_v1/replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "old_controls/hybrid_v1/tool_catalog.json": {
+      "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5",
+      "bytes": 60737
+    },
+    "old_controls/hybrid_v1/trace.jsonl": {
+      "sha256": "fd18cbb7af0e55faa0badfb0bb787af4bc9332dd22dc5f25dc01a9b2613ff8f9",
+      "bytes": 1155659
+    },
+    "old_controls/hybrid_v1/verification.json": {
+      "sha256": "34e00b94bc1540b79626efe7dd9066d076bec43575f78d405f3635b07f92151d",
+      "bytes": 3050
+    },
+    "old_controls/hybrid_v1/workflow.json": {
+      "sha256": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+      "bytes": 6034
+    },
+    "old_controls/hybrid_v1/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+      "bytes": 6034
+    },
+    "old_controls/hybrid_v1/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "old_controls/native_v2/evaluation.json": {
+      "sha256": "3597f9832fde841e3a3050a7337f90fa7555489e9974571c0fd390f3959cdbf7",
+      "bytes": 64320
+    },
+    "old_controls/native_v2/files.sha256": {
+      "sha256": "abf4e9d1a7bb03e0d56288785e236a9039e5d7b530efb95643b18c91a8b12988",
+      "bytes": 2031
+    },
+    "old_controls/native_v2/manifest.json": {
+      "sha256": "df411898241a5b9ca032acba16a8d22b12ea6e3ddb8d08793699fe9db725d481",
+      "bytes": 16741
+    },
+    "old_controls/native_v2/metrics.json": {
+      "sha256": "123c404cf0b4043251d48cce0002d3c52c22ee09bc9b861c8901eb0854711990",
+      "bytes": 1831
+    },
+    "old_controls/native_v2/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "old_controls/native_v2/replay/actual_replay_workflow.json": {
+      "sha256": "7c986fd88afd4a9a8bbd743fa88e8fc8e427366365b0b9ce80e011daa51361b7",
+      "bytes": 17066
+    },
+    "old_controls/native_v2/replay/evaluation.json": {
+      "sha256": "ec1708b134dac67966944ca7c4b38f0372159f563e0f097081ced20cfaaff481",
+      "bytes": 48228
+    },
+    "old_controls/native_v2/replay/evaluation_semantic_v2.json": {
+      "sha256": "ca0734484da72424ca76b9f09c1d5e2d3a585c36c28c1e129c9e2c0a1498946a",
+      "bytes": 54612
+    },
+    "old_controls/native_v2/replay/manifest.json": {
+      "sha256": "b526b5b1f995d98752a033171ec27b6bdd6e8bb2b4a266795515a8163a1cb3aa",
+      "bytes": 17141
+    },
+    "old_controls/native_v2/replay/parameter_support_matrix.json": {
+      "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+      "bytes": 40179
+    },
+    "old_controls/native_v2/replay/tool_catalog.json": {
+      "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+      "bytes": 60841
+    },
+    "old_controls/native_v2/replay/trace.jsonl": {
+      "sha256": "a2b70ed0309d7dd6ecce9f268af1687677b5d8a73efb98c8c5541dada7653d1f",
+      "bytes": 16482
+    },
+    "old_controls/native_v2/replay/workflow.json": {
+      "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+      "bytes": 17782
+    },
+    "old_controls/native_v2/replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+      "bytes": 17782
+    },
+    "old_controls/native_v2/replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "old_controls/native_v2/tool_catalog.json": {
+      "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+      "bytes": 60841
+    },
+    "old_controls/native_v2/trace.jsonl": {
+      "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+      "bytes": 383012
+    },
+    "old_controls/native_v2/verification.json": {
+      "sha256": "7ed6800c02387bcace4fbc5617c4dedb51b3e4732f297977b9323de0ef87a166",
+      "bytes": 1745
+    },
+    "old_controls/native_v2/workflow.json": {
+      "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+      "bytes": 17782
+    },
+    "old_controls/native_v2/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+      "bytes": 17782
+    },
+    "old_controls/native_v2/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": {
+      "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+      "bytes": 1897
+    },
+    "preregistration.json": {
+      "sha256": "821fa9ad4ab8b63a82dab3c91cd84271b8a06d09df59a15d063dfe9a7b12374d",
+      "bytes": 8173
+    },
+    "preservation.json": {
+      "sha256": "b20e87760f2e9cc38f560fa55cc704a689ae0127c9aebc5ae6bb930ce226030e",
+      "bytes": 231
+    },
+    "preservation_before.json": {
+      "sha256": "9fd0398e28b512203a8a94a3f69238c616a46a148a8a626585c86302180f7538",
+      "bytes": 402403
+    },
+    "regression.log": {
+      "sha256": "13b5ca4c2383b2e8a87b8ceb68aaeb2866035402add1955063ed4dad1525dde0",
+      "bytes": 420
+    },
+    "regression_result.json": {
+      "sha256": "1ee55d91374118430e7ad77036c1ed494900399acd81d4a5e9ad12368376669c",
+      "bytes": 596
+    },
+    "report.md": {
+      "sha256": "1ae2b6f435023ecadc980d5bcd78c468ac6762ec9755edd8a22ff5b98df10ecc",
+      "bytes": 12710
+    },
+    "result_hybrid.json": {
+      "sha256": "b92bf2e6f36349b76beeab1e60643d437a4b6b5db2bb995ccb61cc06e46feee9",
+      "bytes": 82514
+    },
+    "result_jev.json": {
+      "sha256": "c41c101ab6c923e1b032bbb83dac2129f5fa74e35dab495ae23793dcccff560e",
+      "bytes": 86617
+    },
+    "run_regression.py": {
+      "sha256": "d5872552a4ecb6cde4dfb7f46f1144d36d8eb563b95c6ea3d2802e9ce75e0a49",
+      "bytes": 1492
+    },
+    "run_supplement.py": {
+      "sha256": "d60cd659fead50b61e0142cf16f484915cd0f87b706f2799798b2e46cb645789",
+      "bytes": 10097
+    },
+    "source_code/fairy/agents/Jev/agent.py": {
+      "sha256": "51fdab096914d6fbe3179f4677e2c409116b7e09d4764b3ae7ad46b41d1526f7",
+      "bytes": 14502
+    },
+    "source_code/fairy/agents/Jev/candidates.py": {
+      "sha256": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+      "bytes": 20099
+    },
+    "source_code/fairy/agents/Jev/hybrid/agent.py": {
+      "sha256": "9db492e0030718623ca193cef8c06e99c619c79f619bb8dc8cd55a6fdb7d06d2",
+      "bytes": 6758
+    },
+    "source_code/fairy/agents/Jev/hybrid/context.py": {
+      "sha256": "1393c4ac24d8651613108700d47c7f296ccbfec8d496090aef0ecd8ff42b6b37",
+      "bytes": 10073
+    },
+    "source_code/fairy/agents/Jev/hybrid/prompt.md": {
+      "sha256": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+      "bytes": 1481
+    },
+    "source_code/fairy/agents/Jev/hybrid/updater.py": {
+      "sha256": "85617eee28eeee1887638d57bd5f09f5f94accd2a103ba5ce5834604e926b2b2",
+      "bytes": 6087
+    },
+    "source_code/fairy/agents/Jev/state.py": {
+      "sha256": "601fb0348ea63f45f1c65709962c056a9587429de02af7c6c8cee40db2bbe399",
+      "bytes": 3201
+    },
+    "source_code/fairy/agents/Jev/tools.py": {
+      "sha256": "0f9185b2d60f05980fba22adece14322dc6d67b2301ae45b52e0992c7f6f45b0",
+      "bytes": 8663
+    },
+    "source_code/fairy/agents/agent/agent.py": {
+      "sha256": "1faadc0ab3fb64e4d164020ec07fb833cc0acd745b5594c04b6a9a8290c799a1",
+      "bytes": 16237
+    },
+    "source_code/fairy/apps/system.py": {
+      "sha256": "841a8fe87a4895f6af455110810c74b4a42e04c1b9370c8028c838d8b22ec0ce",
+      "bytes": 5112
+    },
+    "source_code/fairy/controllers/engine.py": {
+      "sha256": "e7d628518bd7bcb552ccf1da806fe7d6198256ab2f6b0dc30e72f0b5fba52ca7",
+      "bytes": 23422
+    },
+    "source_code/fairy/experiments/access.py": {
+      "sha256": "229bfa055951666b64c391adcad4c14531c5551d9dd2c3647144bf0fc4253dba",
+      "bytes": 12853
+    },
+    "source_code/fairy/experiments/budget.py": {
+      "sha256": "aec3a0d99963f17f68c734817ee14853d869faae6c68ee3f417e0ffbc0d6d593",
+      "bytes": 8097
+    },
+    "source_code/fairy/experiments/episode.py": {
+      "sha256": "616b2b06c35e9c74b03de5fd656513a1c4fc99d1ee1870b5ea0895cc7f2f9723",
+      "bytes": 23811
+    },
+    "source_code/fairy/experiments/evaluation.py": {
+      "sha256": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+      "bytes": 12963
+    },
+    "source_identity.json": {
+      "sha256": "30209dbc38e3d162b5fa7153c6ff92ec3430322be52e469d1b1badc1b3b2ee19",
+      "bytes": 1828
+    },
+    "started_hybrid.json": {
+      "sha256": "abf34cd6183b7e6951889268a23b0d6a52e721b057302357684a1a2fd4038082",
+      "bytes": 11463
+    },
+    "started_jev.json": {
+      "sha256": "5fea9378522e7f07a71a4b340bc839f6a9df3bb3d4546eedc2c325b4e8b782d9",
+      "bytes": 11092
+    },
+    "validation.json": {
+      "sha256": "12f4629e7b66e3f96c9efea06c5bd952a2cd3a98ce2d9923ad0faf40d8e4ed84",
+      "bytes": 1302
+    },
+    "wire_propagation.json": {
+      "sha256": "9e60b2ee92dcea5472c6bc4ef8545722a67c7a16fac63791312be24403d9ead6",
+      "bytes": 511
+    },
+    "secret_scan.json": {
+      "sha256": "72b0c348c2512b668d2438f256d75a0076d1b7a2b9fe3264bf12fdef0c09ad3f",
+      "bytes": 238
+    }
+  }
+}

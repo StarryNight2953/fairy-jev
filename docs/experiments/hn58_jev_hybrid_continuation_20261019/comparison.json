@@ -1,0 +1,862 @@
+{
+  "experiment_id": "hn58_jev_hybrid_continuation_20261019T013628+0800",
+  "execution_commit": "da7330ea625c675c4321083f062891e8061486c4",
+  "new_live_episodes": 2,
+  "new_http_attempts": 29,
+  "new_native_runs": 0,
+  "replacement_samples": 0,
+  "rows": {
+    "jev": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173848_jev_live_a0df2d85",
+      "run_id": "20261018T173848_jev_live_a0df2d85",
+      "historical_not_new_sample": false,
+      "code_commit": "da7330ea625c675c4321083f062891e8061486c4",
+      "config_hash": "d38c7625f115b362cd5188d4378f2ee25f832c9d4968b63c41f9cf69775264f1",
+      "execution_status": "completed",
+      "live_integration_success": true,
+      "task_success": false,
+      "stop_reason": "model_finish",
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": true
+      },
+      "pre_irrigation_evidence": {
+        "weather": true,
+        "soil": true,
+        "target_state": false,
+        "quota": true,
+        "before_actual_irrigation": true,
+        "source": "actual returned fields and timestamps; requested arguments alone do not prove coverage"
+      },
+      "first_automatic_issue": {
+        "event_id": 47,
+        "step_id": "step_0004",
+        "decision_id": "decision_0004",
+        "decision_ids": [
+          "decision_0004",
+          "decision_0005"
+        ],
+        "tool_call_id": "tool_0004",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "target_state"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "metrics": {
+        "model_http_attempts": 17,
+        "logical_model_requests": 17,
+        "roles": {
+          "jev_argument_choice": {
+            "http_attempts": 6,
+            "logical_requests": 6,
+            "latency_seconds": 2.082173332979437,
+            "input_tokens": 35582,
+            "output_tokens": 390,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "jev_tool_choice": {
+            "http_attempts": 11,
+            "logical_requests": 11,
+            "latency_seconds": 7.295504123030696,
+            "input_tokens": 182533,
+            "output_tokens": 9422,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          }
+        },
+        "input_tokens": 218115,
+        "output_tokens": 9812,
+        "usage_status": "reported",
+        "tool_attempts": 10,
+        "tool_successes": 10,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 11,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "decision_rounds": 11,
+            "logical_requests": 17,
+            "http_attempts": 17,
+            "tool_attempts": 10
+          },
+          "role_http_attempts": {
+            "jev_tool_choice": 11,
+            "jev_argument_choice": 6
+          },
+          "role_logical_requests": {
+            "jev_tool_choice": 11,
+            "jev_argument_choice": 6
+          },
+          "elapsed_seconds": 10.02857970900368,
+          "remaining_seconds": 589.971418666013,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 10.028824292006902,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067521.4072003
+      },
+      "trace_verification_passed": true,
+      "replay_passed": true,
+      "replay_task_success": false,
+      "quota_behavior": {
+        "read_before_irrigation": true,
+        "inventory_events": [
+          31
+        ],
+        "quota_total": 1.4,
+        "used_before": 0.0,
+        "quota_consumption": {
+          "formula": "sum(action.estimated_water_mm * len(action.ridge_ids) / num_ridges)",
+          "irrigation_mapping_mm_per_hour": 5.0,
+          "num_ridges": 64,
+          "used_before": 0.0,
+          "used_after": 1.3125,
+          "expected_delta": 1.3125,
+          "quota_total": 1.4,
+          "tolerance_field_mm": 2e-06
+        },
+        "irrigation_log_selected": false
+      },
+      "continuation": {
+        "irrigation_event_id": 47,
+        "effect_ready_at": 1786067515.7526634,
+        "waits": [
+          {
+            "event_id": 63,
+            "tool_name": "SystemApp__advance_time",
+            "arguments": {
+              "seconds": 7200,
+              "minutes": 0,
+              "hours": 0,
+              "days": 0
+            },
+            "sim_time_before": 1786060316.6582785,
+            "sim_time_after": 1786067516.6671095
+          }
+        ],
+        "wait_recheck_assertion_passed": true,
+        "recheck_evidence": [
+          {
+            "step": "tool_0006",
+            "tool": "SensorApp__read_soil_sensors",
+            "returned_target_ridges": [
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63
+            ],
+            "time_before": 1786067517.2155244
+          },
+          {
+            "step": "tool_0009",
+            "tool": "FarmWorldApp__get_ridge_range_state",
+            "returned_target_ridges": [
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63
+            ],
+            "time_before": 1786067519.9371064
+          }
+        ],
+        "report_event_ids": [
+          89,
+          105,
+          137
+        ],
+        "report_assertion_passed": true,
+        "finish_request_event_id": 141,
+        "finish_raw_response_event_id": 142,
+        "finish_decision_event_id": 143,
+        "model_finish_event_id": 145,
+        "finish_confidence": 0.51,
+        "native_missing_wait_recheck_reproduced": false,
+        "finish_without_report": false,
+        "budget_or_service_stop": false
+      },
+      "http_status_counts": {
+        "200": 17
+      },
+      "http_retries": 0
+    },
+    "hybrid": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/live/20261018T173915_hybrid_live_41d9cea1",
+      "run_id": "20261018T173915_hybrid_live_41d9cea1",
+      "historical_not_new_sample": false,
+      "code_commit": "da7330ea625c675c4321083f062891e8061486c4",
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "execution_status": "completed",
+      "live_integration_success": true,
+      "task_success": false,
+      "stop_reason": "model_finish",
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": false
+      },
+      "pre_irrigation_evidence": {
+        "weather": true,
+        "soil": true,
+        "target_state": false,
+        "quota": true,
+        "before_actual_irrigation": true,
+        "source": "actual returned fields and timestamps; requested arguments alone do not prove coverage"
+      },
+      "first_automatic_issue": {
+        "event_id": 92,
+        "step_id": "step_0005",
+        "decision_id": "decision_0005",
+        "decision_ids": [
+          "decision_0005",
+          "decision_0006"
+        ],
+        "tool_call_id": "tool_0005",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "target_state"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "metrics": {
+        "model_http_attempts": 12,
+        "logical_model_requests": 12,
+        "roles": {
+          "jev_argument_choice": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 0.5854900820413604,
+            "input_tokens": 4710,
+            "output_tokens": 207,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "jev_tool_choice": {
+            "http_attempts": 8,
+            "logical_requests": 8,
+            "latency_seconds": 5.4158233351190574,
+            "input_tokens": 112436,
+            "output_tokens": 6843,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "llm_context_update": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 23.397575708979275,
+            "input_tokens": 21857,
+            "output_tokens": 564,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 139003,
+        "output_tokens": 7614,
+        "usage_status": "reported",
+        "tool_attempts": 7,
+        "tool_successes": 7,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 8,
+        "llm_updates": 2,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "updates": 2,
+            "logical_requests": 12,
+            "http_attempts": 12,
+            "decision_rounds": 8,
+            "tool_attempts": 7
+          },
+          "role_http_attempts": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 8,
+            "jev_argument_choice": 2
+          },
+          "role_logical_requests": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 8,
+            "jev_argument_choice": 2
+          },
+          "elapsed_seconds": 30.235369458969217,
+          "remaining_seconds": 569.764629500045,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 30.235578250023536,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067541.6734352
+      },
+      "trace_verification_passed": true,
+      "replay_passed": true,
+      "replay_task_success": false,
+      "quota_behavior": {
+        "read_before_irrigation": true,
+        "inventory_events": [
+          49
+        ],
+        "quota_total": 1.4,
+        "used_before": 0.0,
+        "quota_consumption": {
+          "formula": "sum(action.estimated_water_mm * len(action.ridge_ids) / num_ridges)",
+          "irrigation_mapping_mm_per_hour": 5.0,
+          "num_ridges": 64,
+          "used_before": 0.0,
+          "used_after": 1.3125,
+          "expected_delta": 1.3125,
+          "quota_total": 1.4,
+          "tolerance_field_mm": 2e-06
+        },
+        "irrigation_log_selected": false
+      },
+      "continuation": {
+        "irrigation_event_id": 92,
+        "effect_ready_at": 1786067539.671976,
+        "waits": [
+          {
+            "event_id": 111,
+            "tool_name": "SystemApp__wait_for_notification",
+            "arguments": {
+              "timeout": 7200
+            },
+            "sim_time_before": 1786060340.4300745,
+            "sim_time_after": 1786067540.4302242
+          }
+        ],
+        "wait_recheck_assertion_passed": true,
+        "recheck_evidence": [
+          {
+            "step": "tool_0007",
+            "tool": "SensorApp__read_soil_sensors",
+            "returned_target_ridges": [
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63
+            ],
+            "time_before": 1786067540.9886773
+          }
+        ],
+        "report_event_ids": [],
+        "report_assertion_passed": false,
+        "finish_request_event_id": 129,
+        "finish_raw_response_event_id": 130,
+        "finish_decision_event_id": 131,
+        "model_finish_event_id": 133,
+        "finish_confidence": 0.49,
+        "native_missing_wait_recheck_reproduced": false,
+        "finish_without_report": true,
+        "budget_or_service_stop": false
+      },
+      "http_status_counts": {
+        "200": 12
+      },
+      "http_retries": 0,
+      "material_contradiction": {
+        "classification": "DIRECT_OBSERVATION",
+        "first_clear_material_factual_contradiction_event_id": 69,
+        "actual_inventory_event_id": 49,
+        "actual_quota": 1.4,
+        "actual_used": 0.0,
+        "updater_http_request_event_id": 68,
+        "inventory_evidence_in_http_input_exactly_equal_to_tool_end": true,
+        "raw_updater_response_event_id": 69,
+        "model_material_quote": "irrigation quota null/unlimited; Quota is unlimited.",
+        "accepted_packet_event_id": 74,
+        "first_jev_http_request_carrying_wrong_material_event_id": 79,
+        "first_jev_input_has_packet_and_empty_fresh_events": true,
+        "packet_source_kind": "llm_interpretation_and_advice",
+        "not_a_tool_return_or_serialization_loss": true,
+        "automatic_first_task_issue_event_id": 92,
+        "causation": "Unknown whether the false quota claim caused the irrigation choice or FINISH. Actual dose remained within the true quota.",
+        "later_visible_correction": "E92 actual irrigation return again contains quota=1.4 and used=1.3125; retained as fresh evidence for later choices. No updater refresh after tool 7 because K=4."
+      }
+    }
+  },
+  "historical_controls": {
+    "llm_native_v2": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748",
+      "run_id": "20261018T165324_llm_native_live_3b5f3748",
+      "historical_not_new_sample": true,
+      "code_commit": "bbe762c98a97e5f22cceb5f7b24fc3a67656fdb6",
+      "config_hash": "356f2bcd0039fbee4edae8ce4509ca102c89fd0147bd203612be5a3626636d46",
+      "execution_status": "completed",
+      "live_integration_success": true,
+      "task_success": false,
+      "stop_reason": "agent_finished",
+      "assertions": {
+        "pre_irrigation_observations": true,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "pre_irrigation_evidence": {
+        "weather": true,
+        "soil": true,
+        "target_state": true,
+        "quota": true,
+        "before_actual_irrigation": true,
+        "source": "actual returned fields and timestamps; requested arguments alone do not prove coverage"
+      },
+      "first_automatic_issue": {
+        "event_id": 52,
+        "step_id": null,
+        "decision_id": null,
+        "decision_ids": null,
+        "tool_call_id": null,
+        "failure_layer": "termination",
+        "reason": "Agent ended while independently checked original-task requirements remained unmet",
+        "details": {
+          "unmet_task_assertions": [
+            "processed_waited_rechecked_response",
+            "factual_final_report"
+          ],
+          "scope": "Post-run diagnostic; no evaluator result was supplied to the agent."
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "metrics": {
+        "model_http_attempts": 3,
+        "logical_model_requests": 3,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 3,
+            "logical_requests": 3,
+            "latency_seconds": 25.482436374993995,
+            "input_tokens": 35772,
+            "output_tokens": 645,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 35772,
+        "output_tokens": 645,
+        "usage_status": "reported",
+        "tool_attempts": 5,
+        "tool_successes": 5,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 3,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 3,
+            "http_attempts": 3,
+            "tool_attempts": 5
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 3
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 3
+          },
+          "elapsed_seconds": 26.402685249981005,
+          "remaining_seconds": 573.5973138750414,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 26.402899707958568,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786060337.769911
+      },
+      "trace_verification_passed": true,
+      "replay_passed": true,
+      "replay_task_success": false
+    },
+    "hybrid_previous": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81",
+      "run_id": "20261018T140025_hybrid_live_9fd09d81",
+      "historical_not_new_sample": true,
+      "code_commit": "a9df0e524a60b4d35db7c40a8a7c497f62b62576",
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "execution_status": "completed",
+      "live_integration_success": true,
+      "task_success": false,
+      "stop_reason": "model_finish",
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": false
+      },
+      "pre_irrigation_evidence": {
+        "weather": true,
+        "soil": true,
+        "target_state": false,
+        "quota": false,
+        "before_actual_irrigation": true,
+        "source": "actual returned fields and timestamps; requested arguments alone do not prove coverage"
+      },
+      "first_automatic_issue": {
+        "event_id": 68,
+        "step_id": "step_0004",
+        "decision_id": "decision_0004",
+        "decision_ids": [
+          "decision_0004",
+          "decision_0005"
+        ],
+        "tool_call_id": "tool_0004",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "target_state",
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "metrics": {
+        "model_http_attempts": 11,
+        "logical_model_requests": 11,
+        "roles": {
+          "jev_argument_choice": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 0.6296550420229323,
+            "input_tokens": 5136,
+            "output_tokens": 229,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "jev_tool_choice": {
+            "http_attempts": 7,
+            "logical_requests": 7,
+            "latency_seconds": 4.959247582941316,
+            "input_tokens": 96315,
+            "output_tokens": 5989,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "llm_context_update": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 16.455236624984536,
+            "input_tokens": 21656,
+            "output_tokens": 377,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 123107,
+        "output_tokens": 6595,
+        "usage_status": "reported",
+        "tool_attempts": 6,
+        "tool_successes": 6,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 7,
+        "llm_updates": 2,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "updates": 2,
+            "logical_requests": 11,
+            "http_attempts": 11,
+            "decision_rounds": 7,
+            "tool_attempts": 6
+          },
+          "role_http_attempts": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 7,
+            "jev_argument_choice": 2
+          },
+          "role_logical_requests": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 7,
+            "jev_argument_choice": 2
+          },
+          "elapsed_seconds": 22.840679667016957,
+          "remaining_seconds": 577.1593192499713,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 22.84104299999308,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786071134.292843
+      },
+      "trace_verification_passed": true,
+      "replay_passed": true,
+      "replay_task_success": false
+    }
+  },
+  "comparison_scope": "Two independent full runs, not frozen E48 requests or causal isolation of architecture. Same HN58 checkpoint, seed1904, catalog/evaluator; all decision code unchanged.",
+  "direct_observations": [
+    "Both waited and rechecked after irrigation ETA; native missing-wait/recheck behavior not observed in either new sample.",
+    "Both omitted target-state evidence before irrigation. Both read actual remaining quota before irrigation.",
+    "Pure Jev later sent a factual report and then FINISH; Hybrid FINISH after recheck without any communication tool.",
+    "Hybrid updater misrepresented observed quota1.4 as unlimited in raw model output; unchanged wrong material reached Jev."
+  ],
+  "supported_inference": "The shared Jev FINISH handler can accept model completion while independent task requirements remain unmet. Hybrid showed this at the report stage.",
+  "unknown": [
+    "Why a particular model selected FINISH",
+    "Whether quota misunderstanding caused later choices",
+    "Stability or frequency of any failure",
+    "Would the generic B-rule improve these architectures",
+    "General comparative efficiency or success rate"
+  ],
+  "semantic_limitations": [
+    "Public task asks for target status without naming growth_stage/irrigation_pending evaluator proxy fields.",
+    "The public task text does not explicitly state the evaluator final-report scoring vocabulary; report omission is an existing-contract failure.",
+    "Native terminal text and Jev FINISH are different mechanisms. One sample each cannot prove absence of a structural risk."
+  ],
+  "budget": {
+    "before_slots": 11,
+    "after_slots": 13,
+    "before_http": 37,
+    "after_http": 66,
+    "max_episodes_after_user_override": 13,
+    "max_http_attempts": 1440,
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "historical_rows_unchanged": true,
+    "authorization_file": "budget_authorization.json"
+  },
+  "validation": {
+    "regression": "302 passed in 3.81s",
+    "regression_network_denied": true,
+    "both_trace_verifications_passed": true,
+    "both_action_replays_passed": true,
+    "replays_model_requests": 0,
+    "true_task_failure_reproduced": true,
+    "all_29_http_responses_status200": true,
+    "http_retries": 0,
+    "production_changes_this_experiment": []
+  }
+}

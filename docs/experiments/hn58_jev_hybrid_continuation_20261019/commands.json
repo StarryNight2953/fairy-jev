@@ -1,0 +1,47 @@
+[
+  {
+    "phase": "inspection",
+    "command": "git worktree list --porcelain; git diff --name-only bbe762c HEAD -- fairy configs uv.lock pyproject.toml requirements.txt",
+    "result": "Three worktrees recorded; only pre-existing access.py differs in production scope"
+  },
+  {
+    "phase": "offline",
+    "command": "PYTHONPATH=. .venv/bin/python runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/run_regression.py",
+    "result": "302 passed in 3.81s; socket network denied"
+  },
+  {
+    "phase": "prepare",
+    "command": "set +x\nset -a\nsource ../jev-mvp/env.sh >/dev/null 2>&1\nset +a\nPYTHONPATH=. .venv/bin/python runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/run_supplement.py prepare",
+    "result": "Success, zero HTTP. Earlier local preparation attempts stopped before HTTP: env assignments needed export; route introspection fixed to use client.base_url URL class. Only ignored orchestration file edited before preregistration."
+  },
+  {
+    "phase": "authorization",
+    "command": "Python fcntl-locked same-ledger edit max_episodes12->13 after explicit user override; historical rows/counts unchanged",
+    "record": "budget_authorization.json"
+  },
+  {
+    "phase": "live",
+    "command": "set +x\nset -a\nsource ../jev-mvp/env.sh >/dev/null 2>&1\nset +a\nPYTHONPATH=. .venv/bin/python runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/run_supplement.py jev > runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/console_jev.log 2>&1",
+    "result": {
+      "exit_code": 0,
+      "live_integration_success": true,
+      "task_success": false,
+      "http_attempts": 17
+    }
+  },
+  {
+    "phase": "live",
+    "command": "set +x\nset -a\nsource ../jev-mvp/env.sh >/dev/null 2>&1\nset +a\nPYTHONPATH=. .venv/bin/python runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/run_supplement.py hybrid > runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/console_hybrid.log 2>&1",
+    "result": {
+      "exit_code": 0,
+      "live_integration_success": true,
+      "task_success": false,
+      "http_attempts": 12
+    }
+  },
+  {
+    "phase": "analysis",
+    "command": ".venv/bin/python runs/agent_comparison/hn58_jev_hybrid_continuation_20261019T013628+0800/build_delivery.py",
+    "result": "Read-only source/trace analysis, preservation and payload checks; no model/environment calls"
+  }
+]

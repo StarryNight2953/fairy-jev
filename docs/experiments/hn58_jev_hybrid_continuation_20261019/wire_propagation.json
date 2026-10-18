@@ -1,0 +1,15 @@
+{
+  "jev": {
+    "all_real_tool_choice_menus_have_58_tools_plus_FINISH": true,
+    "tool_choice_requests": 11,
+    "new_inventory_description_in_all_real_tool_choice_requests": true,
+    "first_request_event_id": 5
+  },
+  "hybrid": {
+    "all_real_tool_choice_menus_have_58_tools_plus_FINISH": true,
+    "tool_choice_requests": 8,
+    "new_inventory_description_in_all_real_tool_choice_requests": true,
+    "first_request_event_id": 19,
+    "new_inventory_description_in_both_real_updater_requests": true
+  }
+}

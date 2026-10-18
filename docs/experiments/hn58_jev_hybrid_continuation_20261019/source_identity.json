@@ -1,0 +1,22 @@
+{
+  "execution_commit": "da7330ea625c675c4321083f062891e8061486c4",
+  "files": {
+    "fairy/agents/Jev/agent.py": "51fdab096914d6fbe3179f4677e2c409116b7e09d4764b3ae7ad46b41d1526f7",
+    "fairy/agents/Jev/state.py": "601fb0348ea63f45f1c65709962c056a9587429de02af7c6c8cee40db2bbe399",
+    "fairy/agents/Jev/tools.py": "0f9185b2d60f05980fba22adece14322dc6d67b2301ae45b52e0992c7f6f45b0",
+    "fairy/agents/Jev/hybrid/agent.py": "9db492e0030718623ca193cef8c06e99c619c79f619bb8dc8cd55a6fdb7d06d2",
+    "fairy/agents/Jev/hybrid/context.py": "1393c4ac24d8651613108700d47c7f296ccbfec8d496090aef0ecd8ff42b6b37",
+    "fairy/agents/Jev/hybrid/prompt.md": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+    "fairy/agents/Jev/hybrid/updater.py": "85617eee28eeee1887638d57bd5f09f5f94accd2a103ba5ce5834604e926b2b2",
+    "fairy/agents/Jev/candidates.py": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+    "fairy/experiments/evaluation.py": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+    "fairy/experiments/episode.py": "616b2b06c35e9c74b03de5fd656513a1c4fc99d1ee1870b5ea0895cc7f2f9723",
+    "fairy/experiments/access.py": "229bfa055951666b64c391adcad4c14531c5551d9dd2c3647144bf0fc4253dba",
+    "fairy/experiments/budget.py": "aec3a0d99963f17f68c734817ee14853d869faae6c68ee3f417e0ffbc0d6d593",
+    "fairy/agents/agent/agent.py": "1faadc0ab3fb64e4d164020ec07fb833cc0acd745b5594c04b6a9a8290c799a1",
+    "fairy/apps/system.py": "841a8fe87a4895f6af455110810c74b4a42e04c1b9370c8028c838d8b22ec0ce",
+    "fairy/controllers/engine.py": "e7d628518bd7bcb552ccf1da806fe7d6198256ab2f6b0dc30e72f0b5fba52ca7"
+  },
+  "source_clean_at_both_live_runs": true,
+  "only_runtime_change_since_native_bbe762c": "access.py historical451 supersession, previously committed; no model decision changes"
+}
