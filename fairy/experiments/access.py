@@ -10,6 +10,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from .paths import resolve_saved_path
 
 ARCHITECTURES = ("llm_native", "jev", "hybrid")
 RULES_VERSION = "smoke_access_evidence_v1"
@@ -52,14 +53,14 @@ def service_blockers_from_smoke(index, *, target_configs=None, available_credent
     observation, never an actual HTTP access refusal. Source files remain intact.
     """
     if isinstance(index, (str, Path)):
-        index = _json(Path(index))
+        index = _json(resolve_saved_path(index))
     by_architecture = {architecture: [] for architecture in ARCHITECTURES}
     observations, loaded = [], []
     for record in index.get("runs", []):
         architecture = record.get("architecture")
         if architecture not in by_architecture:
             continue
-        root = Path(record["path"])
+        root = resolve_saved_path(record["path"])
         try:
             manifest = _json(root / "manifest.json")
             evaluation = _json(root / "evaluation.json")

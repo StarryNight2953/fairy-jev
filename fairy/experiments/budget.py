@@ -14,6 +14,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from fairy.agents.Jev.trace import write_json
+from .paths import resolve_saved_path
 
 
 class BudgetStop(BaseException):
@@ -33,7 +34,7 @@ DEFAULT_LIMITS = {
 class LiveLedger:
     """Persistent task-wide cap. Stages/run names never reset consumed budget."""
     def __init__(self, path, *, max_episodes=12, max_http_attempts=1440):
-        self.path = Path(path)
+        self.path = resolve_saved_path(Path(path).absolute())
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.max_episodes, self.max_http_attempts = max_episodes, max_http_attempts
         if not self.path.exists():

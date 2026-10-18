@@ -10,6 +10,7 @@ import statistics
 
 from fairy.agents.Jev.trace import write_json, digest
 from .budget import LiveLedger
+from .paths import resolve_saved_path
 from .episode import ROOT,artifact_hashes,credential_requirements,file_hash,git,run_episode,verify_and_replay
 
 
@@ -57,7 +58,7 @@ def run_stage(comparison,base,stage):
     if stage in {'smoke','formal'}:
         from .access import service_blockers_from_smoke
         smoke_path=out/'smoke_index.json'
-        evidence_paths=[Path(p) if Path(p).is_absolute() else ROOT/p for p in comparison.get('prior_smoke_indices',[])]
+        evidence_paths=[resolve_saved_path(p, root=ROOT) for p in comparison.get('prior_smoke_indices',[])]
         if smoke_path.exists():evidence_paths.append(smoke_path)
         if evidence_paths:
             records=[]
@@ -107,7 +108,7 @@ def report(comparison):
     indices={stage:json.loads((out/f'{stage}_index.json').read_text()) for stage in ('offline','smoke','formal') if (out/f'{stage}_index.json').exists()}
     rows=[]
     for record in indices.get('formal',{}).get('runs',[]):
-        p=Path(record['path']);e=json.loads((p/'evaluation.json').read_text());m=json.loads((p/'metrics.json').read_text());manifest=json.loads((p/'manifest.json').read_text())
+        p=resolve_saved_path(record['path']);e=json.loads((p/'evaluation.json').read_text());m=json.loads((p/'metrics.json').read_text());manifest=json.loads((p/'manifest.json').read_text())
         rows.append({**record,'code_commit':manifest['code_commit'],'task_assertions':{k:v['passed'] for k,v in e['task_assertions'].items()},'native_validation':e['native_validation'],'first_issue':e.get('first_issue'),'metrics':m,'integration_coverage':e.get('integration_coverage',{}),'legacy_task_success':e.get('legacy_evaluation_v1',{}).get('task_success'),
             'blockers':e.get('blockers',[]),'missing_credentials':e.get('missing_credentials',[]),
             'trace_verification':e.get('trace_verification'),'replay_verification':e.get('replay_verification')})
