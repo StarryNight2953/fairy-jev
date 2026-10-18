@@ -8,12 +8,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 from pathlib import Path
 from .paths import resolve_saved_path
 
 ARCHITECTURES = ("llm_native", "jev", "hybrid")
-RULES_VERSION = "smoke_access_evidence_v1"
+RULES_VERSION = "smoke_access_evidence_v2"
 
 
 def _json(path):
@@ -39,6 +40,44 @@ def _uses(architecture, family):
     return architecture == "hybrid" or architecture == ("jev" if family == "jev" else "llm_native")
 
 
+def _timestamp(event):
+    value = event.get("wall_timestamp")
+    return value if type(value) in (int, float) and math.isfinite(value) else None
+
+
+def _successful_access(loaded):
+    """Paired actual successes, independent of task completion or index order."""
+    successes = []
+    for source in loaded:
+        starts = {e.get("attempt_id"): e for e in source["events"]
+                  if e.get("event") == "http_attempt_start"}
+        config = source["manifest"].get("config", {})
+        for event in source["events"]:
+            start = starts.get(event.get("attempt_id"))
+            if (event.get("event") != "http_attempt_end" or not start
+                    or event.get("http_status") != 200 or event.get("status") != "ok"
+                    or "raw_response_body" not in event or _timestamp(event) is None):
+                continue
+            role = event.get("role", "")
+            if (not event.get("logical_request_id")
+                    or start.get("role") != role
+                    or start.get("logical_request_id") != event["logical_request_id"]
+                    or not event.get("endpoint")
+                    or start.get("endpoint") != event["endpoint"]):
+                continue
+            family = "jev" if role.startswith("jev_") else "llm" if role in {
+                "llm_native_decision", "llm_native_summary", "llm_context_update"} else None
+            if family is None:
+                continue
+            successes.append({"source_architecture": source["architecture"],
+                "source_run": str(source["root"]), "trace_path": str(source["root"] / "trace.jsonl"),
+                "trace_sha256": source["trace_sha256"], "event_id": event.get("event_id"),
+                "attempt_id": event["attempt_id"], "wall_timestamp": _timestamp(event),
+                "http_status": 200, "role": role, "endpoint": event["endpoint"],
+                "service": _service(config, family)})
+    return successes
+
+
 def service_blockers_from_smoke(index, *, target_configs=None, available_credentials=()):
     """Return deterministic blockers/evidence by architecture, without mutation.
 
@@ -50,7 +89,11 @@ def service_blockers_from_smoke(index, *, target_configs=None, available_credent
     identity (or the same missing credential variable), never to an unrelated LLM.
     When configurations change, callers provide their actual current target
     configs. A newly available credential resolves only a prior missing-variable
-    observation, never an actual HTTP access refusal. Source files remain intact.
+    observation, never an actual HTTP access refusal. A historical 451 is no
+    longer active when a later paired HTTP 200 proves access to that same service
+    and endpoint. Both observations remain auditable; missing chronology does
+    not establish recovery. A subsequent refusal still blocks. Source files
+    remain intact; 401/403 and budget rules are unchanged.
     """
     if isinstance(index, (str, Path)):
         index = _json(resolve_saved_path(index))
@@ -79,6 +122,8 @@ def service_blockers_from_smoke(index, *, target_configs=None, available_credent
 
     targets = (target_configs if target_configs is not None else
                {item['architecture']: item['manifest'].get('config', {}) for item in loaded})
+    successes = _successful_access(loaded)
+    resolved_blockers = []
     available_credentials = set(available_credentials)
     for source in loaded:
         architecture, root = source["architecture"], source["root"]
@@ -116,6 +161,7 @@ def service_blockers_from_smoke(index, *, target_configs=None, available_credent
             raw = event["raw_response_body"]
             serialized = raw if isinstance(raw, str) else json.dumps(raw, sort_keys=True)
             item = {**evidence, "attempt_id": event.get("attempt_id"), "http_status": status,
+                    "wall_timestamp": _timestamp(event),
                     "endpoint": event.get("endpoint", paired.get("endpoint")), "role": role,
                     "service": _service(config, family),
                     "response_sha256": hashlib.sha256(serialized.encode("utf-8")).hexdigest(),
@@ -135,6 +181,17 @@ def service_blockers_from_smoke(index, *, target_configs=None, available_credent
                 observations.append({**item, "reason": "recovered_transient_http_error",
                     "classification": "informational", "persistent_block": False})
         for blocker in source_blocks:
+            if blocker.get("http_status") == 451 and blocker.get("wall_timestamp") is not None:
+                later = [s for s in successes if s["service"] == blocker["service"]
+                         and s["endpoint"] == blocker["endpoint"]
+                         and s["wall_timestamp"] > blocker["wall_timestamp"]]
+                if later:
+                    resolved = {**blocker, "resolution_status": "superseded_by_later_success",
+                        "active_block": False, "resolved_by": max(later, key=lambda s: s["wall_timestamp"]),
+                        "resolution_scope": "Later same-service/endpoint HTTP 200 supersedes this historical 451 for preflight; it does not guarantee future access or task success."}
+                    observations.append(resolved)
+                    resolved_blockers.append(resolved)
+                    continue
             observations.append(blocker)
             for target_architecture, target_config in targets.items():
                 if blocker["reason"] == "missing_credentials":
@@ -155,5 +212,6 @@ def service_blockers_from_smoke(index, *, target_configs=None, available_credent
         by_architecture[architecture] = list(unique.values())
     return {"rules_version": RULES_VERSION, "blocked": any(by_architecture.values()),
         "by_architecture": by_architecture, "observations": observations,
+        "resolved_blockers": resolved_blockers,
         "scope": "Derived access preflight from immutable smoke evidence; no API calls or edits. A block is not a model task failure and does not erase original status.",
         "recommended_formal_status": "blocked" if any(by_architecture.values()) else "eligible_for_other_formal_checks"}
