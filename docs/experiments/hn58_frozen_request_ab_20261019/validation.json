@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-19T01:27:42.583521+08:00",
+  "actual_request_response_pairs": 4,
+  "source_byte_preservation_count": 1657,
+  "request_body_equality": true,
+  "single_system_insertion_only": true,
+  "SDK_wire_guards_passed": true,
+  "source_E49_E50_E52_content_chain": true,
+  "schema_argument_review": "B2/B3 each one hours=2 integer call; A1/A4 empty tool lists; no repeated irrigation or unrelated call",
+  "actual_http_retries": 0,
+  "source_or_loop_changes": false,
+  "ledger_reservations_and_attempts_match_traces": true,
+  "network_or_environment_calls_by_this_analysis_script": 0
+}

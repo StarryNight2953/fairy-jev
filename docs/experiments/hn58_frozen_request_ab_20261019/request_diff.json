@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "changed_path": "messages[0].content",
+  "inserted_text": "- If the task still requires a tool action, use the available tools to do that action now. Do not replace an unexecuted action with a plan for later. Give a final user response only after required actions are complete, or when a tool limitation prevents further action.\n",
+  "insertion": "Immediately before </agent_instructions>",
+  "all_other_json_values_equal": true,
+  "A_equals_E48": true,
+  "historical_message_utf8_bytes_unchanged": true,
+  "tool_order_and_all_schemas_unchanged": true,
+  "tool_count": 58,
+  "history_pairs": [
+    {
+      "tool_call_id": "chatcmpl-tool-85d413c3db2a8765",
+      "assistant_message_index": 2,
+      "tool_message_index": 3,
+      "content_utf8_sha256": "b3bb4f971e8bb0005221c47293306eaab283a07f80bf88da5f92eef56dce1136"
+    },
+    {
+      "tool_call_id": "chatcmpl-tool-93ea1828b65021d0",
+      "assistant_message_index": 2,
+      "tool_message_index": 4,
+      "content_utf8_sha256": "c36962cd3a9db1822fc62ef5f8aebc6a8033c3a8d38436d19ab017148ec03d6c"
+    },
+    {
+      "tool_call_id": "chatcmpl-tool-b3ff12a5700ca61a",
+      "assistant_message_index": 2,
+      "tool_message_index": 5,
+      "content_utf8_sha256": "285ce959253a56fcdf0171be8c9c49185613cd0bd6ecc46d205d32328c4f2935"
+    },
+    {
+      "tool_call_id": "chatcmpl-tool-95d5e3556b4a8150",
+      "assistant_message_index": 2,
+      "tool_message_index": 6,
+      "content_utf8_sha256": "b1e251d628240222ed7adb15582c285dd2e06ae910334e0bfb0fa03d1c0087b5"
+    },
+    {
+      "tool_call_id": "chatcmpl-tool-9b72ecedac23a3e1",
+      "assistant_message_index": 7,
+      "tool_message_index": 8,
+      "content_utf8_sha256": "9b3f77d7cf635ad2280784c4ac9afc029b8686a45943a4bdc387adcb0f4e326f"
+    }
+  ],
+  "source_prompt_already_requires_continuation": true,
+  "hashes": {
+    "A": {
+      "file_sha256": "a30a928bf7c461df4b2ef66ca08851f822e5e06399673e67fc0ac06e91af5b54",
+      "semantic_sha256": "93b782b0e6ddfb70df9a009265ac2908993ed99d453b6e8f49c2c117c78daf1b",
+      "sdk_wire_sha256": "8e709918f25626dec41b07685ce19999392c8cfc966170110596ed65d62fa76e"
+    },
+    "B": {
+      "file_sha256": "39d086465497b4acd3e8ad7dc61c8b3e9091a9207831dc870f9e2240f784dbb5",
+      "semantic_sha256": "c99ee017307811cad9f3990e7a3b06bc75e9bfe3b716806d1e81153a5628a2f6",
+      "sdk_wire_sha256": "65c8d9e7370e584d92ee9d7f04a3021da2579360de76b4f1b60964221177fc72"
+    }
+  },
+  "offline_serialization": "Pinned OpenAI SDK with MockTransport only; no network, auth header saved, environment or Agent",
+  "model_http_attempts": 0
+}

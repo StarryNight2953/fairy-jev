@@ -1,0 +1,173 @@
+{
+  "registered_at": "2026-10-19T01:22:33.262280+08:00",
+  "diagnostic_id": "hn58_premature_stop_frozen_request_20261019T012154+0800",
+  "diagnostic_commit": "3eec3d6b11c1907b793ed91f0e67dd674d5684d7",
+  "diagnostic_script_sha256": "831054019b89d7a6a1a4ace4ce1a68cbbf112ca460c2d1d23411123eaa03e195",
+  "source_execution_commit": "bbe762c98a97e5f22cceb5f7b24fc3a67656fdb6",
+  "source_identity_sha256": "291e1098a118733cc46a2703eabd14b7fa09040ec12967ec67f08f67956d239e",
+  "conditions": {
+    "A": "Exact saved E48 body",
+    "B": "A plus only the specified generic continuation rule within agent_instructions"
+  },
+  "sequence": [
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "max_http_attempts": 4,
+  "sdk_retries": 0,
+  "max_http_per_sample": 1,
+  "http_timeout_seconds": 30,
+  "ledger_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+  "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+  "budget_before": {
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "episodes": [
+      {
+        "run_id": "20261018T094403_jev_live_3ec48d66",
+        "architecture": "jev",
+        "stage": "smoke",
+        "slot": "smoke_jev",
+        "http_attempts": 1,
+        "status": "integration_error"
+      },
+      {
+        "run_id": "20261018T131742_llm_native_live_4b089439",
+        "architecture": "llm_native",
+        "stage": "smoke",
+        "slot": "smoke_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_1_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131959_llm_native_live_a52947cf",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_2_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T132025_llm_native_live_82c497e7",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_3_llm_native",
+        "http_attempts": 3,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T140025_hybrid_live_9fd09d81",
+        "architecture": "hybrid",
+        "stage": "smoke",
+        "slot": "smoke_hybrid",
+        "http_attempts": 11,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T165324_llm_native_live_3b5f3748",
+        "architecture": "llm_native",
+        "stage": "tool_description_v2",
+        "slot": "hn58-tool-description-v2-20261019_llm_native_seed1904",
+        "http_attempts": 3,
+        "status": "completed"
+      }
+    ],
+    "http_attempts": 33,
+    "max_episodes": 12,
+    "max_http_attempts": 1440
+  },
+  "accounting": "Each frozen request reserves one existing LiveLedger episode slot and one HTTP via EpisodeRuntime/ObservedTransport. No Agent episode or environment runs.",
+  "samples": [
+    {
+      "index": 1,
+      "condition": "A",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+      "request_sha256": "a30a928bf7c461df4b2ef66ca08851f822e5e06399673e67fc0ac06e91af5b54",
+      "wire_sha256": "8e709918f25626dec41b07685ce19999392c8cfc966170110596ed65d62fa76e"
+    },
+    {
+      "index": 2,
+      "condition": "B",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+      "request_sha256": "39d086465497b4acd3e8ad7dc61c8b3e9091a9207831dc870f9e2240f784dbb5",
+      "wire_sha256": "65c8d9e7370e584d92ee9d7f04a3021da2579360de76b4f1b60964221177fc72"
+    },
+    {
+      "index": 3,
+      "condition": "B",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+      "request_sha256": "39d086465497b4acd3e8ad7dc61c8b3e9091a9207831dc870f9e2240f784dbb5",
+      "wire_sha256": "65c8d9e7370e584d92ee9d7f04a3021da2579360de76b4f1b60964221177fc72"
+    },
+    {
+      "index": 4,
+      "condition": "A",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+      "request_sha256": "a30a928bf7c461df4b2ef66ca08851f822e5e06399673e67fc0ac06e91af5b54",
+      "wire_sha256": "8e709918f25626dec41b07685ce19999392c8cfc966170110596ed65d62fa76e"
+    }
+  ],
+  "access_review": {
+    "rules_version": "smoke_access_evidence_v2",
+    "blocked": false,
+    "by_architecture": {
+      "llm_native": [],
+      "jev": [],
+      "hybrid": []
+    },
+    "observations": [],
+    "resolved_blockers": [],
+    "scope": "Derived access preflight from immutable smoke evidence; no API calls or edits. A block is not a model task failure and does not erase original status.",
+    "recommended_formal_status": "eligible_for_other_formal_checks"
+  },
+  "route": {
+    "transport": "HTTPTransport",
+    "pool": "HTTPProxy",
+    "proxy": {
+      "host": "127.0.0.1",
+      "port": 7897
+    }
+  },
+  "route_scope": "SDK selected transport; no connectivity probe or proxy changes",
+  "request_diff_sha256": "8a2411cb50cbf3eb1e3c66bff009fc403cae1e6466073c3262325ddcddd86c8e",
+  "classifications": [
+    "progress_tool_call",
+    "other_or_invalid_tool_call",
+    "text_only_future_plan",
+    "text_only_claimed_complete",
+    "request_error"
+  ],
+  "classification_policy": {
+    "version": "frozen_local_progress_v1",
+    "code_sha256": "831054019b89d7a6a1a4ace4ce1a68cbbf112ca460c2d1d23411123eaa03e195",
+    "positive_advance_time": "progress when valid; shorter than ETA is only partial local progress, not completed waiting",
+    "notification_wait": "positive timeout advances to earlier scheduled event or timeout under source Engine; may finish before irrigation ETA. Zero timeout is not progress.",
+    "multiple_calls": "invalid/unrelated/repeated irrigation overrides progress; positive waiting plus subsequent relevant reads is local proposed progress only",
+    "text_only": "future/unexecuted plans vs unsupported task completion; unreadable/unclassifiable output is request_error with evidence, not a forced normal model choice"
+  },
+  "stop_rules": [
+    "Stop batch on HTTP/network/SDK/protocol/model-identity error, serialization mismatch, budget error or missing source evidence. Never retry/replace.",
+    "Continue ABBA after normal text/tool outcomes without changing inputs.",
+    "A response containing tools is recorded and validated only; never executed."
+  ],
+  "sampling_seed": null,
+  "temperature": 0.1,
+  "remote_determinism": "not guaranteed",
+  "cost": null,
+  "status": "READY",
+  "tool_executions_allowed": 0,
+  "environment_initializations_allowed": 0
+}

@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-10-19T01:27:42.567787+08:00",
+  "passed": true,
+  "protected_file_count": 1657,
+  "all_historical_evidence_and_production_files_unchanged": true,
+  "changed_files": [],
+  "frozen_tag_unchanged": true,
+  "workspace_mapping_unchanged": true,
+  "original_ledger_entries_unchanged": true,
+  "ledger_mutation_scope": "Only existing reserve_episode/reserve_http/finish operations for four preregistered request-only samples; no reset, replacement ledger or prior-entry edits.",
+  "ledger_episode_slots_before": 7,
+  "ledger_episode_slots_after": 11,
+  "http_before": 33,
+  "http_after": 37,
+  "credential_files_read": false,
+  "credential_values_read_or_saved": false,
+  "authentication_headers_saved": false,
+  "authentication": "Original local vLLM authentication_mode=none, public SDK placeholder EMPTY; no env.sh sourced",
+  "new_environment_initializations": 0,
+  "new_tool_executions": 0,
+  "new_jev_requests": 0
+}

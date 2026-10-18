@@ -1,0 +1,379 @@
+{
+  "diagnostic_id": "hn58_premature_stop_frozen_request_20261019T012154+0800",
+  "status": "COMPLETE",
+  "checkpoints": {
+    "T0": "PASS",
+    "T1": "PASS",
+    "T2": "PASS",
+    "T3": "PASS",
+    "T4": "PASS",
+    "T5": "PASS",
+    "T6": "PASS"
+  },
+  "source_execution_commit": "bbe762c98a97e5f22cceb5f7b24fc3a67656fdb6",
+  "diagnostic_execution_commit": "3eec3d6b11c1907b793ed91f0e67dd674d5684d7",
+  "sequence": [
+    "A",
+    "B",
+    "B",
+    "A"
+  ],
+  "groups": {
+    "A": {
+      "n": 2,
+      "classification_counts": {
+        "progress_tool_call": 0,
+        "other_or_invalid_tool_call": 0,
+        "text_only_future_plan": 2,
+        "text_only_claimed_complete": 0,
+        "request_error": 0
+      },
+      "with_tool_calls": 0,
+      "text_only": 2,
+      "tool_call_fraction": 0.0,
+      "sample_elapsed_seconds_total": 17.69841708301101,
+      "http_latency_seconds_total": 17.405604415980633,
+      "input_tokens": 27644,
+      "output_tokens": 489,
+      "cached_tokens": null,
+      "cached_token_aggregate_complete": false,
+      "cost": null,
+      "task_success": null,
+      "task_success_reason": "No subsequent environment action or task evaluation was performed."
+    },
+    "B": {
+      "n": 2,
+      "classification_counts": {
+        "progress_tool_call": 2,
+        "other_or_invalid_tool_call": 0,
+        "text_only_future_plan": 0,
+        "text_only_claimed_complete": 0,
+        "request_error": 0
+      },
+      "with_tool_calls": 2,
+      "text_only": 0,
+      "tool_call_fraction": 1.0,
+      "sample_elapsed_seconds_total": 18.51493925001705,
+      "http_latency_seconds_total": 18.208330958033912,
+      "input_tokens": 27756,
+      "output_tokens": 589,
+      "cached_tokens": 22176,
+      "cached_token_aggregate_complete": true,
+      "cost": null,
+      "task_success": null,
+      "task_success_reason": "No subsequent environment action or task evaluation was performed."
+    }
+  },
+  "samples": [
+    {
+      "index": 1,
+      "condition": "A",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_1_A",
+      "completed_at": "2026-10-19T01:22:55.242735+08:00",
+      "request_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/A_request.json",
+      "request_sha256": "a30a928bf7c461df4b2ef66ca08851f822e5e06399673e67fc0ac06e91af5b54",
+      "wire_sha256": "8e709918f25626dec41b07685ce19999392c8cfc966170110596ed65d62fa76e",
+      "response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/01/response.json",
+      "response_sha256": "42da1d4b0ec47b7b457ae019652e75f5bd99774650293ecc0ce76ce4ed09976f",
+      "raw_response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/01/raw_response.txt",
+      "http_status": 200,
+      "response_model": "Qwen3.6-35B-A3B-FP8",
+      "classification": {
+        "label": "text_only_future_plan",
+        "reason": "Future/unexecuted action text",
+        "calls": [],
+        "content": "灌溉已完成。执行摘要：\n\n| 项目 | 结果 |\n|------|------|\n| **灌溉范围** | ridges 43-63（HEINONG58 分区，共21垄） |\n| **每垄灌溉时长** | 0.8 小时 |\n| **每垄进水量** | 约 4.0 mm |\n| **全场等效灌溉量** | 1.3125 mm |\n| **剩余配额** | 1.4 - 1.3125 = **0.0875 mm**（几乎耗尽） |\n| **确认时间** | 约 120 分钟后（2小时） |\n\n**操作完成。** 仅对 HEINONG58 分区（ridges 43-63）执行了 0.8 小时灌溉，未涉及 HEIHE50 和 HEINONG84 分区。灌溉已消耗几乎全部剩余配额（1.3125/1.4 mm）。等待约2小时后复查土壤水分确认灌溉效果。",
+        "finish_reason": "stop",
+        "has_tool_calls": false,
+        "tools_executed": 0,
+        "task_success": null
+      },
+      "http_attempts": 1,
+      "elapsed_seconds": 11.060303915990517,
+      "http_latency_seconds": 10.898015749990009,
+      "usage": {
+        "prompt_tokens": 13822,
+        "total_tokens": 14061,
+        "completion_tokens": 239,
+        "prompt_tokens_details": null
+      },
+      "input_tokens": 13822,
+      "output_tokens": 239,
+      "cached_tokens": null,
+      "sampling_seed": null,
+      "system_fingerprint": "vllm-0.22.0-bbe13ed8",
+      "cost": null,
+      "sdk_error": null,
+      "task_success": null,
+      "environment_initializations": 0,
+      "tool_executions": 0,
+      "trace_sha256": "4395352f1eddcaf2243c0d32d6bd72f0dedacbaf9e65e4eda171535055ef3aa6"
+    },
+    {
+      "index": 2,
+      "condition": "B",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_2_B",
+      "completed_at": "2026-10-19T01:23:19.202272+08:00",
+      "request_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/B_request.json",
+      "request_sha256": "39d086465497b4acd3e8ad7dc61c8b3e9091a9207831dc870f9e2240f784dbb5",
+      "wire_sha256": "65c8d9e7370e584d92ee9d7f04a3021da2579360de76b4f1b60964221177fc72",
+      "response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/02/response.json",
+      "response_sha256": "286c992ff62a4e1bc3df81d3ffe1ebcffb3eedbb76b543dac59ab6dbc8d21e22",
+      "raw_response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/02/raw_response.txt",
+      "http_status": 200,
+      "response_model": "Qwen3.6-35B-A3B-FP8",
+      "classification": {
+        "label": "progress_tool_call",
+        "reason": "Classification by actual tool call list; text is ancillary. Multiple calls are only proposed serial actions, not executed.",
+        "calls": [
+          {
+            "name": "SystemApp__advance_time",
+            "arguments": {
+              "hours": 2
+            },
+            "schema_and_runtime_argument_valid": true,
+            "progress_intent": true,
+            "reason": "positive simulation clock advance; no action executed"
+          }
+        ],
+        "content": "灌溉已完成。执行摘要：\n\n| 项目 | 结果 |\n|------|------|\n| **灌溉范围** | ridges 43-63（HEINONG58 分区，共21垄） |\n| **每垄时长** | 0.8 小时 |\n| **每垄水量** | 约 4.0 mm |\n| **全场等效** | 1.3125 mm |\n| **灌溉配额使用** | 1.3125 / 1.4 mm（剩余仅 0.0875 mm） |\n| **确认时间** | 约 120 分钟后土壤水分响应可见 |\n\n**已执行操作：**\n- ✅ 仅对 HEINONG58 区（ridges 43-63）灌溉\n- ✅ 未触及 HEIHE50（0-20）和 HEINONG84（21-42）分区\n- ✅ 配额已用 94%，剩余不足 0.1 mm\n\n**等待 120 分钟后复查土壤传感器 S5/S6 确认水分恢复情况。**\n\n",
+        "finish_reason": "tool_calls",
+        "has_tool_calls": true,
+        "tools_executed": 0,
+        "task_success": null
+      },
+      "http_attempts": 1,
+      "elapsed_seconds": 10.163507333025336,
+      "http_latency_seconds": 10.033932625025045,
+      "usage": {
+        "prompt_tokens": 13878,
+        "total_tokens": 14161,
+        "completion_tokens": 283,
+        "prompt_tokens_details": {
+          "cached_tokens": 8448
+        }
+      },
+      "input_tokens": 13878,
+      "output_tokens": 283,
+      "cached_tokens": 8448,
+      "sampling_seed": null,
+      "system_fingerprint": "vllm-0.22.0-bbe13ed8",
+      "cost": null,
+      "sdk_error": null,
+      "task_success": null,
+      "environment_initializations": 0,
+      "tool_executions": 0,
+      "trace_sha256": "d99afe3650cd4e15cee95fd2d39d64bc7905c0ed5692b55e958f18ca88b12ca4"
+    },
+    {
+      "index": 3,
+      "condition": "B",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_3_B",
+      "completed_at": "2026-10-19T01:23:39.017056+08:00",
+      "request_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/B_request.json",
+      "request_sha256": "39d086465497b4acd3e8ad7dc61c8b3e9091a9207831dc870f9e2240f784dbb5",
+      "wire_sha256": "65c8d9e7370e584d92ee9d7f04a3021da2579360de76b4f1b60964221177fc72",
+      "response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/03/response.json",
+      "response_sha256": "bb3e4723b19bd588dec10e2dda4d187f53bc32c98242e92948e2b50a5fe580d0",
+      "raw_response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/03/raw_response.txt",
+      "http_status": 200,
+      "response_model": "Qwen3.6-35B-A3B-FP8",
+      "classification": {
+        "label": "progress_tool_call",
+        "reason": "Classification by actual tool call list; text is ancillary. Multiple calls are only proposed serial actions, not executed.",
+        "calls": [
+          {
+            "name": "SystemApp__advance_time",
+            "arguments": {
+              "hours": 2
+            },
+            "schema_and_runtime_argument_valid": true,
+            "progress_intent": true,
+            "reason": "positive simulation clock advance; no action executed"
+          }
+        ],
+        "content": "灌溉已完成。执行摘要：\n\n| 项目 | 结果 |\n|------|------|\n| **灌溉范围** | ridges 43-63（HEINONG58 分区，共21垄） |\n| **每垄时长** | 0.8 小时 |\n| **每垄水量** | 约 4.0 mm |\n| **全场等效** | 1.3125 mm |\n| **剩余配额** | 1.4 - 1.3125 = **0.0875 mm**（几乎耗尽） |\n| **确认时间** | 约 120 分钟后（需等待土壤水分响应） |\n\n**已执行操作：**\n- ✅ 仅对 HEINONG58 分区（ridges 43-63）灌溉\n- ✅ 未触及 HEIHE50（0-20）和 HEINONG84（21-42）分区\n- ✅ 配额已用 1.3125/1.4 mm，剩余不足 0.1 mm\n\n**下一步：** 等待约 2 小时让灌溉水分渗透并稳定后，复查 S5/S6 土壤传感器读数确认水分恢复情况。\n\n",
+        "finish_reason": "tool_calls",
+        "has_tool_calls": true,
+        "tools_executed": 0,
+        "task_success": null
+      },
+      "http_attempts": 1,
+      "elapsed_seconds": 8.351431916991714,
+      "http_latency_seconds": 8.174398333008867,
+      "usage": {
+        "prompt_tokens": 13878,
+        "total_tokens": 14184,
+        "completion_tokens": 306,
+        "prompt_tokens_details": {
+          "cached_tokens": 13728
+        }
+      },
+      "input_tokens": 13878,
+      "output_tokens": 306,
+      "cached_tokens": 13728,
+      "sampling_seed": null,
+      "system_fingerprint": "vllm-0.22.0-bbe13ed8",
+      "cost": null,
+      "sdk_error": null,
+      "task_success": null,
+      "environment_initializations": 0,
+      "tool_executions": 0,
+      "trace_sha256": "33f149c479b84ec7f88d7613b9e2872d3161d8f10d946194db33d4c8296873b0"
+    },
+    {
+      "index": 4,
+      "condition": "A",
+      "request_id": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+      "slot": "hn58_premature_stop_frozen_request_20261019T012154+0800_4_A",
+      "completed_at": "2026-10-19T01:24:05.058831+08:00",
+      "request_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/A_request.json",
+      "request_sha256": "a30a928bf7c461df4b2ef66ca08851f822e5e06399673e67fc0ac06e91af5b54",
+      "wire_sha256": "8e709918f25626dec41b07685ce19999392c8cfc966170110596ed65d62fa76e",
+      "response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/04/response.json",
+      "response_sha256": "cdfc52ad7372f4ba1629d9eaa8e549260d7abff30f3cabb46dcaae4c2e45243c",
+      "raw_response_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/04/raw_response.txt",
+      "http_status": 200,
+      "response_model": "Qwen3.6-35B-A3B-FP8",
+      "classification": {
+        "label": "text_only_future_plan",
+        "reason": "Future/unexecuted action text",
+        "calls": [],
+        "content": "灌溉已完成。执行摘要：\n\n| 项目 | 结果 |\n|------|------|\n| **灌溉范围** | ridges 43-63（HEINONG58 分区，共21垄） |\n| **每垄灌溉时长** | 0.8 小时 |\n| **每垄进水量** | 约 4.0 mm |\n| **全场等效灌溉量** | 1.3125 mm |\n| **剩余灌溉配额** | 1.4 - 1.3125 = **0.0875 mm**（几乎耗尽） |\n| **确认时间** | 约 120 分钟后（2小时） |\n\n**操作完成。** 仅对 HEINONG58 分区（ridges 43-63）执行了 0.8 小时灌溉，未涉及 HEIHE50 或 HEINONG84 分区。灌溉配额已用至仅剩 0.0875 mm。\n\n等待 2 小时后的复查通知，届时将再次读取 S5/S6 土壤传感器确认水分恢复情况。",
+        "finish_reason": "stop",
+        "has_tool_calls": false,
+        "tools_executed": 0,
+        "task_success": null
+      },
+      "http_attempts": 1,
+      "elapsed_seconds": 6.638113167020492,
+      "http_latency_seconds": 6.507588665990625,
+      "usage": {
+        "prompt_tokens": 13822,
+        "total_tokens": 14072,
+        "completion_tokens": 250,
+        "prompt_tokens_details": {
+          "cached_tokens": 13728
+        }
+      },
+      "input_tokens": 13822,
+      "output_tokens": 250,
+      "cached_tokens": 13728,
+      "sampling_seed": null,
+      "system_fingerprint": "vllm-0.22.0-bbe13ed8",
+      "cost": null,
+      "sdk_error": null,
+      "task_success": null,
+      "environment_initializations": 0,
+      "tool_executions": 0,
+      "trace_sha256": "13dba1559343e76d2cc4b4abdd8ab03345709e300dbd12c7eb9340d052acc973"
+    }
+  ],
+  "evidence_references": [
+    {
+      "index": 1,
+      "condition": "A",
+      "trace": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/01/trace.jsonl",
+      "trace_sha256": "4395352f1eddcaf2243c0d32d6bd72f0dedacbaf9e65e4eda171535055ef3aa6",
+      "request_event_id": 1,
+      "request_jsonl_line": 2,
+      "response_event_id": 2,
+      "response_jsonl_line": 3,
+      "raw_response": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/01/raw_response.txt",
+      "raw_response_sha256": "262db95d701009a7050fb230f174a78d5e6b23cb845bab178a009eb0546aef5c",
+      "response_json": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/01/response.json",
+      "response_sha256": "42da1d4b0ec47b7b457ae019652e75f5bd99774650293ecc0ce76ce4ed09976f"
+    },
+    {
+      "index": 2,
+      "condition": "B",
+      "trace": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/02/trace.jsonl",
+      "trace_sha256": "d99afe3650cd4e15cee95fd2d39d64bc7905c0ed5692b55e958f18ca88b12ca4",
+      "request_event_id": 1,
+      "request_jsonl_line": 2,
+      "response_event_id": 2,
+      "response_jsonl_line": 3,
+      "raw_response": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/02/raw_response.txt",
+      "raw_response_sha256": "4da4c77c081f398b33a709ea707c88a866d96712479027c12ee514585efa7d24",
+      "response_json": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/02/response.json",
+      "response_sha256": "286c992ff62a4e1bc3df81d3ffe1ebcffb3eedbb76b543dac59ab6dbc8d21e22"
+    },
+    {
+      "index": 3,
+      "condition": "B",
+      "trace": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/03/trace.jsonl",
+      "trace_sha256": "33f149c479b84ec7f88d7613b9e2872d3161d8f10d946194db33d4c8296873b0",
+      "request_event_id": 1,
+      "request_jsonl_line": 2,
+      "response_event_id": 2,
+      "response_jsonl_line": 3,
+      "raw_response": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/03/raw_response.txt",
+      "raw_response_sha256": "e56d3e5339f5d2948d5b9314952ac80f782655093fe57a28caaae27b67eedc7a",
+      "response_json": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/03/response.json",
+      "response_sha256": "bb3e4723b19bd588dec10e2dda4d187f53bc32c98242e92948e2b50a5fe580d0"
+    },
+    {
+      "index": 4,
+      "condition": "A",
+      "trace": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/04/trace.jsonl",
+      "trace_sha256": "13dba1559343e76d2cc4b4abdd8ab03345709e300dbd12c7eb9340d052acc973",
+      "request_event_id": 1,
+      "request_jsonl_line": 2,
+      "response_event_id": 2,
+      "response_jsonl_line": 3,
+      "raw_response": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/04/raw_response.txt",
+      "raw_response_sha256": "cb5406fbf1ad07edb1423c954118edc4c991ebfd73835de632d74c547df6135d",
+      "response_json": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/samples/04/response.json",
+      "response_sha256": "cdfc52ad7372f4ba1629d9eaa8e549260d7abff30f3cabb46dcaae4c2e45243c"
+    }
+  ],
+  "source_E49_is_historical_not_counted": true,
+  "actual_request_body_equal_to_frozen_input_all_samples": true,
+  "actual_models": [
+    "Qwen3.6-35B-A3B-FP8"
+  ],
+  "system_fingerprints": [
+    "vllm-0.22.0-bbe13ed8"
+  ],
+  "sampling_seed": null,
+  "temperature": 0.1,
+  "cost": null,
+  "tools_executed": 0,
+  "environment_initializations": 0,
+  "task_success": null,
+  "findings": [
+    {
+      "level": "DIRECT_OBSERVATION",
+      "finding": "A two of two produced future-plan text without tools; B two of two returned a valid SystemApp__advance_time(hours=2) call."
+    },
+    {
+      "level": "DIRECT_OBSERVATION",
+      "finding": "Existing system prompt already required continued action and final response only on completion/impossibility."
+    },
+    {
+      "level": "DIRECT_OBSERVATION",
+      "finding": "E49 text and empty tool list were preserved through SDK/native events. Loop ends on absent tool_calls, not on independent completion verification."
+    },
+    {
+      "level": "SUPPORTED_INFERENCE",
+      "finding": "The additional generic continuation wording may influence local action-vs-text choice in this frozen context."
+    },
+    {
+      "level": "HYPOTHESIS",
+      "finding": "A full live loop with this rule might avoid the observed early stop; this was not tested."
+    },
+    {
+      "level": "UNKNOWN",
+      "finding": "General success-rate effect, statistical significance, exclusive causality and subsequent recheck/report correctness are unknown."
+    }
+  ],
+  "limitations": [
+    "Two samples per group, temperature0.1, no remote sampling seed; source response is not an extra A sample.",
+    "Fixed ABBA order is not randomized; server/caching effects may affect latency. No efficiency claim.",
+    "No generated tool was executed; tool choice improvement is not full-task success.",
+    "B text still mentions S5/S6, covering44–63 and potentially missing43. That future recheck was not generated or executed; it remains an untested risk."
+  ]
+}

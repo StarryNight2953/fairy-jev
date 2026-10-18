@@ -1,0 +1,36 @@
+{
+  "prepare": ".venv/bin/python scripts/hn58_frozen_request_ab.py prepare --out /Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800 --instructions /Users/ouyangkun/.codex/attachments/55c23ec5-be3a-4304-a3b6-aac842c6dcce/已粘贴的文本.txt",
+  "offline_tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_hn58_frozen_request_ab.py",
+    "result": "22 passed in 0.47s",
+    "model_http_attempts": 0,
+    "actual_network_connections": 0,
+    "environment_initializations": 0,
+    "tool_executions": 0,
+    "test_accounting": "Temporary test ledgers and MockTransport only; cumulative task ledger unchanged."
+  },
+  "register": ".venv/bin/python scripts/hn58_frozen_request_ab.py register --out /Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800",
+  "samples": [
+    ".venv/bin/python scripts/hn58_frozen_request_ab.py sample --out /Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800 --index 1",
+    ".venv/bin/python scripts/hn58_frozen_request_ab.py sample --out /Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800 --index 2",
+    ".venv/bin/python scripts/hn58_frozen_request_ab.py sample --out /Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800 --index 3",
+    ".venv/bin/python scripts/hn58_frozen_request_ab.py sample --out /Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800 --index 4"
+  ],
+  "source_review": "git show bbe762c:<source path>, static AST/line checks and captured E49→E50→E52→E55 equality; never run Agent/Engine",
+  "analysis": ".venv/bin/python /Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_premature_stop_frozen_request_20261019T012154+0800/build_delivery.py analyze",
+  "version_commands": [
+    "git switch -c diagnosis/hn58-frozen-request-ab-20261019",
+    "git add -- scripts/hn58_frozen_request_ab.py tests/test_hn58_frozen_request_ab.py",
+    "git commit -m \"Add bounded frozen-request Qwen continuation diagnostic without agent execution\""
+  ],
+  "remaining_delivery_commands": [
+    "build_delivery.py docs",
+    "git add -- docs/experiments/hn58_frozen_request_ab_20261019",
+    "git commit -m \"Record frozen-request continuation diagnosis and preserved budget evidence\"",
+    "build_delivery.py package"
+  ],
+  "new_model_http": 4,
+  "new_tool_executions": 0,
+  "full_agent_runs": 0,
+  "subagents_used": 0
+}
