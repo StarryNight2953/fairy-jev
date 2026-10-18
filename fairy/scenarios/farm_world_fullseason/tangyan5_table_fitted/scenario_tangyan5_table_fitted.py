@@ -33,7 +33,7 @@ from fairy.scenarios.validation_result import ScenarioValidationResult
 from fairy.time_manager import TimeManager
 from fairy.types import EventRegisterer
 
-TANGYAN5_WORKBOOK_PATH = Path("/Users/quao/Desktop/糖研所5号地数据汇总-1206_副本.xlsx")
+TANGYAN5_WORKBOOK_PATH = Path(__file__).parent / "data" / "糖研所5号地数据汇总-1206_副本.xlsx"
 
 TANGYAN5_TABLE_PLOT_IDS: tuple[str, ...] = (
     "Early_HH43",

@@ -113,10 +113,15 @@ class Engine:
         message = event.step()
         time_str = self._env_time_str()
         if self.agent is not None:
-            self.agent.messages.system_notify(message, time=time_str)
-            self.agent.workflow.add_node(
-                WorkflowStep(op_type="system", content=message, time=time_str)
-            )
+            notify = getattr(self.agent, "on_environment_event", None)
+            if callable(notify):
+                # The neutral hook owns both visible state and the workflow node.
+                notify(message, time=time_str)
+            else:
+                self.agent.messages.system_notify(message, time=time_str)
+                self.agent.workflow.add_node(
+                    WorkflowStep(op_type="system", content=message, time=time_str)
+                )
         event.triggered = True
 
     def wait_for_next_notification(self) -> None:
@@ -165,6 +170,10 @@ class Engine:
         additional_system_prompt = getattr(self.scenario, "additional_system_prompt", None)
         if not additional_system_prompt or self.agent is None:
             return
+        add_context = getattr(self.agent, "add_system_context", None)
+        if callable(add_context):
+            add_context(additional_system_prompt)
+            return
         messages = getattr(getattr(self.agent, "messages", None), "messages", [])
         if not messages:
             return
@@ -199,6 +208,8 @@ class Engine:
 
     def _agent_briefing_from_events(self) -> str:
         for event in getattr(self.scenario, "events", []) or []:
+            if getattr(event, "is_oracle", False):
+                continue
             app = getattr(event, "app", None)
             function = getattr(event, "function", None)
             app_name = getattr(app, "name", app.__class__.__name__ if app is not None else "")

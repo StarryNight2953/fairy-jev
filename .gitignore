@@ -13,3 +13,5 @@ validation_runs/
 runs/
 fos_exports/
 workflow_exports/
+env.sh
+*.xlsx
