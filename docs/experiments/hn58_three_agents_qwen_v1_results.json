@@ -1,0 +1,3406 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "experiment_id": "hn58-three-agents-qwen-v1",
+  "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+  "experiment_tag": "experiment/hn58-three-agents-qwen-v1",
+  "previous_experiment_tag": "experiment/hn58-three-agents-v1",
+  "previous_code_commit": "89aa4e0e2491cff488428cef1941d1ba182c78d7",
+  "report_commit_identity": "Containing documentation commit, not the run code_commit. Use git log -1 --format=%H -- docs/experiments/hn58_three_agents_qwen_v1_results.json.",
+  "config_files": [
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/configs/jev/hn58_hybrid_sync_k4_qwen.json",
+      "sha256": "b5182803be49d81b8d0bf0ea6ae9d78b0a7db9ec9c8960e344ae054aca02d248"
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/configs/experiments/hn58_three_agents_qwen_v1.json",
+      "sha256": "251f89a5c4358f1fe425abda35e59487bd1da681f3522ec4c13ec0d5e08d0ddd"
+    }
+  ],
+  "model_service_metadata": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/models.json",
+    "sha256": "07d96dd3c799078f0ea6930df9ada426f6c91fa0571fdb03a5cf17ccbcda5000"
+  },
+  "checkpoints": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/checkpoint.json",
+    "sha256": "92dc1f4f5103e29246374c30f4e1d61e42b5b407347ff9d38b593e5153aa9657"
+  },
+  "runs": [
+    {
+      "slot": "offline_llm_native",
+      "architecture": "llm_native",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b",
+      "execution_status": "completed",
+      "task_success": null,
+      "scripted_task_success": true,
+      "live_integration_success": null,
+      "stop_reason": "agent_finished",
+      "failure_layer": null,
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 10,
+      "wall_elapsed_seconds": 0.40211637498578057,
+      "evaluation_sha256": "f5a03b7542be69982e163b222060eef6b3ebaa42212816441ed66418a7593986",
+      "manifest_sha256": "c185ff210a0f76ba9c20f82c78712d92adec5c89a542b899c85971ca721c7a3f",
+      "trace_sha256": "3587fa1b71e16adde781250834b9dce573135050ec439764c3ce254fe9b60fa9",
+      "verification_passed": true,
+      "replay_passed": true,
+      "stage": "offline",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "356f2bcd0039fbee4edae8ce4509ca102c89fd0147bd203612be5a3626636d46",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {
+        "pre_irrigation_observations": true,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": true
+      },
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.5000, ktc_raw=1.0000, coverage=0.7143, ktc_adjusted=0.7143, combined=0.6071\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "first_issue": null,
+      "blockers": [],
+      "integration_coverage": {
+        "live": "not_applicable"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "not_applicable",
+          "native_execution": "passed",
+          "jev_tool_choice": "not_applicable",
+          "jev_argument_choice": "not_applicable",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "llm_native",
+        "run_id": "20261018T131731_llm_native_scripted_7554599b",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_tool_start": 10,
+          "native_tool_selected_by_model": 10,
+          "native_arguments_selected_by_model": 10,
+          "tool_end_pair": 10,
+          "tool_identity": 10,
+          "forward_simulation_time": 10,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 10,
+          "no_untraced_workflow_tools": 1,
+          "tool_count_matches_metrics": 1,
+          "scripted_has_no_http": 1,
+          "scripted_not_live_success": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 10,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/manifest.json",
+          "n_executed": 10,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 10,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": true
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 10,
+        "tool_successes": 10,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 6,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": false,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "tool_attempts": 10
+          },
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.4017805409966968,
+          "remaining_seconds": 599.5982192499796,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.40211637498578057,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067511.770181
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/manifest.json",
+          "sha256": "c185ff210a0f76ba9c20f82c78712d92adec5c89a542b899c85971ca721c7a3f"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/trace.jsonl",
+          "sha256": "3587fa1b71e16adde781250834b9dce573135050ec439764c3ce254fe9b60fa9"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/workflow.json",
+          "sha256": "28df4e793051e394050c2c30ace12d087ea6491df2898bf96b59e2a307b408ec"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/evaluation.json",
+          "sha256": "f5a03b7542be69982e163b222060eef6b3ebaa42212816441ed66418a7593986"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/metrics.json",
+          "sha256": "b83d6fa938e391b3b1dc9a9ee4748d85459fe2a926a34159444ee8c184623c2b"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/verification.json",
+          "sha256": "f8ac35647b1c2c54a17aba1930f77cd70f64896aed1d6b7a398beaaffe8ab141"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_llm_native_scripted_7554599b/files.sha256",
+          "sha256": "c44a8a4fd1de9da7c1987fdff67d391556c5b35b65c5d88f2b65db576f332bf6"
+        }
+      ]
+    },
+    {
+      "slot": "offline_jev",
+      "architecture": "jev",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6",
+      "execution_status": "completed",
+      "task_success": null,
+      "scripted_task_success": true,
+      "live_integration_success": null,
+      "stop_reason": "model_finish",
+      "failure_layer": null,
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 10,
+      "wall_elapsed_seconds": 0.057773540960624814,
+      "evaluation_sha256": "4fa21c244a3fa66e71c04d8fe8a7cd1cdd8dd426c4953bcc1792f135323e8c40",
+      "manifest_sha256": "c5fe802b003326afcb3e700a2e0e15204f949b552be16187f67f1b26d1330181",
+      "trace_sha256": "d537e16587405fc21b3aa984ed9d0e9c9b474d35b21d32faffbdb028a4aa0730",
+      "verification_passed": true,
+      "replay_passed": true,
+      "stage": "offline",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "d38c7625f115b362cd5188d4378f2ee25f832c9d4968b63c41f9cf69775264f1",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {
+        "pre_irrigation_observations": true,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": true
+      },
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.5000, ktc_raw=1.0000, coverage=0.7143, ktc_adjusted=0.7143, combined=0.6071\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "first_issue": null,
+      "blockers": [],
+      "integration_coverage": {
+        "live": "not_applicable"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "not_applicable",
+          "native_execution": "passed",
+          "jev_tool_choice": "passed",
+          "jev_argument_choice": "passed",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "jev",
+        "run_id": "20261018T131731_jev_scripted_5313bcd6",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_logical_request": 16,
+          "known_model_role": 16,
+          "unique_decision_start": 16,
+          "choice_option_limit": 16,
+          "choice_candidate_hash": 16,
+          "choice_candidate_order": 16,
+          "original_task_preserved": 16,
+          "full_visible_menu": 11,
+          "catalog_option_content": 638,
+          "decision_end_pair": 16,
+          "selected_submitted_option": 16,
+          "logical_end_pair": 16,
+          "generate_selected_tool_only": 10,
+          "one_generation_per_round": 10,
+          "generated_candidate_hash": 10,
+          "unique_tool_start": 10,
+          "tool_choice_link": 10,
+          "execute_selected_tool": 10,
+          "argument_choice_presence": 10,
+          "execute_exact_selected_arguments": 10,
+          "tool_end_pair": 10,
+          "tool_identity": 10,
+          "forward_simulation_time": 10,
+          "parameter_choice_matches_candidates": 5,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 10,
+          "no_untraced_workflow_tools": 1,
+          "tool_count_matches_metrics": 1,
+          "scripted_has_no_http": 1,
+          "scripted_not_live_success": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 16,
+          "native_tool_attempts": 10,
+          "decision_requests": 16,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/manifest.json",
+          "n_executed": 10,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 10,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": true
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 10,
+        "tool_successes": 10,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 11,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": false,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "decision_rounds": 11,
+            "logical_requests": 16,
+            "tool_attempts": 10
+          },
+          "role_http_attempts": {},
+          "role_logical_requests": {
+            "jev_tool_choice": 11,
+            "jev_argument_choice": 5
+          },
+          "elapsed_seconds": 0.05763070797547698,
+          "remaining_seconds": 599.9423690830008,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.057773540960624814,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067511.7732353
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/manifest.json",
+          "sha256": "c5fe802b003326afcb3e700a2e0e15204f949b552be16187f67f1b26d1330181"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/trace.jsonl",
+          "sha256": "d537e16587405fc21b3aa984ed9d0e9c9b474d35b21d32faffbdb028a4aa0730"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/workflow.json",
+          "sha256": "e6208e7a1d38cb39db699a0eab3265354671d84a93ba3b9589f29ae539297802"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/evaluation.json",
+          "sha256": "4fa21c244a3fa66e71c04d8fe8a7cd1cdd8dd426c4953bcc1792f135323e8c40"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/metrics.json",
+          "sha256": "6e72f497e3bdef62e526f977ea1fe80d26add2a4d63752854083ef890acab15a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/verification.json",
+          "sha256": "09111527d04a94f202b980a1d605642cafe46802ef6486fcc2e2bbe41085c202"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_jev_scripted_5313bcd6/files.sha256",
+          "sha256": "bbf94be1b13fc359cbef4142a8b7a806904034bc14d76b0ee45bcc707b710547"
+        }
+      ]
+    },
+    {
+      "slot": "offline_hybrid",
+      "architecture": "hybrid",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0",
+      "execution_status": "completed",
+      "task_success": null,
+      "scripted_task_success": true,
+      "live_integration_success": null,
+      "stop_reason": "model_finish",
+      "failure_layer": null,
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 10,
+      "wall_elapsed_seconds": 0.11597733298549429,
+      "evaluation_sha256": "40182cc955b0c23f4124b632b6c1addb0067b1d056bedc0fb6eeb088eae39a99",
+      "manifest_sha256": "e8d1fd5e9fed7be1132295e892a261736febcbbb0e4a7dee44e474425ed7e53f",
+      "trace_sha256": "5037dc287ebc25a559744ebbd6f884ae3e1a551c39e2491b40107cb836679cf1",
+      "verification_passed": true,
+      "replay_passed": true,
+      "stage": "offline",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {
+        "pre_irrigation_observations": true,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": true
+      },
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.5000, ktc_raw=1.0000, coverage=0.7143, ktc_adjusted=0.7143, combined=0.6071\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "first_issue": null,
+      "blockers": [],
+      "integration_coverage": {
+        "live": "not_applicable"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "not_applicable",
+          "native_execution": "passed",
+          "jev_tool_choice": "passed",
+          "jev_argument_choice": "passed",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "passed",
+          "hybrid_cross_update": "passed",
+          "material_state_replay": "passed"
+        },
+        "architecture": "hybrid",
+        "run_id": "20261018T131731_hybrid_scripted_40e521c0",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "update_input_is_prefix": 3,
+          "update_exact_evidence_set": 3,
+          "update_previous_packet": 3,
+          "packet_version": 3,
+          "packet_has_exact_update_input": 3,
+          "packet_preserves_model_material": 3,
+          "packet_coverage_matches_request": 3,
+          "packet_citations_supplied": 3,
+          "packet_tool_attempt_count": 3,
+          "candidate_evidence_hash": 11,
+          "material_excluded_from_candidate_evidence": 11,
+          "unique_logical_request": 16,
+          "known_model_role": 16,
+          "unique_decision_start": 16,
+          "choice_option_limit": 16,
+          "choice_candidate_hash": 16,
+          "choice_candidate_order": 16,
+          "original_task_preserved": 16,
+          "full_visible_menu": 11,
+          "catalog_option_content": 638,
+          "latest_packet_only": 16,
+          "snapshot_prefix_boundary": 16,
+          "material_state_replay_equal": 16,
+          "fresh_feedback_immediate": 11,
+          "decision_end_pair": 16,
+          "selected_submitted_option": 16,
+          "logical_end_pair": 16,
+          "generate_selected_tool_only": 10,
+          "one_generation_per_round": 10,
+          "generated_candidate_hash": 10,
+          "unique_tool_start": 10,
+          "tool_choice_link": 10,
+          "execute_selected_tool": 10,
+          "argument_choice_presence": 10,
+          "execute_exact_selected_arguments": 10,
+          "tool_end_pair": 10,
+          "tool_identity": 10,
+          "forward_simulation_time": 10,
+          "candidate_facts_from_actual_tool_prefix": 97,
+          "parameter_choice_matches_candidates": 5,
+          "frozen_two_stage_snapshot": 5,
+          "update_raw_evidence_matches_visible_prefix": 12,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 10,
+          "no_untraced_workflow_tools": 1,
+          "tool_count_matches_metrics": 1,
+          "scripted_has_no_http": 1,
+          "scripted_not_live_success": 1,
+          "fixed_update_schedule": 1,
+          "no_update_after_tool_budget": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 16,
+          "native_tool_attempts": 10,
+          "decision_requests": 16,
+          "packets": 3,
+          "state_replays": 16
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/manifest.json",
+          "n_executed": 10,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 10,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": true
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 10,
+        "tool_successes": 10,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 11,
+        "llm_updates": 3,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": false,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "updates": 3,
+            "decision_rounds": 11,
+            "logical_requests": 16,
+            "tool_attempts": 10
+          },
+          "role_http_attempts": {},
+          "role_logical_requests": {
+            "jev_tool_choice": 11,
+            "jev_argument_choice": 5
+          },
+          "elapsed_seconds": 0.11575362499570474,
+          "remaining_seconds": 599.8842462910106,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.11597733298549429,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067511.8302662
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/manifest.json",
+          "sha256": "e8d1fd5e9fed7be1132295e892a261736febcbbb0e4a7dee44e474425ed7e53f"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/trace.jsonl",
+          "sha256": "5037dc287ebc25a559744ebbd6f884ae3e1a551c39e2491b40107cb836679cf1"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/workflow.json",
+          "sha256": "c6c4be499f56d158ecf7c26c8587e5f32529d16774e7a1f1b555ed09ff230eee"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/evaluation.json",
+          "sha256": "40182cc955b0c23f4124b632b6c1addb0067b1d056bedc0fb6eeb088eae39a99"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/metrics.json",
+          "sha256": "3cb647f518b2f4c0024877af2a33e3a953a1b162284aa8bef260965689d2e530"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/verification.json",
+          "sha256": "65c133ef6bebc7a5dcb8cf46f835c0abb343f9a2f75b1ecc64e3357c7ece44a3"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline/20261018T131731_hybrid_scripted_40e521c0/files.sha256",
+          "sha256": "701dea06eb2e8347e3082b1b3dd3fbc72c4c21225dcacbbe6c2269bc6d6bbe15"
+        }
+      ]
+    },
+    {
+      "slot": "smoke_llm_native",
+      "architecture": "llm_native",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439",
+      "execution_status": "completed",
+      "task_success": false,
+      "scripted_task_success": null,
+      "live_integration_success": true,
+      "stop_reason": "agent_finished",
+      "failure_layer": "tool_selection",
+      "model_http_attempts": 5,
+      "model_request_count": 5,
+      "tool_call_count": 7,
+      "wall_elapsed_seconds": 34.41090737504419,
+      "evaluation_sha256": "8bca60c364fb3f9330bf2656f3f1e4533f1aa152433299d573650ab0e6493550",
+      "manifest_sha256": "6d1ba9b1b9445b7b5c495d264a31a79358c3471b85fa7814e7be6e7f60560e11",
+      "trace_sha256": "7981a0ce8d94579a50955aae3dc9d837a6fa7b9af612201958035065a4668988",
+      "verification_passed": true,
+      "replay_passed": true,
+      "stage": "smoke",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "356f2bcd0039fbee4edae8ce4509ca102c89fd0147bd203612be5a3626636d46",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.2500, ktc_raw=1.0000, coverage=0.2857, ktc_adjusted=0.2857, combined=0.2679\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "first_issue": {
+        "event_id": 38,
+        "step_id": "native_round_0002",
+        "decision_id": "model_0002",
+        "decision_ids": [
+          "model_0002"
+        ],
+        "tool_call_id": "chatcmpl-tool-afe56dca6e20dc43",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "blockers": [],
+      "integration_coverage": {
+        "http_response": "passed",
+        "native_execution": "passed",
+        "jev_tool_choice": "not_applicable",
+        "jev_parameter_choice": "not_applicable",
+        "llm_material_in_jev": "not_applicable",
+        "cross_update_feedback": "not_applicable",
+        "tool_feedback_in_later_request": "passed"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "passed",
+          "native_execution": "passed",
+          "jev_tool_choice": "not_applicable",
+          "jev_argument_choice": "not_applicable",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "llm_native",
+        "run_id": "20261018T131742_llm_native_live_4b089439",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_logical_request": 5,
+          "known_model_role": 5,
+          "unique_http_attempt": 5,
+          "http_logical_role_link": 5,
+          "http_request_preserved": 5,
+          "http_end_pair": 5,
+          "http_identity": 5,
+          "http_response_preserved": 5,
+          "unknown_usage_is_null": 5,
+          "logical_end_pair": 5,
+          "unique_tool_start": 7,
+          "native_tool_selected_by_model": 7,
+          "native_arguments_selected_by_model": 7,
+          "tool_end_pair": 7,
+          "tool_identity": 7,
+          "forward_simulation_time": 7,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 7,
+          "no_untraced_workflow_tools": 1,
+          "http_count_matches_metrics": 1,
+          "tool_count_matches_metrics": 1
+        },
+        "counts": {
+          "http_attempts": 5,
+          "logical_requests": 5,
+          "native_tool_attempts": 7,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/manifest.json",
+          "n_executed": 7,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 7,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [
+            {
+              "step": "step5",
+              "recorded_arguments": {
+                "hours": 2
+              },
+              "bound_arguments": {
+                "seconds": 0,
+                "minutes": 0,
+                "hours": 2,
+                "days": 0
+              },
+              "rule": "Only native signature defaults filled by the existing ToolExecutor; source evidence unchanged"
+            }
+          ],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": false
+      },
+      "metrics": {
+        "model_http_attempts": 5,
+        "logical_model_requests": 5,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 5,
+            "logical_requests": 5,
+            "latency_seconds": 33.57677254098235,
+            "input_tokens": 61532,
+            "output_tokens": 1150,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 61532,
+        "output_tokens": 1150,
+        "usage_status": "reported",
+        "tool_attempts": 7,
+        "tool_successes": 7,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 5,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 5,
+            "http_attempts": 5,
+            "tool_attempts": 7
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 5
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 5
+          },
+          "elapsed_seconds": 34.410572791995946,
+          "remaining_seconds": 565.5894257079926,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 34.41090737504419,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067545.7725182
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/manifest.json",
+          "sha256": "6d1ba9b1b9445b7b5c495d264a31a79358c3471b85fa7814e7be6e7f60560e11"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/trace.jsonl",
+          "sha256": "7981a0ce8d94579a50955aae3dc9d837a6fa7b9af612201958035065a4668988"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/workflow.json",
+          "sha256": "9b4296dadf0574a8463b3d5831b72a92c69071c09718359dacb424f3ff1fc4ec"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/evaluation.json",
+          "sha256": "8bca60c364fb3f9330bf2656f3f1e4533f1aa152433299d573650ab0e6493550"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/metrics.json",
+          "sha256": "0a6b5623fb2ab57f26817e06a4b38d8ceb7e6e824cf7b5075a1c3b25cab39780"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/verification.json",
+          "sha256": "03de9f9197b687d5085493a8cc179144559d39d20ab9c9987858273bd1e8de63"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131742_llm_native_live_4b089439/files.sha256",
+          "sha256": "d39293d1bf0a6c6979192e31a3fd63b658cebdf277bca394f0490909753f7d81"
+        }
+      ]
+    },
+    {
+      "slot": "smoke_jev",
+      "architecture": "jev",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.03990762500325218,
+      "evaluation_sha256": "5e879dc31e0220ed83765d3a52107730a2205e68ef4678e33a87d258567bddd3",
+      "manifest_sha256": "24b90b8bf047cd15db8a1124e0a868a025fc2ac3ea9cec0aa01d0474a18ad430",
+      "trace_sha256": "a1e80522de233c30673efc4be5247a19355bf97e0e27d21dd18be3d95eb310ca",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "smoke",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "d38c7625f115b362cd5188d4378f2ee25f832c9d4968b63c41f9cf69775264f1",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "jev",
+        "run_id": "20261018T131817_jev_live_8d1e0a8c",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.039728375035338104,
+          "remaining_seconds": 599.9602714579669,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.03990762500325218,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.750641
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c/manifest.json",
+          "sha256": "24b90b8bf047cd15db8a1124e0a868a025fc2ac3ea9cec0aa01d0474a18ad430"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c/trace.jsonl",
+          "sha256": "a1e80522de233c30673efc4be5247a19355bf97e0e27d21dd18be3d95eb310ca"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c/evaluation.json",
+          "sha256": "5e879dc31e0220ed83765d3a52107730a2205e68ef4678e33a87d258567bddd3"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c/metrics.json",
+          "sha256": "74c81ef75c89c981dade3afdfbf6d743df7c917b51cfaf8804670b638c60e664"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c/verification.json",
+          "sha256": "8693633b5f8a7a37600ae9a3822ee652f93ed7dbdb63b2233f3ab1d476b84b6d"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_jev_live_8d1e0a8c/files.sha256",
+          "sha256": "73263d5b83d82795666b613d46c6632ea7c6a7fd7f1795fa4d8f8a76403eb0e4"
+        }
+      ]
+    },
+    {
+      "slot": "smoke_hybrid",
+      "architecture": "hybrid",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.031696166028268635,
+      "evaluation_sha256": "5c5fcdae865915fdae12cdf39328c592f2b9e20f302fe349620581a97541248d",
+      "manifest_sha256": "cedaa2c9f12ed2f377549ad0de42d7fa17230992523d8ef3b891c51225061a26",
+      "trace_sha256": "0501f386fa1ea55b1b8b8e20750123fa1978012a63380c3969bf2df6c9fca57c",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "smoke",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "uncovered",
+          "hybrid_cross_update": "uncovered",
+          "material_state_replay": "uncovered"
+        },
+        "architecture": "hybrid",
+        "run_id": "20261018T131817_hybrid_live_19522c7a",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.031509416992776096,
+          "remaining_seconds": 599.9684902919689,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.031696166028268635,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.7502263
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a/manifest.json",
+          "sha256": "cedaa2c9f12ed2f377549ad0de42d7fa17230992523d8ef3b891c51225061a26"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a/trace.jsonl",
+          "sha256": "0501f386fa1ea55b1b8b8e20750123fa1978012a63380c3969bf2df6c9fca57c"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a/evaluation.json",
+          "sha256": "5c5fcdae865915fdae12cdf39328c592f2b9e20f302fe349620581a97541248d"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a/metrics.json",
+          "sha256": "a0662ee3e7af326e86c404ae2d99cf6c99123c72fb9e8ebf67fc9c4e49f99b22"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a/verification.json",
+          "sha256": "4ce67a602384744c36baec3332fe2f67039b4a6b66b2d1938de21813937c0705"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke/20261018T131817_hybrid_live_19522c7a/files.sha256",
+          "sha256": "bbe563fcdc41d39bb07e9080a5e18edf54330f82e7f376f26105fcb7a8aff9d8"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_1_llm_native",
+      "architecture": "llm_native",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e",
+      "execution_status": "completed",
+      "task_success": false,
+      "scripted_task_success": null,
+      "live_integration_success": true,
+      "stop_reason": "agent_finished",
+      "failure_layer": "tool_selection",
+      "model_http_attempts": 5,
+      "model_request_count": 5,
+      "tool_call_count": 8,
+      "wall_elapsed_seconds": 33.73550870799227,
+      "evaluation_sha256": "833b70fad517c3dddb051adc5b4222dbe76bccc44fef73495e8fe2c99131a28a",
+      "manifest_sha256": "0b9334718f02a5c56fe58acc0766dd109e564493363297d0a92fa44af0682086",
+      "trace_sha256": "4e9787d731cb98e1952e011e40741fb616941fd6bc251886c7bd0fbf78be6e71",
+      "verification_passed": true,
+      "replay_passed": true,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "356f2bcd0039fbee4edae8ce4509ca102c89fd0147bd203612be5a3626636d46",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.2500, ktc_raw=1.0000, coverage=0.4286, ktc_adjusted=0.4286, combined=0.3393\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "first_issue": {
+        "event_id": 43,
+        "step_id": "native_round_0002",
+        "decision_id": "model_0002",
+        "decision_ids": [
+          "model_0002"
+        ],
+        "tool_call_id": "chatcmpl-tool-977bcc75d6935380",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "blockers": [],
+      "integration_coverage": {
+        "http_response": "passed",
+        "native_execution": "passed",
+        "jev_tool_choice": "not_applicable",
+        "jev_parameter_choice": "not_applicable",
+        "llm_material_in_jev": "not_applicable",
+        "cross_update_feedback": "not_applicable",
+        "tool_feedback_in_later_request": "passed"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "passed",
+          "native_execution": "passed",
+          "jev_tool_choice": "not_applicable",
+          "jev_argument_choice": "not_applicable",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "llm_native",
+        "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_logical_request": 5,
+          "known_model_role": 5,
+          "unique_http_attempt": 5,
+          "http_logical_role_link": 5,
+          "http_request_preserved": 5,
+          "http_end_pair": 5,
+          "http_identity": 5,
+          "http_response_preserved": 5,
+          "unknown_usage_is_null": 5,
+          "logical_end_pair": 5,
+          "unique_tool_start": 8,
+          "native_tool_selected_by_model": 8,
+          "native_arguments_selected_by_model": 8,
+          "tool_end_pair": 8,
+          "tool_identity": 8,
+          "forward_simulation_time": 8,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 8,
+          "no_untraced_workflow_tools": 1,
+          "http_count_matches_metrics": 1,
+          "tool_count_matches_metrics": 1
+        },
+        "counts": {
+          "http_attempts": 5,
+          "logical_requests": 5,
+          "native_tool_attempts": 8,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/manifest.json",
+          "n_executed": 8,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 8,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [
+            {
+              "step": "step6",
+              "recorded_arguments": {
+                "minutes": 120
+              },
+              "bound_arguments": {
+                "seconds": 0,
+                "minutes": 120,
+                "hours": 0,
+                "days": 0
+              },
+              "rule": "Only native signature defaults filled by the existing ToolExecutor; source evidence unchanged"
+            }
+          ],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": false
+      },
+      "metrics": {
+        "model_http_attempts": 5,
+        "logical_model_requests": 5,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 5,
+            "logical_requests": 5,
+            "latency_seconds": 32.8534900409868,
+            "input_tokens": 74024,
+            "output_tokens": 1150,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 74024,
+        "output_tokens": 1150,
+        "usage_status": "reported",
+        "tool_attempts": 8,
+        "tool_successes": 8,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 5,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 5,
+            "http_attempts": 5,
+            "tool_attempts": 8
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 5
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 5
+          },
+          "elapsed_seconds": 33.73514529201202,
+          "remaining_seconds": 566.2648530829465,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 33.73550870799227,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067545.0901558
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/manifest.json",
+          "sha256": "0b9334718f02a5c56fe58acc0766dd109e564493363297d0a92fa44af0682086"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/trace.jsonl",
+          "sha256": "4e9787d731cb98e1952e011e40741fb616941fd6bc251886c7bd0fbf78be6e71"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/workflow.json",
+          "sha256": "ea7b193a79d98a2664c0703e65420a1b474446306e10e6759d3ffc949603be5e"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/evaluation.json",
+          "sha256": "833b70fad517c3dddb051adc5b4222dbe76bccc44fef73495e8fe2c99131a28a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/metrics.json",
+          "sha256": "b4e2a6505730abf9e08ce8c04a8668ba4c0da178fbc2fd3c9be0235765b99288"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/verification.json",
+          "sha256": "2f8b23e42b248d306914aa869843209bf7f02c9c45da4821fe65fd7285955d5f"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/files.sha256",
+          "sha256": "de0f2dfe75d910ee864d717abbe342c3db929e7c55c818324b500d3f3e5e2961"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_1_jev",
+      "architecture": "jev",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.04012950003379956,
+      "evaluation_sha256": "1ac5821cb73c11ea46f7934692b50428a715dc3cdde95322c554c63f17202ab4",
+      "manifest_sha256": "8aaaf843e91659ed38ad3ae34dcc006a9bcdc6dd9c57be0d40bd09388c7dd447",
+      "trace_sha256": "957c41997740daea2186a3e743887a65f3fe1071e4b7f6943c0b47a6311c0bcd",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "d38c7625f115b362cd5188d4378f2ee25f832c9d4968b63c41f9cf69775264f1",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "jev",
+        "run_id": "20261018T131959_jev_live_222b99c5",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.03996733296662569,
+          "remaining_seconds": 599.9600322920014,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.04012950003379956,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.750447
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5/manifest.json",
+          "sha256": "8aaaf843e91659ed38ad3ae34dcc006a9bcdc6dd9c57be0d40bd09388c7dd447"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5/trace.jsonl",
+          "sha256": "957c41997740daea2186a3e743887a65f3fe1071e4b7f6943c0b47a6311c0bcd"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5/evaluation.json",
+          "sha256": "1ac5821cb73c11ea46f7934692b50428a715dc3cdde95322c554c63f17202ab4"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5/metrics.json",
+          "sha256": "fd412a36d49a2cf101d70b50fed4e48c755575dd6fc813a3280e0c3ba464c543"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5/verification.json",
+          "sha256": "297c1667550e69d0df220f6137ea22cdd48cd0461f4d24d1f49169acfa54101d"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_222b99c5/files.sha256",
+          "sha256": "4c140a7bfc11060c666f6660a4078404e11a782c17d783460d2270fd6a6e5644"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_1_hybrid",
+      "architecture": "hybrid",
+      "seed": 1904,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.030487375042866915,
+      "evaluation_sha256": "89c1fc34b24e69fe801e64ceb8c6b6ace6143121383470293cdb3f6b5ab9e5a4",
+      "manifest_sha256": "c7089c3b9b4fa19af26c9c6946681a6b42941692ca0df7938b719304436bc2cf",
+      "trace_sha256": "c7f55f2970e542244bb425392ba93448b030b0467847467bc138751ed395f17c",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "uncovered",
+          "hybrid_cross_update": "uncovered",
+          "material_state_replay": "uncovered"
+        },
+        "architecture": "hybrid",
+        "run_id": "20261018T131959_hybrid_live_fa46a829",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.030320541991386563,
+          "remaining_seconds": 599.9696791669703,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.030487375042866915,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.7501802
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829/manifest.json",
+          "sha256": "c7089c3b9b4fa19af26c9c6946681a6b42941692ca0df7938b719304436bc2cf"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829/trace.jsonl",
+          "sha256": "c7f55f2970e542244bb425392ba93448b030b0467847467bc138751ed395f17c"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829/evaluation.json",
+          "sha256": "89c1fc34b24e69fe801e64ceb8c6b6ace6143121383470293cdb3f6b5ab9e5a4"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829/metrics.json",
+          "sha256": "430773fb3a4c9c7186b09debc8e9b4c91489697de9075e02b16f103df9e8b4e6"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829/verification.json",
+          "sha256": "39b93be76dfbe2b481404c2b3474ac4ef661b33b6ddb1d12e9ed9b5e1032cf04"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_fa46a829/files.sha256",
+          "sha256": "97c2fc46be5c94302cc8e477e0af041a8c3f55795172fc8a5b0ac81683d10b18"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_2_jev",
+      "architecture": "jev",
+      "seed": 1905,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.03178091597510502,
+      "evaluation_sha256": "9b82c3dec3e56e1423d7ae21ed4de21ca233b537fdeb05948dcca3aaed754a01",
+      "manifest_sha256": "e1c93d2a0ee1a7e5ec68e585259059ce0d32372e33a47048df4309f3ca463ea9",
+      "trace_sha256": "df8baf6b120d51d02fa862aa7aaa19d241af90db3927c14d99a577e2b4d0fc97",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "748ce2ad70766baafb3ee27580e6b9439fa601fdf7b0d152d1a0e0e66a5c3756",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "jev",
+        "run_id": "20261018T131959_jev_live_baf397c0",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.031620249967090786,
+          "remaining_seconds": 599.968379500031,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.03178091597510502,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.7503273
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0/manifest.json",
+          "sha256": "e1c93d2a0ee1a7e5ec68e585259059ce0d32372e33a47048df4309f3ca463ea9"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0/trace.jsonl",
+          "sha256": "df8baf6b120d51d02fa862aa7aaa19d241af90db3927c14d99a577e2b4d0fc97"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0/evaluation.json",
+          "sha256": "9b82c3dec3e56e1423d7ae21ed4de21ca233b537fdeb05948dcca3aaed754a01"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0/metrics.json",
+          "sha256": "010bdbf181e56e66cb434246abf19d1c6d67cc5403bd5fa5ac2c0374b522f58c"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0/verification.json",
+          "sha256": "149c36d93fd278720e415a2be3afdc09b8f5493c1a0fa26fd4e5fb4f6454c59d"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_jev_live_baf397c0/files.sha256",
+          "sha256": "fa3120e9507611d06dececc92fc8321e34be16c7f1efffeacae2a4cd5343f148"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_2_hybrid",
+      "architecture": "hybrid",
+      "seed": 1905,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.0331742080161348,
+      "evaluation_sha256": "e97693bb199543c9c330ddb307443d353c28abf1e34c1bcb5a95256e02c45085",
+      "manifest_sha256": "1e4cb1b64186c45252ce20d2f12915989b8eb4defa25e91fbc4d3f9223641ff7",
+      "trace_sha256": "d054c90f57a8334f1ae2835c3a8614b3295c872cc8485ffe781d6bb82deaf389",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "bbb1f077c6c8de3d3b3bd5ea04fe1612409e9e646d777af15141733d30915f61",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "uncovered",
+          "hybrid_cross_update": "uncovered",
+          "material_state_replay": "uncovered"
+        },
+        "architecture": "hybrid",
+        "run_id": "20261018T131959_hybrid_live_81629f36",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.03296958300052211,
+          "remaining_seconds": 599.9670302089653,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.0331742080161348,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.751575
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36/manifest.json",
+          "sha256": "1e4cb1b64186c45252ce20d2f12915989b8eb4defa25e91fbc4d3f9223641ff7"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36/trace.jsonl",
+          "sha256": "d054c90f57a8334f1ae2835c3a8614b3295c872cc8485ffe781d6bb82deaf389"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36/evaluation.json",
+          "sha256": "e97693bb199543c9c330ddb307443d353c28abf1e34c1bcb5a95256e02c45085"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36/metrics.json",
+          "sha256": "09f2da78bfb00fccd2f1a20271591ade59afe55fd480cdeec9dcbb716878fd1e"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36/verification.json",
+          "sha256": "2a3e4b256ab2dfd0d1220b8cbb79fba4aa2e2770ebc632dbe4a2f1fad6b6998e"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_hybrid_live_81629f36/files.sha256",
+          "sha256": "266157b1850b99ece3c3c83644860ac5d252bab8d9d2932f396b521485c2ab23"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_2_llm_native",
+      "architecture": "llm_native",
+      "seed": 1905,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf",
+      "execution_status": "completed",
+      "task_success": false,
+      "scripted_task_success": null,
+      "live_integration_success": true,
+      "stop_reason": "agent_finished",
+      "failure_layer": "tool_selection",
+      "model_http_attempts": 5,
+      "model_request_count": 5,
+      "tool_call_count": 8,
+      "wall_elapsed_seconds": 26.00530483300099,
+      "evaluation_sha256": "e31c6b964a656beaf6d53c7402fd12c1391164b023fec32e54d4428f3df71cc8",
+      "manifest_sha256": "99544657f134dea66f20efbe7fac19ee4b8ee21f5a00d1983e4cc4e4d030b0d0",
+      "trace_sha256": "9cd7688d21428a65420f73611d1b120bb62d8c8d1a487c1aa23505c65a6398eb",
+      "verification_passed": true,
+      "replay_passed": true,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "af6e07f9cde23a600213bbe74fc81f3e6b07d706164c87d1f5e2644d486d2e3d",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.2500, ktc_raw=1.0000, coverage=0.4286, ktc_adjusted=0.4286, combined=0.3393\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "first_issue": {
+        "event_id": 43,
+        "step_id": "native_round_0002",
+        "decision_id": "model_0002",
+        "decision_ids": [
+          "model_0002"
+        ],
+        "tool_call_id": "chatcmpl-tool-9d2ffe3c2a57b697",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "blockers": [],
+      "integration_coverage": {
+        "http_response": "passed",
+        "native_execution": "passed",
+        "jev_tool_choice": "not_applicable",
+        "jev_parameter_choice": "not_applicable",
+        "llm_material_in_jev": "not_applicable",
+        "cross_update_feedback": "not_applicable",
+        "tool_feedback_in_later_request": "passed"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "passed",
+          "native_execution": "passed",
+          "jev_tool_choice": "not_applicable",
+          "jev_argument_choice": "not_applicable",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "llm_native",
+        "run_id": "20261018T131959_llm_native_live_a52947cf",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_logical_request": 5,
+          "known_model_role": 5,
+          "unique_http_attempt": 5,
+          "http_logical_role_link": 5,
+          "http_request_preserved": 5,
+          "http_end_pair": 5,
+          "http_identity": 5,
+          "http_response_preserved": 5,
+          "unknown_usage_is_null": 5,
+          "logical_end_pair": 5,
+          "unique_tool_start": 8,
+          "native_tool_selected_by_model": 8,
+          "native_arguments_selected_by_model": 8,
+          "tool_end_pair": 8,
+          "tool_identity": 8,
+          "forward_simulation_time": 8,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 8,
+          "no_untraced_workflow_tools": 1,
+          "http_count_matches_metrics": 1,
+          "tool_count_matches_metrics": 1
+        },
+        "counts": {
+          "http_attempts": 5,
+          "logical_requests": 5,
+          "native_tool_attempts": 8,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/manifest.json",
+          "n_executed": 8,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 8,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [
+            {
+              "step": "step6",
+              "recorded_arguments": {
+                "minutes": 120
+              },
+              "bound_arguments": {
+                "seconds": 0,
+                "minutes": 120,
+                "hours": 0,
+                "days": 0
+              },
+              "rule": "Only native signature defaults filled by the existing ToolExecutor; source evidence unchanged"
+            }
+          ],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": false
+      },
+      "metrics": {
+        "model_http_attempts": 5,
+        "logical_model_requests": 5,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 5,
+            "logical_requests": 5,
+            "latency_seconds": 25.863134291023016,
+            "input_tokens": 73902,
+            "output_tokens": 1113,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 73902,
+        "output_tokens": 1113,
+        "usage_status": "reported",
+        "tool_attempts": 8,
+        "tool_successes": 8,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 5,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 5,
+            "http_attempts": 5,
+            "tool_attempts": 8
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 5
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 5
+          },
+          "elapsed_seconds": 26.005120082991198,
+          "remaining_seconds": 573.9948791670031,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 26.00530483300099,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067537.7216363
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/manifest.json",
+          "sha256": "99544657f134dea66f20efbe7fac19ee4b8ee21f5a00d1983e4cc4e4d030b0d0"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/trace.jsonl",
+          "sha256": "9cd7688d21428a65420f73611d1b120bb62d8c8d1a487c1aa23505c65a6398eb"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/workflow.json",
+          "sha256": "6df279166286e4033c0b8da398d15ea905f15574bea443a4fad0cfaeb6038b5f"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/evaluation.json",
+          "sha256": "e31c6b964a656beaf6d53c7402fd12c1391164b023fec32e54d4428f3df71cc8"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/metrics.json",
+          "sha256": "76f251f643d6e9cde703591e144866568b036067e717e11cfde66c8d50260cff"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/verification.json",
+          "sha256": "929bd1e4211ade09bbb42290129f4332005efc91a183a936ce15595fc2800618"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/files.sha256",
+          "sha256": "3dea45b409f1c6e7281644793a75272e3a15b067f8b341cf9de72c17f05f292d"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_3_hybrid",
+      "architecture": "hybrid",
+      "seed": 1906,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.045692792045883834,
+      "evaluation_sha256": "050b0482db4cb6fd36b70fc02e891f9697405fe93e1c8eb08d3aae56f1669f12",
+      "manifest_sha256": "5219d26a3107ae2406d82024a07fc9661876b150b8058d253e00f7f2f56c9712",
+      "trace_sha256": "8db63375fc2677386f0067e2b7ae7d81969788261d5117a232749faa3e2c57d6",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "2592c4d9fc308a5b734ca38cf92f26ee81953891c9e7222aea0daacd959ee59f",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "uncovered",
+          "hybrid_cross_update": "uncovered",
+          "material_state_replay": "uncovered"
+        },
+        "architecture": "hybrid",
+        "run_id": "20261018T132025_hybrid_live_6cf879b0",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.0455106669687666,
+          "remaining_seconds": 599.9544890410034,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.045692792045883834,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.7509882
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0/manifest.json",
+          "sha256": "5219d26a3107ae2406d82024a07fc9661876b150b8058d253e00f7f2f56c9712"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0/trace.jsonl",
+          "sha256": "8db63375fc2677386f0067e2b7ae7d81969788261d5117a232749faa3e2c57d6"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0/evaluation.json",
+          "sha256": "050b0482db4cb6fd36b70fc02e891f9697405fe93e1c8eb08d3aae56f1669f12"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0/metrics.json",
+          "sha256": "68a0ac9b545b07e3dfe005313d22cb2142850b79c7633254ed163f518436552e"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0/verification.json",
+          "sha256": "0742585e138cf50b3bfcfa64c6f287065d27e44535eea0edb12550b0c45ad14f"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_hybrid_live_6cf879b0/files.sha256",
+          "sha256": "44a51f35974c2f7f895156d8fd2562ae189d862f9faa1f6f814fd0f9529274c5"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_3_llm_native",
+      "architecture": "llm_native",
+      "seed": 1906,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7",
+      "execution_status": "completed",
+      "task_success": false,
+      "scripted_task_success": null,
+      "live_integration_success": true,
+      "stop_reason": "agent_finished",
+      "failure_layer": "tool_selection",
+      "model_http_attempts": 3,
+      "model_request_count": 3,
+      "tool_call_count": 5,
+      "wall_elapsed_seconds": 13.134261708008125,
+      "evaluation_sha256": "5e16bee5a3ca270f4ecb820f509d545e7888498e2c968f829ab57b130a61ac3a",
+      "manifest_sha256": "0f9b9f00302e10c4bd8d19e378a208dcc602df0a5f4880476470339dfbfa71ad",
+      "trace_sha256": "68cfcaa48cbd6fa92ed8ed3dbb1eb0d34b82a00a8ad6012ef35ead2e05107274",
+      "verification_passed": true,
+      "replay_passed": true,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "25ddb05a62a347dafe5e427fb5217e6f9c499e18d0f2a78f1fa5745f0c687dc5",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.3750, ktc_raw=1.0000, coverage=0.4286, ktc_adjusted=0.4286, combined=0.4018\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "first_issue": {
+        "event_id": 43,
+        "step_id": "native_round_0002",
+        "decision_id": "model_0002",
+        "decision_ids": [
+          "model_0002"
+        ],
+        "tool_call_id": "chatcmpl-tool-88369d48a5592a60",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "blockers": [],
+      "integration_coverage": {
+        "http_response": "passed",
+        "native_execution": "passed",
+        "jev_tool_choice": "not_applicable",
+        "jev_parameter_choice": "not_applicable",
+        "llm_material_in_jev": "not_applicable",
+        "cross_update_feedback": "not_applicable",
+        "tool_feedback_in_later_request": "passed"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "passed",
+          "native_execution": "passed",
+          "jev_tool_choice": "not_applicable",
+          "jev_argument_choice": "not_applicable",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "llm_native",
+        "run_id": "20261018T132025_llm_native_live_82c497e7",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_logical_request": 3,
+          "known_model_role": 3,
+          "unique_http_attempt": 3,
+          "http_logical_role_link": 3,
+          "http_request_preserved": 3,
+          "http_end_pair": 3,
+          "http_identity": 3,
+          "http_response_preserved": 3,
+          "unknown_usage_is_null": 3,
+          "logical_end_pair": 3,
+          "unique_tool_start": 5,
+          "native_tool_selected_by_model": 5,
+          "native_arguments_selected_by_model": 5,
+          "tool_end_pair": 5,
+          "tool_identity": 5,
+          "forward_simulation_time": 5,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 5,
+          "no_untraced_workflow_tools": 1,
+          "http_count_matches_metrics": 1,
+          "tool_count_matches_metrics": 1
+        },
+        "counts": {
+          "http_attempts": 3,
+          "logical_requests": 3,
+          "native_tool_attempts": 5,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/manifest.json",
+          "n_executed": 5,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 5,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": false
+      },
+      "metrics": {
+        "model_http_attempts": 3,
+        "logical_model_requests": 3,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 3,
+            "logical_requests": 3,
+            "latency_seconds": 13.040463000012096,
+            "input_tokens": 40585,
+            "output_tokens": 637,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 40585,
+        "output_tokens": 637,
+        "usage_status": "reported",
+        "tool_attempts": 5,
+        "tool_successes": 5,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 3,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 3,
+            "http_attempts": 3,
+            "tool_attempts": 5
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 3
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 3
+          },
+          "elapsed_seconds": 13.134101374947932,
+          "remaining_seconds": 586.8658978750464,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 13.134261708008125,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786060324.852827
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/manifest.json",
+          "sha256": "0f9b9f00302e10c4bd8d19e378a208dcc602df0a5f4880476470339dfbfa71ad"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/trace.jsonl",
+          "sha256": "68cfcaa48cbd6fa92ed8ed3dbb1eb0d34b82a00a8ad6012ef35ead2e05107274"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/workflow.json",
+          "sha256": "efd4d8a1f83d3d452f4e6b368a70420cdf465e9de14af4a5c9242c3ad21bb6a2"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/evaluation.json",
+          "sha256": "5e16bee5a3ca270f4ecb820f509d545e7888498e2c968f829ab57b130a61ac3a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/metrics.json",
+          "sha256": "01902a53ed4eddcec09911ceb105b33a52d1755ec5556d383491253c1793385e"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/verification.json",
+          "sha256": "dbf8bd9a58431047b3f180553ae1268116cf6ca1d0f20a3c346c3c553552a938"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/files.sha256",
+          "sha256": "664ea10be3cdb200b68ee210d06fe3e4bff07e9e0bcb99f56060576f5fa42c72"
+        }
+      ]
+    },
+    {
+      "slot": "formal_block_3_jev",
+      "architecture": "jev",
+      "seed": 1906,
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591",
+      "execution_status": "blocked",
+      "task_success": null,
+      "scripted_task_success": null,
+      "live_integration_success": null,
+      "stop_reason": "preflight_blocked",
+      "failure_layer": "external_access",
+      "model_http_attempts": 0,
+      "model_request_count": 0,
+      "tool_call_count": 0,
+      "wall_elapsed_seconds": 0.044684291002340615,
+      "evaluation_sha256": "2a9fc62fe4e52cf4bfac1d628f384d24e26c42f0f0bfadfb65a49ab5289ec32f",
+      "manifest_sha256": "f543757efd5953d24b68c276c660b751fc672f500371de9a68934ed5a9def59b",
+      "trace_sha256": "83c2632ba95e9de2ae5f3089f15ab302735c1c54da10e370f17f1fdd79538ed7",
+      "verification_passed": true,
+      "replay_passed": null,
+      "stage": "formal",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "source_clean": true,
+      "config_hash": "dfd6dfd729b0e1e4ef494741ae34855dbaf5e75631475bc8f1bc77ca506a9359",
+      "llm_config": {
+        "provider": "vllm",
+        "model": "Qwen3.6-35B-A3B-FP8",
+        "temperature": 0.1,
+        "max_output_tokens": 2048,
+        "parallel_tool_calls": true,
+        "authentication_mode": "none",
+        "base_url": "http://100.115.106.71:8000/v1",
+        "enable_thinking": false,
+        "timeout": 30
+      },
+      "task_assertions": {},
+      "native_validation": null,
+      "first_issue": null,
+      "blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "integration_coverage": {},
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "jev",
+        "run_id": "20261018T132039_jev_live_912d5591",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 0,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {},
+          "role_http_attempts": {},
+          "role_logical_requests": {},
+          "elapsed_seconds": 0.04451241600327194,
+          "remaining_seconds": 599.955487209023,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.044684291002340615,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057131.750695
+      },
+      "artifacts": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591/manifest.json",
+          "sha256": "f543757efd5953d24b68c276c660b751fc672f500371de9a68934ed5a9def59b"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591/trace.jsonl",
+          "sha256": "83c2632ba95e9de2ae5f3089f15ab302735c1c54da10e370f17f1fdd79538ed7"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591/evaluation.json",
+          "sha256": "2a9fc62fe4e52cf4bfac1d628f384d24e26c42f0f0bfadfb65a49ab5289ec32f"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591/metrics.json",
+          "sha256": "381816bba85df855025a7a314e55bcec7d84f7b574dec8003556fa0fae713fb6"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591/verification.json",
+          "sha256": "80ccea5660dfb24ae6c9def8ba3016fa8dceb2c0c313f7062a996c624daa8964"
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132039_jev_live_912d5591/files.sha256",
+          "sha256": "d45ff6d5b5b5b33be548fb18de2ce1b55624f7f59a6267dd35fb5f1ca675bdec"
+        }
+      ]
+    }
+  ],
+  "formal_groups": {
+    "llm_native": {
+      "planned": 3,
+      "executed": 3,
+      "blocked": 0,
+      "task_successes": 0,
+      "integration_successes": 3,
+      "wall_seconds": {
+        "median": 26.00530483300099,
+        "min": 13.134261708008125,
+        "max": 33.73550870799227
+      },
+      "total_http_attempts": 13,
+      "total_native_attempts": 21,
+      "cost_status": "unavailable"
+    },
+    "jev": {
+      "planned": 3,
+      "executed": 0,
+      "blocked": 3,
+      "task_successes": 0,
+      "integration_successes": 0,
+      "wall_seconds": {
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "total_http_attempts": 0,
+      "total_native_attempts": 0,
+      "cost_status": "unavailable"
+    },
+    "hybrid": {
+      "planned": 3,
+      "executed": 0,
+      "blocked": 3,
+      "task_successes": 0,
+      "integration_successes": 0,
+      "wall_seconds": {
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "total_http_attempts": 0,
+      "total_native_attempts": 0,
+      "cost_status": "unavailable"
+    }
+  },
+  "consumption": {
+    "qwen_continuation_live_episodes": 4,
+    "qwen_model_http_attempts": 18,
+    "qwen_native_tool_attempts": 28,
+    "qwen_input_tokens_reported": 250043,
+    "qwen_output_tokens_reported": 4050,
+    "metadata_get_requests": 1,
+    "metadata_generation_requests": 0,
+    "whole_task_live_episodes": 5,
+    "whole_task_model_http_attempts": 19,
+    "remaining_episode_capacity": 7,
+    "remaining_model_http_capacity": 1421,
+    "cost": {
+      "amount": null,
+      "status": "unavailable",
+      "reason": "No verified local serving cost or billed price; reported tokens are not a monetary cost."
+    },
+    "ledger_before": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/live_budget_before_qwen.json",
+      "sha256": "b8067f5cf748387bc19e51196c0d537322630bb120c08d2b4d49c413677478bf"
+    },
+    "ledger_after": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/live_budget_after_qwen.json",
+      "sha256": "0b4bcb82c68001144d68b1f59c1aefda7c5b7ebf1b044886bc38bcb2a2081b1d"
+    },
+    "active_ledger_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+    "note": "The previous delivery hashed the then-current active ledger. Its exact bytes are archived in ledger_before; the same active ledger continues, never resets. Metadata GET is separately counted and generated no tokens."
+  },
+  "limitations": [
+    "Formal comparison has only native3/3; Jev/hybrid6slotsblocked with null task/integration results.",
+    "No real hybrid updater/packet/Jev chain in this continuation.",
+    "Native failure is preserved, not corrected by a controller or evaluator change.",
+    "Qwen default thinking disabled explicitly for native and updater; no configuration search was run.",
+    "Local token counts are reported by provider; monetary cost unknown.",
+    "Trace and effect replay verify recording, not model task correctness."
+  ],
+  "evidence_indices": [
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/offline_index.json",
+      "sha256": "626bcca42815299fe7605b6291bc889b875e96c5880927146cda71ab04289907"
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/smoke_index.json",
+      "sha256": "f1477cf2b867d630b789486b29f8a81cfb99859c2cec2a079c57652beb68673d"
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal_index.json",
+      "sha256": "4b5b942ef09ef352052c5e208d5c4ad48ad6469d756dee264453a5c512187c4e"
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/comparison_report.json",
+      "sha256": "fe762281d6e6f648beb3b348986bb655eb96e53bdcf8534998c70f7c95d4126d"
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/smoke_analysis.json",
+      "sha256": "207303acb411b5e4ae9fc59cebce148740a6b116c827bdfd4205f10e41f2363a"
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/formal_analysis.json",
+      "sha256": "6a1d7bfda1ad686cf5061194a39b911d3980d427805cd22f59e83bfcbb7b5128"
+    }
+  ],
+  "interpretation": "Native real integration passed, but all three formal tasks failed. There is no evidence to compare whole-system hybrid speed, cost or quality while TypeSafe access is blocked.",
+  "delivery_verification": {
+    "secret_scan": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/secret_scan.json",
+      "sha256": "01ef59cc124d324400e727d798efa0e8a1551bacf0b63f2aa07cefda65b5da5b"
+    },
+    "integrity": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/local_qwen_preflight/delivery_integrity.json",
+      "sha256": "ea51f70a0e0d85c87cd69113a51aa509a5d04c5f37ef04f6834dba5afa9509ef"
+    }
+  },
+  "aggregate_artifact_hashes": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/files.sha256",
+    "sha256": "3d820c71462a9a8ef196e6bc9e61f0d40f66e65d95fbdb9a5505a214247bd4f5"
+  }
+}

@@ -1,5 +1,7 @@
 # FAIRY LLM、Jev 与同步混合 Agent
 
+用户随后指定本地 Qwen 服务，已另建配置和不可移动标签完成原生 LLM 的1次smoke及3次正式运行。最新结果见 [本地 Qwen 续跑报告](jev_hybrid_qwen.md)；下文保留最初 DeepSeek 配置阶段的历史交付事实。
+
 本阶段只比较 `scenario_l1_three_cultivar_hn58_action_ready_irrigation`，实现名为 `hybrid_sync_v1`。LLM 周期性整理任务理解、证据与条件性计划，Jev 从完整工具菜单和既有参数候选中作出实际选择。K=4 是本次固定工程配置，尚无证据说明它最优。
 
 本文是 2026-10-18 的实现与复现说明。三个架构的离线闭环、证据校验和动作回放已经通过；真实三组比较受外部条件阻塞。H6 smoke 中纯 Jev 的首次真实请求返回 HTTP 451：`Typesafe is not available in your region.`，没有产生模型选择或工具执行；另外两组因缺少 `DEEPSEEK_API_KEY` 未发出请求。正式三组共九个样本尚未实际执行，当前为 0/9。不能把这次服务访问失败解释为 Jev 任务策略失败，也不能从离线 scripted 成功推断真实混合 Agent 的收益。
