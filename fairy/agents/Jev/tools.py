@@ -85,8 +85,9 @@ def result_is_error(result) -> bool:
 
 
 class ToolExecutor:
-    def __init__(self, catalog, time_manager, workflow, trace):
+    def __init__(self, catalog, time_manager, workflow, trace, *, before_execute=None, after_execute=None):
         self.catalog, self.time_manager, self.workflow, self.trace = catalog, time_manager, workflow, trace
+        self.before_execute, self.after_execute = before_execute, after_execute
         self.call_count = 0
         self.attempt_count = 0
 
@@ -107,6 +108,8 @@ class ToolExecutor:
             result = {"error": error}
         else:
             try:
+                if self.before_execute:
+                    self.before_execute()
                 executed = True
                 self.call_count += 1
                 result = self.catalog.tools_map[tool_name](**bound)
@@ -115,6 +118,26 @@ class ToolExecutor:
             except Exception as exc:
                 error_stage, error = "tool_call", f"{type(exc).__name__}: {exc}"
                 result = {"error": error}
+            except BaseException as exc:
+                # A strict outer deadline/budget must bypass ordinary tool error
+                # handling, but still leave the interrupted invocation auditable.
+                self.trace.emit("tool_interrupted", **context, executed=executed,
+                    sim_time_before=before, sim_time_after=self.time_manager.time(),
+                    error=f"{type(exc).__name__}: {exc}",
+                    side_effects="unknown" if executed else "not_started")
+                self.trace.emit("tool_end", **context, executed=executed,
+                    result=None, status="error", interrupted=True,
+                    write_operation=bool(self.catalog.by_name[tool_name]["write_operation"]),
+                    error=f"{type(exc).__name__}: {exc}",
+                    error_stage="tool_call" if executed else "budget_before_execution",
+                    sim_time_before=before, sim_time_after=self.time_manager.time(),
+                    wall_elapsed_seconds=time.perf_counter()-wall_start,
+                    side_effects="unknown" if executed else "not_started",
+                    workflow_step_name=None)
+                raise
+            finally:
+                if executed and self.after_execute:
+                    self.after_execute()
         after = self.time_manager.time()
         row = {**context, "arguments": bound, "result": result, "status": "error" if error else "ok",
                "write_operation": bool(self.catalog.by_name.get(tool_name, {}).get("write_operation")),

@@ -3,8 +3,10 @@ from __future__ import annotations
 
 import time
 from collections import Counter
+from contextlib import nullcontext
 
 from fairy.scenarios.workflow import Workflow, WorkflowStep
+from fairy.experiments.budget import BudgetStop
 
 from .client import DecisionError
 from .state import VisibleState
@@ -16,9 +18,10 @@ DEFAULT_BUDGETS = {"max_steps": 40, "max_tool_calls": 40, "max_decision_calls": 
 
 
 class JevAgent:
-    def __init__(self, catalog, backend, resolver, trace, config=None):
+    def __init__(self, catalog, backend, resolver, trace, config=None, *, runtime=None):
         self.catalog, self.backend, self.resolver, self.trace = catalog, backend, resolver, trace
         self.config = config or {}
+        self.runtime = runtime
         self.budgets = {**DEFAULT_BUDGETS, **self.config.get("budgets", {})}
         if any(float(value) <= 0 for value in self.budgets.values()):
             raise ValueError("run budgets must be positive")
@@ -41,7 +44,26 @@ class JevAgent:
 
     def set_time_manager(self, shared_clock):
         self.time_manager = shared_clock
-        self.executor = ToolExecutor(self.catalog, shared_clock, self.workflow, self.trace)
+        self.executor = ToolExecutor(self.catalog, shared_clock, self.workflow, self.trace,
+            before_execute=self._reserve_native_tool if self.runtime else None,
+            after_execute=self._finish_native_tool if self.runtime else None)
+
+    def _reserve_native_tool(self):
+        self.runtime.reserve_tool()
+        self.runtime.active_boundary = "tool"
+
+    def _finish_native_tool(self):
+        self.runtime.active_boundary = None
+
+    def _before_round(self):
+        """Optional architecture hook, after polling and before the frozen state."""
+
+    def _decision_state(self, visible):
+        """Pure Jev preserves its existing projection; candidates use visible."""
+        return visible
+
+    def _decision_metadata(self, state):
+        return {}
 
     def add_system_context(self, content):
         if content not in self.state.system_context:
@@ -59,6 +81,8 @@ class JevAgent:
         return self.trace.emit(event, **fields)
 
     def _limit(self, *, decision=False, tool=False):
+        if self.runtime:
+            self.runtime.check()
         elapsed = time.perf_counter() - self._started
         reason = None
         if elapsed >= self.budgets["wall_timeout_seconds"]:
@@ -79,8 +103,17 @@ class JevAgent:
             return None, None
         self.decision_count += 1
         decision_id = f"decision_{self.decision_count:04d}"
+        role = "jev_tool_choice" if stage == "tool" else "jev_argument_choice"
+        logical = self.runtime.logical(role) if self.runtime else nullcontext(None)
+        with logical as request_id:
+            return self._invoke_decision(stage, state, instructions, options, decision_id, request_id, role)
+
+    def _invoke_decision(self, stage, state, instructions, options, decision_id, request_id, role):
         context = {"step_id": self.current_step_id, "decision_id": decision_id,
-                   "decision_stage": stage, "attempt_id": f"{decision_id}_attempt_1"}
+                   "decision_stage": stage, "attempt_id": None if self.runtime else f"{decision_id}_attempt_1"}
+        context.update(self._decision_metadata(state))
+        if self.runtime:
+            context.update(role=role, request_id=request_id)
         started = time.perf_counter()
         self.trace.emit("decision_start", **context, state=state, instructions=instructions,
             criteria=options, candidate_order=list(options), candidate_hash=digest(options),
@@ -92,6 +125,11 @@ class JevAgent:
             # Enforce the same boundary even for injected backends.
             if decision.selected_option not in options:
                 raise DecisionError("invalid_return_option", decision.record)
+        except BudgetStop as exc:
+            self.trace.emit("decision_end", **context, status="stopped", reason=exc.reason,
+                error=f"{type(exc).__name__}: {exc}", side_effects=exc.side_effects,
+                wall_elapsed_seconds=time.perf_counter()-started, sim_time=self.time_manager.time())
+            raise
         except Exception as exc:
             self.trace.emit("decision_end", **context, status="error", error=f"{type(exc).__name__}: {exc}",
                 response=getattr(exc, "record", {}), wall_elapsed_seconds=time.perf_counter()-started,
@@ -135,11 +173,19 @@ class JevAgent:
             for step in range(1, int(self.budgets["max_steps"])+1):
                 if self._limit(tool=True):
                     break
-                self.step_count = step
+                if self.runtime and self.runtime.counts["decision_rounds"] >= self.runtime.limits["max_decision_rounds"]:
+                    self.runtime.stop("max_decision_rounds")
                 self.current_step_id = f"step_{step:04d}"
                 self.poll_environment()
+                self._before_round()
+                if self.stop_reason:
+                    break
+                if self.runtime:
+                    self.runtime.reserve_round()
+                self.step_count = step
                 visible = self.state.snapshot(self.time_manager.time())
-                selected, tool_decision = self._decide("tool", visible,
+                decision_state = self._decision_state(visible)
+                selected, tool_decision = self._decide("tool", decision_state,
                     "Based on the task, visible observations, and results of previous actions, which single tool should be called next? "
                     "Every available tool is listed. Observe necessary facts before acting; use FINISH to stop. "
                     "Tool execution errors and missing argument context are feedback, not evidence of task completion.", self.catalog.options)
@@ -177,7 +223,7 @@ class JevAgent:
                         break
                     continue
                 if entry["parameters"]:
-                    parameter_choice, argument_decision = self._decide("parameters", visible,
+                    parameter_choice, argument_decision = self._decide("parameters", decision_state,
                         f"For the already selected native tool {selected}, choose one complete argument dictionary "
                         "that best serves the visible task and observations. Each candidate is one invocation; "
                         "source_refs describe deterministic candidate construction, not model reasoning.", candidates)
@@ -196,6 +242,11 @@ class JevAgent:
                 self.poll_environment()
             if self.stop_reason is None:
                 self.stop_reason = "max_steps"
+        except BudgetStop as exc:
+            self.stop_reason = exc.reason
+            self.trace.emit("budget_stop", step_id=self.current_step_id, reason=exc.reason,
+                side_effects=exc.side_effects,
+                budget_consumption=self.runtime.snapshot() if self.runtime else None)
         except Exception as exc:
             self.stop_reason, self.failure_layer = "run_error", "controller"
             self.trace.emit("run_error", step_id=self.current_step_id, error=f"{type(exc).__name__}: {exc}")
