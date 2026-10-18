@@ -1,0 +1,87 @@
+{
+  "snapshot_at": "2026-10-19T00:57:07.142290+08:00",
+  "ledger_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+  "ledger_sha256": "540dcbcb3648c61d6ced567b44e794cbabbc48c91cb582ad4efc73abc4b1cbf4",
+  "ledger": {
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "episodes": [
+      {
+        "run_id": "20261018T094403_jev_live_3ec48d66",
+        "architecture": "jev",
+        "stage": "smoke",
+        "slot": "smoke_jev",
+        "http_attempts": 1,
+        "status": "integration_error"
+      },
+      {
+        "run_id": "20261018T131742_llm_native_live_4b089439",
+        "architecture": "llm_native",
+        "stage": "smoke",
+        "slot": "smoke_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_1_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131959_llm_native_live_a52947cf",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_2_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T132025_llm_native_live_82c497e7",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_3_llm_native",
+        "http_attempts": 3,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T140025_hybrid_live_9fd09d81",
+        "architecture": "hybrid",
+        "stage": "smoke",
+        "slot": "smoke_hybrid",
+        "http_attempts": 11,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T165324_llm_native_live_3b5f3748",
+        "architecture": "llm_native",
+        "stage": "tool_description_v2",
+        "slot": "hn58-tool-description-v2-20261019_llm_native_seed1904",
+        "http_attempts": 3,
+        "status": "completed"
+      }
+    ],
+    "http_attempts": 33,
+    "max_episodes": 12,
+    "max_http_attempts": 1440
+  },
+  "before": {
+    "episodes": 6,
+    "http_attempts": 30
+  },
+  "after": {
+    "episodes": 7,
+    "http_attempts": 33
+  },
+  "this_batch_consumption": {
+    "live_episodes": 1,
+    "http_attempts": 3
+  },
+  "remaining": {
+    "live_episodes": 5,
+    "http_attempts": 1407
+  },
+  "read_only_snapshot": true,
+  "blocked_slots_consumed": false
+}

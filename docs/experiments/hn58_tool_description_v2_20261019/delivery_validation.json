@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-19T01:00:45.922273+08:00",
+  "passed": true,
+  "protected_original_hash_count": 927,
+  "source_and_copy_hash_checks": 80,
+  "trace_reference_checks": 34,
+  "window_events_equal_originals": true,
+  "report_file_links_exist": true,
+  "live_budget_and_counts_consistent": true,
+  "runtime_source_equal_frozen": true,
+  "secret_scan_passed": true,
+  "model_calls_during_validation": 0,
+  "environment_calls_during_validation": 0,
+  "scope": "Artifact checks only; no new tests, replay, scenario initialization, SDK/client or network calls."
+}

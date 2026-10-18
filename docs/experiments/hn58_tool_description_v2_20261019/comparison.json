@@ -1,0 +1,4451 @@
+{
+  "experiment_id": "hn58-tool-description-v2-20261019",
+  "assertion_order": [
+    "pre_irrigation_observations",
+    "new_irrigation_exact_target_and_dose",
+    "quota_consumption",
+    "processed_waited_rechecked_response",
+    "factual_final_report"
+  ],
+  "new_runs": [
+    {
+      "architecture": "llm_native",
+      "delivery_status": "failed",
+      "execution_status": "completed",
+      "run_id": "20261018T165324_llm_native_live_3b5f3748",
+      "run_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748",
+      "code_commit": "bbe762c98a97e5f22cceb5f7b24fc3a67656fdb6",
+      "config_hash": "356f2bcd0039fbee4edae8ce4509ca102c89fd0147bd203612be5a3626636d46",
+      "live_integration_success": true,
+      "task_success": false,
+      "task_assertions": {
+        "pre_irrigation_observations": true,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "assertion_status": "evaluated",
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.3750, ktc_raw=0.8333, coverage=0.5714, ktc_adjusted=0.4762, combined=0.4256\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "quota_diagnostic": {
+        "get_inventory_selected": true,
+        "calls": [
+          {
+            "tool_step": 3,
+            "tool_evidence": {
+              "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+              "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+              "jsonl_line": 26,
+              "event_id": 25,
+              "field": "result.management_regime"
+            },
+            "quota_total": 1.4,
+            "quota_used": 0.0,
+            "model_received_in_requests": [
+              {
+                "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+                "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+                "jsonl_line": 36,
+                "event_id": 35,
+                "field": "request_body.messages[5].content"
+              },
+              {
+                "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+                "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+                "jsonl_line": 49,
+                "event_id": 48,
+                "field": "request_body.messages[5].content"
+              }
+            ],
+            "received_before_irrigation": true,
+            "result_complete_equality_checked": true
+          }
+        ],
+        "quota_received_before_irrigation": true,
+        "irrigated_without_quota": false,
+        "ordinary_inventory_overview_or_log_misidentified_as_quota": "not_observed: exact management_regime values used in E36",
+        "hybrid_material_log_equals_quota": "not_applicable",
+        "jev_after_empty_log_irrigation": "not_applicable"
+      },
+      "actual_description_transmission": {
+        "status": "verified_all_actual_requests",
+        "checks": [
+          {
+            "evidence": {
+              "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+              "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+              "jsonl_line": 8,
+              "event_id": 7,
+              "field": "request_body.tools:FarmWorldApp__get_inventory.description"
+            },
+            "matches_new_description": true,
+            "visible_tool_count": 58
+          },
+          {
+            "evidence": {
+              "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+              "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+              "jsonl_line": 36,
+              "event_id": 35,
+              "field": "request_body.tools:FarmWorldApp__get_inventory.description"
+            },
+            "matches_new_description": true,
+            "visible_tool_count": 58
+          },
+          {
+            "evidence": {
+              "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+              "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+              "jsonl_line": 49,
+              "event_id": 48,
+              "field": "request_body.tools:FarmWorldApp__get_inventory.description"
+            },
+            "matches_new_description": true,
+            "visible_tool_count": 58
+          }
+        ]
+      },
+      "tool_sequence": [
+        {
+          "step": 1,
+          "event_id": 15,
+          "tool": "WeatherApp__get_current_weather",
+          "arguments": {},
+          "status": "ok",
+          "evidence": {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+            "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+            "jsonl_line": 16,
+            "event_id": 15,
+            "field": null
+          },
+          "sim_time_before": 1786057138.9545763,
+          "sim_time_after": 1786057138.9549394
+        },
+        {
+          "step": 2,
+          "event_id": 20,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {},
+          "status": "ok",
+          "evidence": {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+            "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+            "jsonl_line": 21,
+            "event_id": 20,
+            "field": null
+          },
+          "sim_time_before": 1786057138.9550703,
+          "sim_time_after": 1786057138.9561362
+        },
+        {
+          "step": 3,
+          "event_id": 25,
+          "tool": "FarmWorldApp__get_inventory",
+          "arguments": {},
+          "status": "ok",
+          "evidence": {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+            "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+            "jsonl_line": 26,
+            "event_id": 25,
+            "field": null
+          },
+          "sim_time_before": 1786057138.9563332,
+          "sim_time_after": 1786057138.9566262
+        },
+        {
+          "step": 4,
+          "event_id": 30,
+          "tool": "FarmWorldApp__get_ridge_range_state",
+          "arguments": {
+            "start": 43,
+            "end": 63
+          },
+          "status": "ok",
+          "evidence": {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+            "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+            "jsonl_line": 31,
+            "event_id": 30,
+            "field": null
+          },
+          "sim_time_before": 1786057138.9567633,
+          "sim_time_after": 1786057138.9579642
+        },
+        {
+          "step": 5,
+          "event_id": 43,
+          "tool": "FieldOpsApp__irrigate_range",
+          "arguments": {
+            "start": 43,
+            "end": 63,
+            "duration_hours": 0.8
+          },
+          "status": "ok",
+          "evidence": {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+            "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+            "jsonl_line": 44,
+            "event_id": 43,
+            "field": null
+          },
+          "sim_time_before": 1786057150.434539,
+          "sim_time_after": 1786060330.4468791
+        }
+      ],
+      "final_text_present": true,
+      "terminal_responses": [
+        {
+          "evidence": {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+            "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+            "jsonl_line": 50,
+            "event_id": 49,
+            "field": "parsed_response.choices[0].message.content"
+          },
+          "text": "灌溉已执行完毕。汇总如下：\n\n---\n\n**灌溉执行确认**\n\n- **灌溉范围**：ridges 43-63（HEINONG58 分区，共21垄）\n- **每垄灌溉时长**：0.8 小时\n- **每垄进水量**：约 4.0 mm\n- **全场等效灌溉量**：1.3125 mm\n- **灌溉配额使用**：1.3125 / 1.4 mm（剩余 0.0875 mm，已接近上限）\n- **ETA 复查时间**：约 120 分钟后土壤水分响应生效\n\n**下一步**：等待约2小时让灌溉水分渗透并反映到传感器读数后，复查 S5/S6 土壤水分确认效果。其他分区（HEIHE50、HEINONG84）未受干扰。",
+          "finish_reason": "stop"
+        }
+      ],
+      "communication_tool_calls": [],
+      "first_error": {
+        "classification": "confirmed_direct",
+        "kind": "premature_terminal_response_without_wait_or_recheck",
+        "raw_response": {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+          "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+          "jsonl_line": 50,
+          "event_id": 49,
+          "field": "parsed_response.choices[0].message.content"
+        },
+        "automatic_evaluator_first_issue": {
+          "event_id": 52,
+          "step_id": null,
+          "decision_id": null,
+          "decision_ids": null,
+          "tool_call_id": null,
+          "failure_layer": "termination",
+          "reason": "Agent ended while independently checked original-task requirements remained unmet",
+          "details": {
+            "unmet_task_assertions": [
+              "processed_waited_rechecked_response",
+              "factual_final_report"
+            ],
+            "scope": "Post-run diagnostic; no evaluator result was supplied to the agent."
+          },
+          "evaluator_version": "hn58_semantic_v2",
+          "evidence": "trace.jsonl",
+          "assertion_evidence": "evaluation.json:assertions"
+        },
+        "explanation": "Final assistant text exists, but lists waiting/rechecking as a next step and emits no tool calls. No actual wait/recheck follows; the native loop ends normally, not because of any budget.",
+        "quota_violation": false
+      },
+      "access_blockers": [],
+      "stop_reason": "agent_finished",
+      "http_attempts": 3,
+      "logical_model_requests": 3,
+      "http_statuses": [
+        200,
+        200,
+        200
+      ],
+      "retry_indices": [
+        "0",
+        "0",
+        "0"
+      ],
+      "tool_attempts": 5,
+      "tool_errors": 0,
+      "pre_execution_errors": 0,
+      "episode_wall_seconds": 26.402899707958568,
+      "latency_semantics": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+      "roles": {
+        "llm_native_decision": {
+          "http_attempts": 3,
+          "logical_requests": 3,
+          "latency_seconds": 25.482436374993995,
+          "input_tokens": 35772,
+          "output_tokens": 645,
+          "usage_status": "reported",
+          "response_models": [
+            "Qwen3.6-35B-A3B-FP8"
+          ]
+        }
+      },
+      "input_tokens": 35772,
+      "output_tokens": 645,
+      "usage_status": "reported",
+      "cost": {
+        "amount": null,
+        "status": "unknown",
+        "source_status": "unavailable"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "passed",
+          "native_execution": "passed",
+          "jev_tool_choice": "not_applicable",
+          "jev_argument_choice": "not_applicable",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "llm_native",
+        "run_id": "20261018T165324_llm_native_live_3b5f3748",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_logical_request": 3,
+          "known_model_role": 3,
+          "unique_http_attempt": 3,
+          "http_logical_role_link": 3,
+          "http_request_preserved": 3,
+          "http_end_pair": 3,
+          "http_identity": 3,
+          "http_response_preserved": 3,
+          "unknown_usage_is_null": 3,
+          "logical_end_pair": 3,
+          "unique_tool_start": 5,
+          "native_tool_selected_by_model": 5,
+          "native_arguments_selected_by_model": 5,
+          "tool_end_pair": 5,
+          "tool_identity": 5,
+          "forward_simulation_time": 5,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 5,
+          "no_untraced_workflow_tools": 1,
+          "http_count_matches_metrics": 1,
+          "tool_count_matches_metrics": 1
+        },
+        "counts": {
+          "http_attempts": 3,
+          "logical_requests": 3,
+          "native_tool_attempts": 5,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/manifest.json",
+          "n_executed": 5,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 5,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": false
+      },
+      "model_calls_export": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/analysis/llm_native_model_calls.json"
+    },
+    {
+      "architecture": "jev",
+      "delivery_status": "blocked",
+      "execution_status": "blocked",
+      "run_id": "20261018T165356_jev_live_00a32655",
+      "run_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655",
+      "code_commit": "bbe762c98a97e5f22cceb5f7b24fc3a67656fdb6",
+      "config_hash": "d38c7625f115b362cd5188d4378f2ee25f832c9d4968b63c41f9cf69775264f1",
+      "live_integration_success": null,
+      "task_success": null,
+      "task_assertions": {
+        "pre_irrigation_observations": null,
+        "new_irrigation_exact_target_and_dose": null,
+        "quota_consumption": null,
+        "processed_waited_rechecked_response": null,
+        "factual_final_report": null
+      },
+      "assertion_status": "not_executed",
+      "native_validation": null,
+      "quota_diagnostic": {
+        "get_inventory_selected": null,
+        "calls": [],
+        "quota_received_before_irrigation": null,
+        "irrigated_without_quota": null,
+        "ordinary_inventory_overview_or_log_misidentified_as_quota": "not_observed_blocked",
+        "hybrid_material_log_equals_quota": "not_applicable",
+        "jev_after_empty_log_irrigation": "not_observed_blocked"
+      },
+      "actual_description_transmission": {
+        "status": "not_observed_blocked",
+        "checks": []
+      },
+      "tool_sequence": [],
+      "final_text_present": null,
+      "terminal_responses": [],
+      "communication_tool_calls": [],
+      "first_error": null,
+      "access_blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "stop_reason": "preflight_blocked",
+      "http_attempts": 0,
+      "logical_model_requests": 0,
+      "http_statuses": [],
+      "retry_indices": [],
+      "tool_attempts": 0,
+      "tool_errors": 0,
+      "pre_execution_errors": 0,
+      "episode_wall_seconds": 0.37329087499529123,
+      "latency_semantics": "blocked time only initializes/checks/writes artifacts; not model performance",
+      "roles": {},
+      "input_tokens": null,
+      "output_tokens": null,
+      "usage_status": "unavailable",
+      "cost": {
+        "amount": null,
+        "status": "unknown",
+        "source_status": "unavailable"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "jev",
+        "run_id": "20261018T165356_jev_live_00a32655",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "model_calls_export": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/analysis/jev_model_calls.json"
+    },
+    {
+      "architecture": "hybrid",
+      "delivery_status": "blocked",
+      "execution_status": "blocked",
+      "run_id": "20261018T165404_hybrid_live_1921a018",
+      "run_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018",
+      "code_commit": "bbe762c98a97e5f22cceb5f7b24fc3a67656fdb6",
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "live_integration_success": null,
+      "task_success": null,
+      "task_assertions": {
+        "pre_irrigation_observations": null,
+        "new_irrigation_exact_target_and_dose": null,
+        "quota_consumption": null,
+        "processed_waited_rechecked_response": null,
+        "factual_final_report": null
+      },
+      "assertion_status": "not_executed",
+      "native_validation": null,
+      "quota_diagnostic": {
+        "get_inventory_selected": null,
+        "calls": [],
+        "quota_received_before_irrigation": null,
+        "irrigated_without_quota": null,
+        "ordinary_inventory_overview_or_log_misidentified_as_quota": "not_observed_blocked",
+        "hybrid_material_log_equals_quota": "not_observed_blocked",
+        "jev_after_empty_log_irrigation": "not_observed_blocked"
+      },
+      "actual_description_transmission": {
+        "status": "not_observed_blocked",
+        "checks": []
+      },
+      "tool_sequence": [],
+      "final_text_present": null,
+      "terminal_responses": [],
+      "communication_tool_calls": [],
+      "first_error": null,
+      "access_blockers": [
+        {
+          "source_architecture": "jev",
+          "source_run": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+          "trace_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "trace_sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2",
+          "event_id": 6,
+          "original_execution_status": "integration_error",
+          "original_task_success": null,
+          "attempt_id": "http_0001",
+          "http_status": 451,
+          "endpoint": "https://api.typesafe.ai/v1/systemone",
+          "role": "jev_tool_choice",
+          "service": {
+            "family": "jev",
+            "provider": "typesafe",
+            "model": "jev-1.13.0",
+            "base_url": "https://api.typesafe.ai"
+          },
+          "response_sha256": "9aad89d541d3f6208b641cf6811714e94b4e9557cf2c3b74dcdb2d17fbe4b122",
+          "raw_response_reference": "trace.jsonl event_id=6 raw_response_body",
+          "reason": "service_access_restricted",
+          "failure_layer": "external_service",
+          "classification": "confirmed_access_block",
+          "persistent_block": true,
+          "condition": "Observed access refusal; requires an external access/configuration change, not replacement model actions."
+        }
+      ],
+      "stop_reason": "preflight_blocked",
+      "http_attempts": 0,
+      "logical_model_requests": 0,
+      "http_statuses": [],
+      "retry_indices": [],
+      "tool_attempts": 0,
+      "tool_errors": 0,
+      "pre_execution_errors": 0,
+      "episode_wall_seconds": 0.3087702500051819,
+      "latency_semantics": "blocked time only initializes/checks/writes artifacts; not model performance",
+      "roles": {},
+      "input_tokens": null,
+      "output_tokens": null,
+      "usage_status": "unavailable",
+      "cost": {
+        "amount": null,
+        "status": "unknown",
+        "source_status": "unavailable"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "uncovered",
+          "hybrid_cross_update": "uncovered",
+          "material_state_replay": "uncovered"
+        },
+        "architecture": "hybrid",
+        "run_id": "20261018T165404_hybrid_live_1921a018",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      },
+      "replay_verification": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "model_calls_export": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/analysis/hybrid_model_calls.json"
+    }
+  ],
+  "old_controls": [
+    {
+      "label": "native_formal_prior",
+      "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "identity_limit": null,
+      "mode": "live",
+      "stage": "formal",
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1904,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "llm_native",
+        "implementation_version": "fairy_native_observed_v1",
+        "llm": {
+          "provider": "vllm",
+          "model": "Qwen3.6-35B-A3B-FP8",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "authentication_mode": "none",
+          "base_url": "http://100.115.106.71:8000/v1",
+          "enable_thinking": false,
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+        "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+      },
+      "config_hash": "356f2bcd0039fbee4edae8ce4509ca102c89fd0147bd203612be5a3626636d46",
+      "evaluator_version": "hn58_semantic_v2",
+      "evaluator_hash": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+      "identity": {
+        "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+        "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+        "parameter_catalog_hash": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+        "catalog_hash": "65a1e83d519cdbe90d15f11c8f30db89c5605697586d7ca7433787330daff223",
+        "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+        "data_assets": {
+          "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+        },
+        "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": "2.44.0",
+        "seed": 1904
+      },
+      "live_integration_success": true,
+      "task_success": false,
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "first_issue": {
+        "event_id": 43,
+        "step_id": "native_round_0002",
+        "decision_id": "model_0002",
+        "decision_ids": [
+          "model_0002"
+        ],
+        "tool_call_id": "chatcmpl-tool-977bcc75d6935380",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "stop_reason": "agent_finished",
+      "model_http_attempts": 5,
+      "model_request_count": 5,
+      "tool_call_count": 8,
+      "wall_seconds": 33.73550870799227,
+      "metrics": {
+        "model_http_attempts": 5,
+        "logical_model_requests": 5,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 5,
+            "logical_requests": 5,
+            "latency_seconds": 32.8534900409868,
+            "input_tokens": 74024,
+            "output_tokens": 1150,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 74024,
+        "output_tokens": 1150,
+        "usage_status": "reported",
+        "tool_attempts": 8,
+        "tool_successes": 8,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 5,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 5,
+            "http_attempts": 5,
+            "tool_attempts": 8
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 5
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 5
+          },
+          "elapsed_seconds": 33.73514529201202,
+          "remaining_seconds": 566.2648530829465,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 33.73550870799227,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067545.0901558
+      },
+      "get_inventory_steps": [],
+      "tool_sequence": [
+        {
+          "event_id": 15,
+          "tool": "WeatherApp__get_current_weather",
+          "arguments": {}
+        },
+        {
+          "event_id": 20,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 25,
+          "tool": "FarmWorldApp__get_ridge_range_state",
+          "arguments": {
+            "start": 43,
+            "end": 63
+          }
+        },
+        {
+          "event_id": 30,
+          "tool": "FarmWorldApp__get_farm_overview",
+          "arguments": {}
+        },
+        {
+          "event_id": 43,
+          "tool": "FieldOpsApp__irrigate_range",
+          "arguments": {
+            "start": 43,
+            "end": 63,
+            "duration_hours": 0.8
+          }
+        },
+        {
+          "event_id": 56,
+          "tool": "SystemApp__advance_time",
+          "arguments": {
+            "minutes": 120
+          }
+        },
+        {
+          "event_id": 69,
+          "tool": "SensorApp__read_soil_sensor",
+          "arguments": {
+            "sensor_id": "S5"
+          }
+        },
+        {
+          "event_id": 74,
+          "tool": "SensorApp__read_soil_sensor",
+          "arguments": {
+            "sensor_id": "S6"
+          }
+        }
+      ],
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/manifest.json",
+          "sha256": "0b9334718f02a5c56fe58acc0766dd109e564493363297d0a92fa44af0682086"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/trace.jsonl",
+          "sha256": "4e9787d731cb98e1952e011e40741fb616941fd6bc251886c7bd0fbf78be6e71"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/evaluation.json",
+          "sha256": "833b70fad517c3dddb051adc5b4222dbe76bccc44fef73495e8fe2c99131a28a"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/metrics.json",
+          "sha256": "b4e2a6505730abf9e08ce8c04a8668ba4c0da178fbc2fd3c9be0235765b99288"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/workflow.json",
+          "sha256": "ea7b193a79d98a2664c0703e65420a1b474446306e10e6759d3ffc949603be5e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/verification.json",
+          "sha256": "2f8b23e42b248d306914aa869843209bf7f02c9c45da4821fe65fd7285955d5f"
+        }
+      ]
+    },
+    {
+      "label": "native_formal_prior",
+      "run_id": "20261018T131959_llm_native_live_a52947cf",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "identity_limit": null,
+      "mode": "live",
+      "stage": "formal",
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1905,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "llm_native",
+        "implementation_version": "fairy_native_observed_v1",
+        "llm": {
+          "provider": "vllm",
+          "model": "Qwen3.6-35B-A3B-FP8",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "authentication_mode": "none",
+          "base_url": "http://100.115.106.71:8000/v1",
+          "enable_thinking": false,
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+        "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+      },
+      "config_hash": "af6e07f9cde23a600213bbe74fc81f3e6b07d706164c87d1f5e2644d486d2e3d",
+      "evaluator_version": "hn58_semantic_v2",
+      "evaluator_hash": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+      "identity": {
+        "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+        "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+        "parameter_catalog_hash": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+        "catalog_hash": "65a1e83d519cdbe90d15f11c8f30db89c5605697586d7ca7433787330daff223",
+        "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+        "data_assets": {
+          "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+        },
+        "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": "2.44.0",
+        "seed": 1905
+      },
+      "live_integration_success": true,
+      "task_success": false,
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "first_issue": {
+        "event_id": 43,
+        "step_id": "native_round_0002",
+        "decision_id": "model_0002",
+        "decision_ids": [
+          "model_0002"
+        ],
+        "tool_call_id": "chatcmpl-tool-9d2ffe3c2a57b697",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "stop_reason": "agent_finished",
+      "model_http_attempts": 5,
+      "model_request_count": 5,
+      "tool_call_count": 8,
+      "wall_seconds": 26.00530483300099,
+      "metrics": {
+        "model_http_attempts": 5,
+        "logical_model_requests": 5,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 5,
+            "logical_requests": 5,
+            "latency_seconds": 25.863134291023016,
+            "input_tokens": 73902,
+            "output_tokens": 1113,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 73902,
+        "output_tokens": 1113,
+        "usage_status": "reported",
+        "tool_attempts": 8,
+        "tool_successes": 8,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 5,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 5,
+            "http_attempts": 5,
+            "tool_attempts": 8
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 5
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 5
+          },
+          "elapsed_seconds": 26.005120082991198,
+          "remaining_seconds": 573.9948791670031,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 26.00530483300099,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067537.7216363
+      },
+      "get_inventory_steps": [],
+      "tool_sequence": [
+        {
+          "event_id": 15,
+          "tool": "WeatherApp__get_current_weather",
+          "arguments": {}
+        },
+        {
+          "event_id": 20,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 25,
+          "tool": "FarmWorldApp__get_ridge_range_state",
+          "arguments": {
+            "end": 63,
+            "start": 43
+          }
+        },
+        {
+          "event_id": 30,
+          "tool": "FarmWorldApp__get_farm_overview",
+          "arguments": {}
+        },
+        {
+          "event_id": 43,
+          "tool": "FieldOpsApp__irrigate_range",
+          "arguments": {
+            "duration_hours": 0.8,
+            "end": 63,
+            "start": 43
+          }
+        },
+        {
+          "event_id": 56,
+          "tool": "SystemApp__advance_time",
+          "arguments": {
+            "minutes": 120
+          }
+        },
+        {
+          "event_id": 69,
+          "tool": "SensorApp__read_soil_sensor",
+          "arguments": {
+            "sensor_id": "S5"
+          }
+        },
+        {
+          "event_id": 74,
+          "tool": "SensorApp__read_soil_sensor",
+          "arguments": {
+            "sensor_id": "S6"
+          }
+        }
+      ],
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/manifest.json",
+          "sha256": "99544657f134dea66f20efbe7fac19ee4b8ee21f5a00d1983e4cc4e4d030b0d0"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/trace.jsonl",
+          "sha256": "9cd7688d21428a65420f73611d1b120bb62d8c8d1a487c1aa23505c65a6398eb"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/evaluation.json",
+          "sha256": "e31c6b964a656beaf6d53c7402fd12c1391164b023fec32e54d4428f3df71cc8"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/metrics.json",
+          "sha256": "76f251f643d6e9cde703591e144866568b036067e717e11cfde66c8d50260cff"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/workflow.json",
+          "sha256": "6df279166286e4033c0b8da398d15ea905f15574bea443a4fad0cfaeb6038b5f"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/verification.json",
+          "sha256": "929bd1e4211ade09bbb42290129f4332005efc91a183a936ce15595fc2800618"
+        }
+      ]
+    },
+    {
+      "label": "native_formal_prior",
+      "run_id": "20261018T132025_llm_native_live_82c497e7",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "identity_limit": null,
+      "mode": "live",
+      "stage": "formal",
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1906,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "llm_native",
+        "implementation_version": "fairy_native_observed_v1",
+        "llm": {
+          "provider": "vllm",
+          "model": "Qwen3.6-35B-A3B-FP8",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "authentication_mode": "none",
+          "base_url": "http://100.115.106.71:8000/v1",
+          "enable_thinking": false,
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+        "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+      },
+      "config_hash": "25ddb05a62a347dafe5e427fb5217e6f9c499e18d0f2a78f1fa5745f0c687dc5",
+      "evaluator_version": "hn58_semantic_v2",
+      "evaluator_hash": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+      "identity": {
+        "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+        "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+        "parameter_catalog_hash": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+        "catalog_hash": "65a1e83d519cdbe90d15f11c8f30db89c5605697586d7ca7433787330daff223",
+        "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+        "data_assets": {
+          "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+        },
+        "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": "2.44.0",
+        "seed": 1906
+      },
+      "live_integration_success": true,
+      "task_success": false,
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "first_issue": {
+        "event_id": 43,
+        "step_id": "native_round_0002",
+        "decision_id": "model_0002",
+        "decision_ids": [
+          "model_0002"
+        ],
+        "tool_call_id": "chatcmpl-tool-88369d48a5592a60",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "stop_reason": "agent_finished",
+      "model_http_attempts": 3,
+      "model_request_count": 3,
+      "tool_call_count": 5,
+      "wall_seconds": 13.134261708008125,
+      "metrics": {
+        "model_http_attempts": 3,
+        "logical_model_requests": 3,
+        "roles": {
+          "llm_native_decision": {
+            "http_attempts": 3,
+            "logical_requests": 3,
+            "latency_seconds": 13.040463000012096,
+            "input_tokens": 40585,
+            "output_tokens": 637,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 40585,
+        "output_tokens": 637,
+        "usage_status": "reported",
+        "tool_attempts": 5,
+        "tool_successes": 5,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 3,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "logical_requests": 3,
+            "http_attempts": 3,
+            "tool_attempts": 5
+          },
+          "role_http_attempts": {
+            "llm_native_decision": 3
+          },
+          "role_logical_requests": {
+            "llm_native_decision": 3
+          },
+          "elapsed_seconds": 13.134101374947932,
+          "remaining_seconds": 586.8658978750464,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 13.134261708008125,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786060324.852827
+      },
+      "get_inventory_steps": [],
+      "tool_sequence": [
+        {
+          "event_id": 15,
+          "tool": "WeatherApp__get_current_weather",
+          "arguments": {}
+        },
+        {
+          "event_id": 20,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 25,
+          "tool": "FarmWorldApp__get_ridge_range_state",
+          "arguments": {
+            "end": 63,
+            "start": 43
+          }
+        },
+        {
+          "event_id": 30,
+          "tool": "FarmWorldApp__get_farm_overview",
+          "arguments": {}
+        },
+        {
+          "event_id": 43,
+          "tool": "FieldOpsApp__irrigate_range",
+          "arguments": {
+            "duration_hours": 0.8,
+            "end": 63,
+            "start": 43
+          }
+        }
+      ],
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/manifest.json",
+          "sha256": "0f9b9f00302e10c4bd8d19e378a208dcc602df0a5f4880476470339dfbfa71ad"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/trace.jsonl",
+          "sha256": "68cfcaa48cbd6fa92ed8ed3dbb1eb0d34b82a00a8ad6012ef35ead2e05107274"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/evaluation.json",
+          "sha256": "5e16bee5a3ca270f4ecb820f509d545e7888498e2c968f829ab57b130a61ac3a"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/metrics.json",
+          "sha256": "01902a53ed4eddcec09911ceb105b33a52d1755ec5556d383491253c1793385e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/workflow.json",
+          "sha256": "efd4d8a1f83d3d452f4e6b368a70420cdf465e9de14af4a5c9242c3ad21bb6a2"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/verification.json",
+          "sha256": "dbf8bd9a58431047b3f180553ae1268116cf6ca1d0f20a3c346c3c553552a938"
+        }
+      ]
+    },
+    {
+      "label": "hybrid_diagnostic_smoke",
+      "run_id": "20261018T140025_hybrid_live_9fd09d81",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81",
+      "code_commit": "a9df0e524a60b4d35db7c40a8a7c497f62b62576",
+      "identity_limit": null,
+      "mode": "live",
+      "stage": "smoke",
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1904,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "hybrid",
+        "implementation_version": "hybrid_sync_v1",
+        "llm": {
+          "provider": "vllm",
+          "model": "Qwen3.6-35B-A3B-FP8",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "authentication_mode": "none",
+          "base_url": "http://100.115.106.71:8000/v1",
+          "enable_thinking": false,
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+        "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+      },
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "evaluator_version": "hn58_semantic_v2",
+      "evaluator_hash": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+      "identity": {
+        "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+        "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+        "parameter_catalog_hash": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+        "catalog_hash": "65a1e83d519cdbe90d15f11c8f30db89c5605697586d7ca7433787330daff223",
+        "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+        "data_assets": {
+          "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+        },
+        "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": "2.44.0",
+        "seed": 1904
+      },
+      "live_integration_success": true,
+      "task_success": false,
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": false
+      },
+      "first_issue": {
+        "event_id": 68,
+        "step_id": "step_0004",
+        "decision_id": "decision_0004",
+        "decision_ids": [
+          "decision_0004",
+          "decision_0005"
+        ],
+        "tool_call_id": "tool_0004",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "target_state",
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "stop_reason": "model_finish",
+      "model_http_attempts": 11,
+      "model_request_count": 11,
+      "tool_call_count": 6,
+      "wall_seconds": 22.84104299999308,
+      "metrics": {
+        "model_http_attempts": 11,
+        "logical_model_requests": 11,
+        "roles": {
+          "jev_argument_choice": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 0.6296550420229323,
+            "input_tokens": 5136,
+            "output_tokens": 229,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "jev_tool_choice": {
+            "http_attempts": 7,
+            "logical_requests": 7,
+            "latency_seconds": 4.959247582941316,
+            "input_tokens": 96315,
+            "output_tokens": 5989,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "llm_context_update": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 16.455236624984536,
+            "input_tokens": 21656,
+            "output_tokens": 377,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 123107,
+        "output_tokens": 6595,
+        "usage_status": "reported",
+        "tool_attempts": 6,
+        "tool_successes": 6,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 7,
+        "llm_updates": 2,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "updates": 2,
+            "logical_requests": 11,
+            "http_attempts": 11,
+            "decision_rounds": 7,
+            "tool_attempts": 6
+          },
+          "role_http_attempts": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 7,
+            "jev_argument_choice": 2
+          },
+          "role_logical_requests": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 7,
+            "jev_argument_choice": 2
+          },
+          "elapsed_seconds": 22.840679667016957,
+          "remaining_seconds": 577.1593192499713,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 22.84104299999308,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786071134.292843
+      },
+      "get_inventory_steps": [],
+      "tool_sequence": [
+        {
+          "event_id": 25,
+          "tool": "WeatherApp__get_current_weather",
+          "arguments": {}
+        },
+        {
+          "event_id": 37,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 49,
+          "tool": "FieldOpsApp__get_irrigation_log",
+          "arguments": {}
+        },
+        {
+          "event_id": 68,
+          "tool": "FieldOpsApp__irrigate",
+          "arguments": {
+            "start": 43,
+            "end": 63,
+            "hours": 0.8
+          }
+        },
+        {
+          "event_id": 99,
+          "tool": "SystemApp__advance_time",
+          "arguments": {
+            "seconds": 10800,
+            "minutes": 0,
+            "hours": 0,
+            "days": 0
+          }
+        },
+        {
+          "event_id": 111,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        }
+      ],
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/manifest.json",
+          "sha256": "bd6ee2772f75b654c57844b618f7aeb8bba02569a42d0f4dd2c9611e37fc7223"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/trace.jsonl",
+          "sha256": "fd18cbb7af0e55faa0badfb0bb787af4bc9332dd22dc5f25dc01a9b2613ff8f9"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/evaluation.json",
+          "sha256": "c27292d0c24818eb3a661f3274f2bf99712f2691b38f103a62f8537e7f48db5e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/metrics.json",
+          "sha256": "237f05421731ff34e749af112aa0223d45c9207d014af7782d8c9e15fcef364d"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/workflow.json",
+          "sha256": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/verification.json",
+          "sha256": "34e00b94bc1540b79626efe7dd9066d076bec43575f78d405f3635b07f92151d"
+        }
+      ]
+    },
+    {
+      "label": "jev_earlier_mvp_different_contract",
+      "run_id": "20261017T112501_live_db897d9a",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a",
+      "code_commit": "215f8c3b7afca66f24ccdcc007f81e0c7cbf4dc8",
+      "identity_limit": "Earlier dirty MVP implementation: recorded base commit alone does not pin uncommitted implementation; use saved implementation hashes; evaluator not hn58_semantic_v2",
+      "mode": "live",
+      "stage": "earlier_mvp",
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1904,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        }
+      },
+      "config_hash": "e89d57dab140683db4714169cae63c6e56183cc05ba578586445fddea31d773f",
+      "evaluator_version": "legacy_unversioned",
+      "evaluator_hash": null,
+      "identity": {
+        "prompt_hash": null,
+        "candidate_strategy_hash": null,
+        "parameter_catalog_hash": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+        "catalog_hash": "65a1e83d519cdbe90d15f11c8f30db89c5605697586d7ca7433787330daff223",
+        "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+        "data_assets": null,
+        "lockfile_hash": null,
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": null,
+        "seed": 1904
+      },
+      "live_integration_success": true,
+      "task_success": false,
+      "task_assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "first_issue": {
+        "event_id": 35,
+        "step_id": "step_0005",
+        "decision_id": "decision_0006",
+        "decision_ids": [
+          "decision_0006",
+          "decision_0007"
+        ],
+        "tool_call_id": "tool_0005",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "stop_reason": "max_steps",
+      "model_http_attempts": null,
+      "model_request_count": 69,
+      "tool_call_count": 40,
+      "wall_seconds": 42.790024082991295,
+      "metrics": null,
+      "get_inventory_steps": [],
+      "tool_sequence": [
+        {
+          "event_id": 7,
+          "tool": "WeatherApp__get_current_weather",
+          "arguments": {}
+        },
+        {
+          "event_id": 13,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 21,
+          "tool": "FarmWorldApp__get_ridge_range_state",
+          "arguments": {
+            "start": 43,
+            "end": 63
+          }
+        },
+        {
+          "event_id": 27,
+          "tool": "FarmWorldApp__get_farm_overview",
+          "arguments": {}
+        },
+        {
+          "event_id": 35,
+          "tool": "FieldOpsApp__irrigate_range",
+          "arguments": {
+            "start": 43,
+            "end": 63,
+            "duration_hours": 0.8
+          }
+        },
+        {
+          "event_id": 41,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 49,
+          "tool": "SystemApp__advance_time",
+          "arguments": {
+            "seconds": 7200,
+            "minutes": 0,
+            "hours": 0,
+            "days": 0
+          }
+        },
+        {
+          "event_id": 55,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 63,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 71,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 79,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 87,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 95,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 101,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 109,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 117,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 123,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 129,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 137,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 143,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 151,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 159,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 167,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 173,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 181,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 189,
+          "tool": "SystemApp__wait_for_notification",
+          "arguments": {
+            "timeout": 600
+          }
+        },
+        {
+          "event_id": 195,
+          "tool": "SensorApp__read_soil_sensors",
+          "arguments": {}
+        },
+        {
+          "event_id": 203,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 211,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 219,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 227,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 235,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 243,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 251,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 259,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 267,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 275,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 283,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 291,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        },
+        {
+          "event_id": 299,
+          "tool": "AgentUserInterface__send_message_to_user",
+          "arguments": {
+            "content": "本次可见记录中成功启动灌溉 1 次，工具返回覆盖 21 垄。任务目标 43–63 垄、每垄 0.8 小时；累计剂量匹配的目标垄为 21/21。尚未同时确认响应时间后的等待与完整目标区复查。当前记录不足以宣称整个目标任务完成。"
+          }
+        }
+      ],
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/manifest.json",
+          "sha256": "82bdd580a1a340a831536c470876a511a09dca7cc451bf277e99218e6c5aa8a5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/trace.jsonl",
+          "sha256": "6d4007c1dda6cf831d512cb96128fd8b56798432150453cc6890e4b8feeed3aa"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/evaluation.json",
+          "sha256": "0027c3bbf13cac03c76e82ba67b40a15a6bcdaa66b7cf63c4c3202a85fb329cd"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/workflow.json",
+          "sha256": "906fb8abb2c7d7c49a12da1dbbbc678d6181bc0586021fe63d59c96108b0609b"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/summary.md",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/summary.md",
+          "sha256": "f06659d6e7502de6d7c669cc4befeeb704f9c8fd2ad7537ac9d0783ec0e2c561"
+        }
+      ]
+    },
+    {
+      "label": "jev_451_no_valid_loop",
+      "run_id": "20261018T094403_jev_live_3ec48d66",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+      "code_commit": "85ac64ff1a3897a9db72a35e5cf9d0476b9404c2",
+      "identity_limit": null,
+      "mode": "live",
+      "stage": "smoke",
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1904,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "jev",
+        "implementation_version": "jev_mvp_v1_observed",
+        "llm": {
+          "provider": "deepseek",
+          "model": "deepseek-chat",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "api_key_env": "DEEPSEEK_API_KEY",
+          "base_url": "https://api.deepseek.com",
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json"
+      },
+      "config_hash": "f7e6c111aeeb978d1aeaf7cc397b2ffe7d1458baee433ddbd8caf05c3fbe0879",
+      "evaluator_version": "hn58_semantic_v2",
+      "evaluator_hash": "3909a3f4010be994b58e1e13b8a9fa4a03d4dfe635d16f0064be79472f21efe8",
+      "identity": {
+        "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+        "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+        "parameter_catalog_hash": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+        "catalog_hash": "65a1e83d519cdbe90d15f11c8f30db89c5605697586d7ca7433787330daff223",
+        "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+        "data_assets": {
+          "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+        },
+        "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": "2.44.0",
+        "seed": 1904
+      },
+      "live_integration_success": false,
+      "task_success": null,
+      "task_assertions": {
+        "pre_irrigation_observations": null,
+        "new_irrigation_exact_target_and_dose": null,
+        "quota_consumption": null,
+        "processed_waited_rechecked_response": null,
+        "factual_final_report": null
+      },
+      "first_issue": null,
+      "stop_reason": "decision_error",
+      "model_http_attempts": 1,
+      "model_request_count": 1,
+      "tool_call_count": 0,
+      "wall_seconds": 0.3384078750386834,
+      "metrics": {
+        "model_http_attempts": 1,
+        "logical_model_requests": 1,
+        "roles": {
+          "jev_tool_choice": {
+            "http_attempts": 1,
+            "logical_requests": 1,
+            "latency_seconds": 0.21370837499853224,
+            "input_tokens": null,
+            "output_tokens": null,
+            "usage_status": "unavailable",
+            "response_models": []
+          }
+        },
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 0,
+        "tool_successes": 0,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 1,
+        "llm_updates": 0,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "decision_rounds": 1,
+            "logical_requests": 1,
+            "http_attempts": 1
+          },
+          "role_http_attempts": {
+            "jev_tool_choice": 1
+          },
+          "role_logical_requests": {
+            "jev_tool_choice": 1
+          },
+          "elapsed_seconds": 0.33826091600349173,
+          "remaining_seconds": 599.6617384590209,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.3384078750386834,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786057132.0583735
+      },
+      "get_inventory_steps": [],
+      "tool_sequence": [],
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/manifest.json",
+          "sha256": "9b15f7e1f0467217deb5ec2f872492b94acce09081cae410e58279f8ee93a3eb"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/evaluation.json",
+          "sha256": "24bb4ed06dd89898f8b6464071cdbd483ce8d5e3b18edb30398fd0cc2c3f532e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/metrics.json",
+          "sha256": "4fc30ca314b40d867dbfa066e266c89b2a9977a5105069e8ce0e355fa748d157"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/verification.json",
+          "sha256": "7f26a8b01a928270734cff7ec99f349a618ab2f2357af1354ef01ec1ddb3e9f5"
+        }
+      ]
+    }
+  ],
+  "comparability": [
+    {
+      "old_run_id": "20261018T131925_llm_native_live_d53c8d5e",
+      "target_architecture": "llm_native",
+      "config_diff": {},
+      "identity_equality": {
+        "config_hash": true,
+        "prompt_hash": true,
+        "candidate_strategy_hash": true,
+        "parameter_catalog_hash": true,
+        "evaluator_hash": true,
+        "checkpoint_hash": true,
+        "data_assets": true,
+        "lockfile_hash": true
+      },
+      "changed_recorded_implementation_hashes": [
+        "fairy/experiments/access.py",
+        "fairy/experiments/agent_comparison.py",
+        "fairy/experiments/budget.py"
+      ],
+      "git_diff_name_status": "A\tdocs/experiments/hn58_three_agents_qwen_v1_results.json\nA\tdocs/experiments/hybrid_relocated_20261018_results.json\nM\tdocs/jev_hybrid.md\nA\tdocs/jev_hybrid_qwen.md\nA\tdocs/workspace_relocation.md\nM\tfairy/apps/farm_world/farm_world_app.py\nM\tfairy/experiments/access.py\nM\tfairy/experiments/agent_comparison.py\nM\tfairy/experiments/budget.py\nA\tfairy/experiments/paths.py\nA\ttests/jev/test_relocated_paths.py\nA\ttests/jev/test_tool_description_v2.py",
+      "actual_first_http_request": {
+        "old": {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/trace.jsonl",
+          "sha256": "4e9787d731cb98e1952e011e40741fb616941fd6bc251886c7bd0fbf78be6e71",
+          "jsonl_line": 8,
+          "event_id": 7,
+          "field": null
+        },
+        "new": {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+          "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+          "jsonl_line": 8,
+          "event_id": 7,
+          "field": null
+        },
+        "equal_except_inventory_description": true,
+        "initial_messages_exactly_equal": true,
+        "generation_fields_exactly_equal": true,
+        "schema_diff": [
+          {
+            "name": "FarmWorldApp__get_inventory",
+            "old": {
+              "type": "function",
+              "function": {
+                "name": "FarmWorldApp__get_inventory",
+                "description": "Return the current farm inventory (seeds, pesticide, fertilizer, fuel, grain), management resource limits and usage (including irrigation quota), and post-harvest market information.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                }
+              }
+            },
+            "new": {
+              "type": "function",
+              "function": {
+                "name": "FarmWorldApp__get_inventory",
+                "description": "Return the current farm inventory (seeds, pesticide, fertilizer, fuel, grain), management resource limits and usage (including irrigation quota), and post-harvest market information.",
+                "parameters": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "old_run_id": "20261018T131959_llm_native_live_a52947cf",
+      "target_architecture": "llm_native",
+      "config_diff": {
+        "seed": {
+          "old": 1905,
+          "new": 1904
+        }
+      },
+      "identity_equality": {
+        "config_hash": false,
+        "prompt_hash": true,
+        "candidate_strategy_hash": true,
+        "parameter_catalog_hash": true,
+        "evaluator_hash": true,
+        "checkpoint_hash": true,
+        "data_assets": true,
+        "lockfile_hash": true
+      },
+      "changed_recorded_implementation_hashes": [
+        "fairy/experiments/access.py",
+        "fairy/experiments/agent_comparison.py",
+        "fairy/experiments/budget.py"
+      ],
+      "git_diff_name_status": "A\tdocs/experiments/hn58_three_agents_qwen_v1_results.json\nA\tdocs/experiments/hybrid_relocated_20261018_results.json\nM\tdocs/jev_hybrid.md\nA\tdocs/jev_hybrid_qwen.md\nA\tdocs/workspace_relocation.md\nM\tfairy/apps/farm_world/farm_world_app.py\nM\tfairy/experiments/access.py\nM\tfairy/experiments/agent_comparison.py\nM\tfairy/experiments/budget.py\nA\tfairy/experiments/paths.py\nA\ttests/jev/test_relocated_paths.py\nA\ttests/jev/test_tool_description_v2.py"
+    },
+    {
+      "old_run_id": "20261018T132025_llm_native_live_82c497e7",
+      "target_architecture": "llm_native",
+      "config_diff": {
+        "seed": {
+          "old": 1906,
+          "new": 1904
+        }
+      },
+      "identity_equality": {
+        "config_hash": false,
+        "prompt_hash": true,
+        "candidate_strategy_hash": true,
+        "parameter_catalog_hash": true,
+        "evaluator_hash": true,
+        "checkpoint_hash": true,
+        "data_assets": true,
+        "lockfile_hash": true
+      },
+      "changed_recorded_implementation_hashes": [
+        "fairy/experiments/access.py",
+        "fairy/experiments/agent_comparison.py",
+        "fairy/experiments/budget.py"
+      ],
+      "git_diff_name_status": "A\tdocs/experiments/hn58_three_agents_qwen_v1_results.json\nA\tdocs/experiments/hybrid_relocated_20261018_results.json\nM\tdocs/jev_hybrid.md\nA\tdocs/jev_hybrid_qwen.md\nA\tdocs/workspace_relocation.md\nM\tfairy/apps/farm_world/farm_world_app.py\nM\tfairy/experiments/access.py\nM\tfairy/experiments/agent_comparison.py\nM\tfairy/experiments/budget.py\nA\tfairy/experiments/paths.py\nA\ttests/jev/test_relocated_paths.py\nA\ttests/jev/test_tool_description_v2.py"
+    },
+    {
+      "old_run_id": "20261018T140025_hybrid_live_9fd09d81",
+      "target_architecture": "hybrid",
+      "config_diff": {},
+      "identity_equality": {
+        "config_hash": true,
+        "prompt_hash": true,
+        "candidate_strategy_hash": true,
+        "parameter_catalog_hash": true,
+        "evaluator_hash": true,
+        "checkpoint_hash": true,
+        "data_assets": true,
+        "lockfile_hash": true
+      },
+      "changed_recorded_implementation_hashes": [],
+      "git_diff_name_status": "A\tdocs/experiments/hybrid_relocated_20261018_results.json\nM\tdocs/workspace_relocation.md\nM\tfairy/apps/farm_world/farm_world_app.py\nA\ttests/jev/test_tool_description_v2.py"
+    },
+    {
+      "old_run_id": "20261017T112501_live_db897d9a",
+      "target_architecture": "jev",
+      "config_diff": {
+        "architecture": {
+          "old": null,
+          "new": "jev"
+        },
+        "candidate_strategy_version": {
+          "old": null,
+          "new": "jev_mvp_v1"
+        },
+        "hybrid": {
+          "old": null,
+          "new": {
+            "update_interval": 4,
+            "max_brief_chars": 4000,
+            "max_output_tokens": 2048,
+            "request_limits": {
+              "max_jev_request_bytes": 60000,
+              "max_jev_request_chars": 60000,
+              "max_llm_request_bytes": 120000
+            }
+          }
+        },
+        "implementation_version": {
+          "old": null,
+          "new": "jev_mvp_v1_observed"
+        },
+        "evaluator_version": {
+          "old": null,
+          "new": "hn58_semantic_v2"
+        },
+        "requested_design_limits": {
+          "old": null,
+          "new": {
+            "max_decision_rounds": 60,
+            "wall_timeout_seconds": 900,
+            "max_jev_decision_calls": 100
+          }
+        },
+        "effective_limit_note": {
+          "old": null,
+          "new": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall."
+        },
+        "configuration_note": {
+          "old": null,
+          "new": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+        },
+        "experiment_limits": {
+          "old": null,
+          "new": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          }
+        },
+        "llm": {
+          "old": null,
+          "new": {
+            "provider": "vllm",
+            "model": "Qwen3.6-35B-A3B-FP8",
+            "temperature": 0.1,
+            "max_output_tokens": 2048,
+            "parallel_tool_calls": true,
+            "authentication_mode": "none",
+            "base_url": "http://100.115.106.71:8000/v1",
+            "enable_thinking": false,
+            "timeout": 30
+          }
+        },
+        "global_live_ledger": {
+          "old": null,
+          "new": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json"
+        }
+      },
+      "identity_equality": {
+        "config_hash": false,
+        "prompt_hash": false,
+        "candidate_strategy_hash": false,
+        "parameter_catalog_hash": true,
+        "evaluator_hash": false,
+        "checkpoint_hash": true,
+        "data_assets": false,
+        "lockfile_hash": false
+      },
+      "changed_recorded_implementation_hashes": [
+        "fairy/agents/Jev/client.py",
+        "fairy/agents/Jev/tools.py",
+        "fairy/agents/Jev/replay.py",
+        "fairy/agents/Jev/agent.py",
+        "fairy/agents/Jev/verify.py",
+        "fairy/agents/Jev/__main__.py"
+      ],
+      "git_diff_name_status": "M\t.gitignore\nA\tconfigs/experiments/hn58_three_agents_qwen_v1.json\nA\tconfigs/experiments/hn58_three_agents_v1.json\nA\tconfigs/jev/hn58_hybrid_sync_k4.json\nA\tconfigs/jev/hn58_hybrid_sync_k4_qwen.json\nA\tconfigs/jev/hn58_irrigation.json\nA\tdocs/experiments/evaluator_v2.md\nA\tdocs/experiments/hn58_baseline.json\nA\tdocs/experiments/hn58_three_agents_qwen_v1_results.json\nA\tdocs/experiments/hn58_three_agents_v1_results.json\nA\tdocs/experiments/hybrid_relocated_20261018_results.json\nA\tdocs/jev_hybrid.md\nA\tdocs/jev_hybrid_qwen.md\nA\tdocs/jev_mvp.md\nA\tdocs/workspace_relocation.md\nA\tfairy/agents/Jev/__init__.py\nA\tfairy/agents/Jev/__main__.py\nA\tfairy/agents/Jev/agent.py\nA\tfairy/agents/Jev/candidates.py\nA\tfairy/agents/Jev/client.py\nA\tfairy/agents/Jev/environment.py\nA\tfairy/agents/Jev/environment_check.py\nA\tfairy/agents/Jev/evaluation.py\nA\tfairy/agents/Jev/hybrid/__init__.py\nA\tfairy/agents/Jev/hybrid/agent.py\nA\tfairy/agents/Jev/hybrid/context.py\nA\tfairy/agents/Jev/hybrid/prompt.md\nA\tfairy/agents/Jev/hybrid/updater.py\nA\tfairy/agents/Jev/inventory.py\nA\tfairy/agents/Jev/replay.py\nA\tfairy/agents/Jev/runner.py\nA\tfairy/agents/Jev/scripted.py\nA\tfairy/agents/Jev/state.py\nA\tfairy/agents/Jev/tools.py\nA\tfairy/agents/Jev/trace.py\nA\tfairy/agents/Jev/verify.py\nM\tfairy/apps/farm_world/farm_world_app.py\nM\tfairy/controllers/engine.py\nA\tfairy/experiments/__init__.py\nA\tfairy/experiments/access.py\nA\tfairy/experiments/agent_comparison.py\nA\tfairy/experiments/budget.py\nA\tfairy/experiments/credentials.py\nA\tfairy/experiments/episode.py\nA\tfairy/experiments/evaluation.py\nA\tfairy/experiments/native.py\nA\tfairy/experiments/paths.py\nA\tfairy/experiments/scripted_native.py\nA\tfairy/experiments/transports.py\nA\tfairy/experiments/verification.py\nA\t\"fairy/scenarios/farm_world_fullseason/tangyan5_table_fitted/data/\\347\\263\\226\\347\\240\\224\\346\\211\\2005\\345\\217\\267\\345\\234\\260\\346\\225\\260\\346\\215\\256\\346\\261\\207\\346\\200\\273-1206_\\345\\211\\257\\346\\234\\254.xlsx\"\nM\tfairy/scenarios/farm_world_fullseason/tangyan5_table_fitted/scenario_tangyan5_table_fitted.py\nM\tpyproject.toml\nA\ttests/jev/test_access.py\nA\ttests/jev/test_candidates.py\nA\ttests/jev/test_client.py\nA\ttests/jev/test_comparison_budget.py\nA\ttests/jev/test_comparison_native.py\nA\ttests/jev/test_comparison_runner.py\nA\ttests/jev/test_comparison_verification.py\nA\ttests/jev/test_engine_hooks.py\nA\ttests/jev/test_evaluation_replay.py\nA\ttests/jev/test_hybrid_context.py\nA\ttests/jev/test_hybrid_loop.py\nA\ttests/jev/test_local_qwen.py\nA\ttests/jev/test_loop.py\nA\ttests/jev/test_relocated_paths.py\nA\ttests/jev/test_runner.py\nA\ttests/jev/test_semantic_evaluation.py\nA\ttests/jev/test_state.py\nA\ttests/jev/test_tool_description_v2.py\nM\tuv.lock"
+    },
+    {
+      "old_run_id": "20261018T094403_jev_live_3ec48d66",
+      "target_architecture": "jev",
+      "config_diff": {
+        "configuration_note": {
+          "old": null,
+          "new": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+        },
+        "llm": {
+          "old": {
+            "provider": "deepseek",
+            "model": "deepseek-chat",
+            "temperature": 0.1,
+            "max_output_tokens": 2048,
+            "parallel_tool_calls": true,
+            "api_key_env": "DEEPSEEK_API_KEY",
+            "base_url": "https://api.deepseek.com",
+            "timeout": 30
+          },
+          "new": {
+            "provider": "vllm",
+            "model": "Qwen3.6-35B-A3B-FP8",
+            "temperature": 0.1,
+            "max_output_tokens": 2048,
+            "parallel_tool_calls": true,
+            "authentication_mode": "none",
+            "base_url": "http://100.115.106.71:8000/v1",
+            "enable_thinking": false,
+            "timeout": 30
+          }
+        }
+      },
+      "identity_equality": {
+        "config_hash": false,
+        "prompt_hash": true,
+        "candidate_strategy_hash": true,
+        "parameter_catalog_hash": true,
+        "evaluator_hash": false,
+        "checkpoint_hash": true,
+        "data_assets": true,
+        "lockfile_hash": true
+      },
+      "changed_recorded_implementation_hashes": [
+        "fairy/experiments/agent_comparison.py",
+        "fairy/experiments/budget.py",
+        "fairy/experiments/episode.py",
+        "fairy/experiments/evaluation.py",
+        "fairy/experiments/transports.py"
+      ],
+      "git_diff_name_status": "A\tconfigs/experiments/hn58_three_agents_qwen_v1.json\nA\tconfigs/jev/hn58_hybrid_sync_k4_qwen.json\nA\tdocs/experiments/hn58_three_agents_qwen_v1_results.json\nA\tdocs/experiments/hn58_three_agents_v1_results.json\nA\tdocs/experiments/hybrid_relocated_20261018_results.json\nM\tdocs/jev_hybrid.md\nA\tdocs/jev_hybrid_qwen.md\nA\tdocs/workspace_relocation.md\nM\tfairy/apps/farm_world/farm_world_app.py\nA\tfairy/experiments/access.py\nM\tfairy/experiments/agent_comparison.py\nM\tfairy/experiments/budget.py\nA\tfairy/experiments/credentials.py\nM\tfairy/experiments/episode.py\nM\tfairy/experiments/evaluation.py\nA\tfairy/experiments/paths.py\nM\tfairy/experiments/transports.py\nA\ttests/jev/test_access.py\nM\ttests/jev/test_comparison_runner.py\nA\ttests/jev/test_local_qwen.py\nA\ttests/jev/test_relocated_paths.py\nM\ttests/jev/test_semantic_evaluation.py\nA\ttests/jev/test_tool_description_v2.py"
+    }
+  ],
+  "interpretation": "N=1 planned per architecture; only one new native run eligible, two blocked. Descriptive diagnostic, not a completed three-architecture efficacy comparison, not statistical significance or efficiency evidence.",
+  "public_task_vs_evaluator": "Waiting and rechecking are explicit public requirements. Target-state proxy fields and complete report vocabulary are not fully specified in task text. Native terminal prose exists but is before completed recheck. Preserve v2 scoring unchanged."
+}

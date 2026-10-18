@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-10-19T01:00:45.921943+08:00",
+  "passed": true,
+  "protected_original_files": 927,
+  "all_original_hashes_unchanged": true,
+  "changes": [],
+  "other_worktrees_head_status_unchanged": {
+    "jev-mvp": {
+      "head": "215f8c3b7afca66f24ccdcc007f81e0c7cbf4dc8",
+      "status": "M .gitignore\n M fairy/apps/farm_world/farm_world_app.py\n M fairy/controllers/engine.py\n M fairy/scenarios/farm_world_fullseason/tangyan5_table_fitted/scenario_tangyan5_table_fitted.py\n M pyproject.toml\n M uv.lock\n?? FAIRY_Jev_MVP_Codex_Instructions.txt\n?? FAIRY_LLM_Jev_Hybrid_Codex_Instructions_20261018.txt\n?? configs/\n?? docs/jev_mvp.md\n?? fairy/agents/Jev/\n?? tests/jev/"
+    },
+    "hn58-reproduce": {
+      "head": "89aa4e0e2491cff488428cef1941d1ba182c78d7",
+      "status": "M fairy/apps/farm_world/farm_world_app.py"
+    }
+  },
+  "original_hybrid_branch_ref_unchanged": true,
+  "experiment_runtime_source_unchanged_since_freeze": true,
+  "frozen_tag_unchanged": true,
+  "historical_ledger_entries_unchanged": true,
+  "ledger_before": {
+    "episodes": 6,
+    "http": 30
+  },
+  "ledger_after": {
+    "episodes": 7,
+    "http": 33
+  },
+  "only_new_experiment_consumption": {
+    "episodes": 1,
+    "http": 3
+  },
+  "existing_map_sha256": "af7d8bc79e11c60308df09d253e0727d58e26f19e32432e7364b45d12ce83ba7",
+  "private_key_values_saved": false,
+  "secret_scan_matches": [],
+  "secret_scan_scope": "Known process credential values; values/hashes never recorded, no authentication headers captured",
+  "zero_extra_api_probes_or_replacement_samples": true
+}

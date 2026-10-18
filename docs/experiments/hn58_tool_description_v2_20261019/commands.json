@@ -1,0 +1,124 @@
+{
+  "scope": "Commands executed in this session; full analysis/orchestration scripts are preserved. No credentials or auth headers recorded.",
+  "workdir": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid",
+  "checkpoints": {
+    "C0": {
+      "commands": [
+        "cat ../FAIRY_HN58_ToolDescriptionV2_ThreeArchitecture_Retest_Codex.md",
+        "git worktree list --porcelain",
+        "git status --short; git rev-parse HEAD; git diff -- fairy/apps/farm_world/farm_world_app.py (each worktree)",
+        "Read existing ledger/preregistrations through unchanged paths.py; c0_snapshot.json records hashes before any changes",
+        "git switch -c experiment/hn58-tool-description-v2-20261019",
+        "git add -- fairy/apps/farm_world/farm_world_app.py",
+        "git commit -m \"Clarify inventory tool exposes management limits and irrigation quota\"",
+        "git add -- tests/jev/test_tool_description_v2.py",
+        "git commit -m \"Test inventory quota description across three agent interfaces offline\"",
+        "git tag experiment/hn58-tool-description-v2-20261019",
+        "set +x; set -a; source ../jev-mvp/env.sh >/dev/null 2>&1; set +a",
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/run_registered.py prepare"
+      ],
+      "changed_files": [
+        "fairy/apps/farm_world/farm_world_app.py (one user-authored docstring line)",
+        "tests/jev/test_tool_description_v2.py (offline regression only)"
+      ],
+      "results": "Frozen clean bbe762c; budget6/30; no pending slots; native eligible, others gate blocked",
+      "evidence": [
+        "c0_snapshot.json",
+        "c0_identity.json",
+        "c0_prepare.log",
+        "access_review.json",
+        "preregistration.json"
+      ]
+    },
+    "C1": {
+      "commands": [
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/offline_checks.py catalog"
+      ],
+      "changed_files": [
+        "Only new batch/offline_propagation artifacts"
+      ],
+      "results": "58 visible + FINISH, only one description diff; non-docstring AST equal",
+      "evidence": [
+        "c1_result.json",
+        "c1_command.log",
+        "offline_propagation/"
+      ]
+    },
+    "C2": {
+      "commands": [
+        ".venv/bin/python -m pytest tests/jev/test_tool_description_v2.py -q",
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/run_regression.py",
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/offline_checks.py scripted"
+      ],
+      "mechanical_test_correction": "First new-test-only run 4 passed/1 failed from wrong inventory field names in test; corrected test to existing seven InventoryState keys, then5 passed. Production behavior unchanged.",
+      "results": "286 passed in3.71s; three scripted task/trace/replay passed;0 HTTP",
+      "evidence": [
+        "regression.log",
+        "regression_result.json",
+        "c2_scripted_command.log",
+        "c2_scripted_result.json",
+        "scripted_index.json"
+      ]
+    },
+    "C3": {
+      "commands": [
+        "source ../jev-mvp/env.sh with xtrace disabled and output suppressed; .venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/run_registered.py llm_native",
+        "source ../jev-mvp/env.sh with xtrace disabled and output suppressed; .venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/run_registered.py jev",
+        "source ../jev-mvp/env.sh with xtrace disabled and output suppressed; .venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/run_registered.py hybrid"
+      ],
+      "results": "native one episode/3HTTP; jev/hybrid blocked/0HTTP; no probes or replacement samples",
+      "evidence": [
+        "c3_llm_native.log",
+        "c3_jev.log",
+        "c3_hybrid.log",
+        "result_llm_native.json",
+        "result_jev.json",
+        "result_hybrid.json",
+        "live/"
+      ]
+    },
+    "C4": {
+      "commands": [
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/analyze_results.py"
+      ],
+      "results": "Five assertions TTTFF for native, null for blocked; quota received before action; terminal sourceE49, evaluatorE52",
+      "evidence": [
+        "comparison.json",
+        "analysis/",
+        "old_controls/",
+        "evidence_index.json"
+      ]
+    },
+    "C5": {
+      "commands": [
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/write_delivery.py",
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/finalize_delivery.py verify",
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/finalize_delivery.py docs",
+        "git add -- docs/experiments/hn58_tool_description_v2_20261019",
+        "git commit -m \"Archive tool description v2 retest evidence and access-blocked outcomes\"",
+        ".venv/bin/python runs/agent_comparison/hn58_tool_description_v2_20261019/finalize_delivery.py package"
+      ],
+      "results": "See delivery_validation.json and version_archive.json for final checks/commit/archive",
+      "evidence": [
+        "report.md",
+        "experiment_manifest.json",
+        "budget_after.json",
+        "preservation.json",
+        "files.sha256",
+        "version_archive.json"
+      ]
+    }
+  },
+  "read_only_review": "Two independent read-only code/access and result reviews plus one delegated new-test implementation; no subagent model-service calls/episodes. Filesystem source/trace reads and git diff/show used for analysis.",
+  "explicit_non_actions": [
+    "No new TypeSafe HTTP",
+    "No metadata/proxy connectivity probes",
+    "No repeated live samples",
+    "No model action replacement",
+    "No prompt/K/candidates/loop/report/evaluator changes",
+    "No historical artifact rewrite",
+    "No ledger reset",
+    "No old tag movement",
+    "No key output"
+  ]
+}

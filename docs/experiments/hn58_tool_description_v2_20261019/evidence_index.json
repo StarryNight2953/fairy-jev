@@ -1,0 +1,681 @@
+{
+  "root": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid",
+  "batch": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019",
+  "workspace_map": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/workspace-paths.json",
+    "sha256": "af7d8bc79e11c60308df09d253e0727d58e26f19e32432e7364b45d12ce83ba7",
+    "mapping": {
+      "version": 1,
+      "path_mapping": {
+        "/Users/ouyangkun/PHD/Project/Fairy-Jev": "jev-mvp",
+        "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid": "llm-jev-hybrid",
+        "/Users/ouyangkun/PHD/Project/Fairy-Jev-hn58-reproduce": "hn58-reproduce"
+      }
+    }
+  },
+  "runs": [
+    {
+      "architecture": "llm_native",
+      "status": "failed",
+      "run_id": "20261018T165324_llm_native_live_3b5f3748",
+      "files": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/evaluation.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/evaluation.json",
+          "sha256": "3597f9832fde841e3a3050a7337f90fa7555489e9974571c0fd390f3959cdbf7",
+          "bytes": 64320
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/files.sha256",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/files.sha256",
+          "sha256": "abf4e9d1a7bb03e0d56288785e236a9039e5d7b530efb95643b18c91a8b12988",
+          "bytes": 2031
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/manifest.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/manifest.json",
+          "sha256": "df411898241a5b9ca032acba16a8d22b12ea6e3ddb8d08793699fe9db725d481",
+          "bytes": 16741
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/metrics.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/metrics.json",
+          "sha256": "123c404cf0b4043251d48cce0002d3c52c22ee09bc9b861c8901eb0854711990",
+          "bytes": 1831
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/parameter_support_matrix.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/parameter_support_matrix.json",
+          "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+          "bytes": 40179
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/actual_replay_workflow.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/actual_replay_workflow.json",
+          "sha256": "7c986fd88afd4a9a8bbd743fa88e8fc8e427366365b0b9ce80e011daa51361b7",
+          "bytes": 17066
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/evaluation.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/evaluation.json",
+          "sha256": "ec1708b134dac67966944ca7c4b38f0372159f563e0f097081ced20cfaaff481",
+          "bytes": 48228
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/evaluation_semantic_v2.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/evaluation_semantic_v2.json",
+          "sha256": "ca0734484da72424ca76b9f09c1d5e2d3a585c36c28c1e129c9e2c0a1498946a",
+          "bytes": 54612
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/manifest.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/manifest.json",
+          "sha256": "b526b5b1f995d98752a033171ec27b6bdd6e8bb2b4a266795515a8163a1cb3aa",
+          "bytes": 17141
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/parameter_support_matrix.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/parameter_support_matrix.json",
+          "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+          "bytes": 40179
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/tool_catalog.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/tool_catalog.json",
+          "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+          "bytes": 60841
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/trace.jsonl",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/trace.jsonl",
+          "sha256": "a2b70ed0309d7dd6ecce9f268af1687677b5d8a73efb98c8c5541dada7653d1f",
+          "bytes": 16482
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/workflow.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/workflow.json",
+          "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+          "bytes": 17782
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+          "bytes": 17782
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+          "bytes": 1897
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/tool_catalog.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/tool_catalog.json",
+          "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+          "bytes": 60841
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/trace.jsonl",
+          "sha256": "65b3800ca9529c80e8fdbe7319fd44127b25c9b1ee6fbcf2df970372ab953dca",
+          "bytes": 383012
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/verification.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/verification.json",
+          "sha256": "7ed6800c02387bcace4fbc5617c4dedb51b3e4732f297977b9323de0ef87a166",
+          "bytes": 1745
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/workflow.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/workflow.json",
+          "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+          "bytes": 17782
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "sha256": "81a3664d1c388b37caaef63161e3016df2bf9c7ccf9c33938ec018d7c8477a41",
+          "bytes": 17782
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "batch_relative_path": "live/20261018T165324_llm_native_live_3b5f3748/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+          "sha256": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+          "bytes": 1897
+        }
+      ],
+      "replay": {
+        "passed": true,
+        "details": {
+          "source_workflow": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/workflow.json",
+          "source_manifest": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165324_llm_native_live_3b5f3748/manifest.json",
+          "n_executed": 5,
+          "n_restored_error_events": 0,
+          "exact_timing_steps": 5,
+          "legacy_timing_steps": 0,
+          "divergences": [],
+          "model_request_count": 0,
+          "argument_default_equivalences": [],
+          "effect_comparisons": {
+            "new_action_effects": true,
+            "quota": true,
+            "pending_irrigation": true
+          },
+          "replay_success": true
+        },
+        "task_success": false
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "passed",
+          "native_execution": "passed",
+          "jev_tool_choice": "not_applicable",
+          "jev_argument_choice": "not_applicable",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "llm_native",
+        "run_id": "20261018T165324_llm_native_live_3b5f3748",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "unique_logical_request": 3,
+          "known_model_role": 3,
+          "unique_http_attempt": 3,
+          "http_logical_role_link": 3,
+          "http_request_preserved": 3,
+          "http_end_pair": 3,
+          "http_identity": 3,
+          "http_response_preserved": 3,
+          "unknown_usage_is_null": 3,
+          "logical_end_pair": 3,
+          "unique_tool_start": 5,
+          "native_tool_selected_by_model": 5,
+          "native_arguments_selected_by_model": 5,
+          "tool_end_pair": 5,
+          "tool_identity": 5,
+          "forward_simulation_time": 5,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "workflow_tool_result_parity": 5,
+          "no_untraced_workflow_tools": 1,
+          "http_count_matches_metrics": 1,
+          "tool_count_matches_metrics": 1
+        },
+        "counts": {
+          "http_attempts": 3,
+          "logical_requests": 3,
+          "native_tool_attempts": 5,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      }
+    },
+    {
+      "architecture": "jev",
+      "status": "blocked",
+      "run_id": "20261018T165356_jev_live_00a32655",
+      "files": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/evaluation.json",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/evaluation.json",
+          "sha256": "e05a27f4e543943c54b2254b5ba255462d0c037b90136f8c9d2d3c857916bd9a",
+          "bytes": 3846
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/files.sha256",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/files.sha256",
+          "sha256": "527dc72823959326d89a5ab2e49347854a66d32a3e134656afa9020e741bffdc",
+          "bytes": 663
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/manifest.json",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/manifest.json",
+          "sha256": "38ef6f54cc553ce3a011d9894072c8f1b26407cc057f3bd582644d1adba20201",
+          "bytes": 17996
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/metrics.json",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/metrics.json",
+          "sha256": "85e61cd002806976e101d5ae0eb8fe5e681330a5d2faa885d03f769752344d8e",
+          "bytes": 1385
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/parameter_support_matrix.json",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/parameter_support_matrix.json",
+          "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+          "bytes": 40179
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/tool_catalog.json",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/tool_catalog.json",
+          "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+          "bytes": 60841
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/trace.jsonl",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/trace.jsonl",
+          "sha256": "b5553994cb793d0a813c950c10fba26774ad9d3ae33e69a333ff1343123d2549",
+          "bytes": 6072
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/verification.json",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/verification.json",
+          "sha256": "a60d1de4e4717fd5fb6e829f2094ff2685c23c88e5c704dee3bc497bc7989a2b",
+          "bytes": 1123
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165356_jev_live_00a32655/workflow.json",
+          "batch_relative_path": "live/20261018T165356_jev_live_00a32655/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "bytes": 2
+        }
+      ],
+      "replay": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "not_applicable",
+          "hybrid_cross_update": "not_applicable",
+          "material_state_replay": "not_applicable"
+        },
+        "architecture": "jev",
+        "run_id": "20261018T165356_jev_live_00a32655",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      }
+    },
+    {
+      "architecture": "hybrid",
+      "status": "blocked",
+      "run_id": "20261018T165404_hybrid_live_1921a018",
+      "files": [
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/evaluation.json",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/evaluation.json",
+          "sha256": "628e87ce3e5f3478941dc03d6a3138e6e1edf5e607b73ef328a80636e46a7226",
+          "bytes": 3834
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/files.sha256",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/files.sha256",
+          "sha256": "e25bbb912d00ebc5aa4270f54478b758207d33eebc2dc5f17c7e192b2cb5edbb",
+          "bytes": 663
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/manifest.json",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/manifest.json",
+          "sha256": "d2254bf6923d053ba4d436bf00bf705d4c8336e9737949895ab86944790092e3",
+          "bytes": 17998
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/metrics.json",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/metrics.json",
+          "sha256": "9783535aa7b2bec54971f151c6393c2443ae607a642725b6c1165365d157dab8",
+          "bytes": 1384
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/parameter_support_matrix.json",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/parameter_support_matrix.json",
+          "sha256": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+          "bytes": 40179
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/tool_catalog.json",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/tool_catalog.json",
+          "sha256": "41616ee9d23df057a7a1e0474653cdc4ccebe2d38728e2e576f57dcc88336278",
+          "bytes": 60841
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/trace.jsonl",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/trace.jsonl",
+          "sha256": "29b64d69e51acb58b56d4df4dfc5c9f364d39b4b9e785347e5e7ba7edad7366a",
+          "bytes": 6079
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/verification.json",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/verification.json",
+          "sha256": "b03bad8775e3a3ac68f8f5274a5b476fc097533587a5491770414809f6102b20",
+          "bytes": 1114
+        },
+        {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/live/20261018T165404_hybrid_live_1921a018/workflow.json",
+          "batch_relative_path": "live/20261018T165404_hybrid_live_1921a018/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+          "bytes": 2
+        }
+      ],
+      "replay": {
+        "status": "not_applicable",
+        "reason": "no actual native execution"
+      },
+      "trace_verification": {
+        "passed": true,
+        "issues": [],
+        "coverage": {
+          "http": "uncovered",
+          "native_execution": "uncovered",
+          "jev_tool_choice": "uncovered",
+          "jev_argument_choice": "uncovered",
+          "llm_native_summary": "not_applicable",
+          "hybrid_material": "uncovered",
+          "hybrid_cross_update": "uncovered",
+          "material_state_replay": "uncovered"
+        },
+        "architecture": "hybrid",
+        "run_id": "20261018T165404_hybrid_live_1921a018",
+        "checks_performed": {
+          "architecture_identity": 1,
+          "contiguous_event_ids": 1,
+          "run_identity": 1,
+          "catalog_hash": 1,
+          "catalog_visible_count": 1,
+          "all_http_attempts_terminated": 1,
+          "all_logical_requests_terminated": 1,
+          "all_decisions_terminated": 1,
+          "all_tool_calls_terminated": 1,
+          "no_untraced_workflow_tools": 1
+        },
+        "counts": {
+          "http_attempts": 0,
+          "logical_requests": 0,
+          "native_tool_attempts": 0,
+          "decision_requests": 0,
+          "packets": 0,
+          "state_replays": 0
+        },
+        "scope": "Offline artifact/visible-prefix integrity and saved-material replay; no model or tool execution; task truth is independently evaluated."
+      }
+    }
+  ],
+  "old_controls": [
+    {
+      "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+      "label": "native_formal_prior",
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/manifest.json",
+          "sha256": "0b9334718f02a5c56fe58acc0766dd109e564493363297d0a92fa44af0682086"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/trace.jsonl",
+          "sha256": "4e9787d731cb98e1952e011e40741fb616941fd6bc251886c7bd0fbf78be6e71"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/evaluation.json",
+          "sha256": "833b70fad517c3dddb051adc5b4222dbe76bccc44fef73495e8fe2c99131a28a"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/metrics.json",
+          "sha256": "b4e2a6505730abf9e08ce8c04a8668ba4c0da178fbc2fd3c9be0235765b99288"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/workflow.json",
+          "sha256": "ea7b193a79d98a2664c0703e65420a1b474446306e10e6759d3ffc949603be5e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131925_llm_native_live_d53c8d5e/verification.json",
+          "sha256": "2f8b23e42b248d306914aa869843209bf7f02c9c45da4821fe65fd7285955d5f"
+        }
+      ]
+    },
+    {
+      "run_id": "20261018T131959_llm_native_live_a52947cf",
+      "label": "native_formal_prior",
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/manifest.json",
+          "sha256": "99544657f134dea66f20efbe7fac19ee4b8ee21f5a00d1983e4cc4e4d030b0d0"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/trace.jsonl",
+          "sha256": "9cd7688d21428a65420f73611d1b120bb62d8c8d1a487c1aa23505c65a6398eb"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/evaluation.json",
+          "sha256": "e31c6b964a656beaf6d53c7402fd12c1391164b023fec32e54d4428f3df71cc8"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/metrics.json",
+          "sha256": "76f251f643d6e9cde703591e144866568b036067e717e11cfde66c8d50260cff"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/workflow.json",
+          "sha256": "6df279166286e4033c0b8da398d15ea905f15574bea443a4fad0cfaeb6038b5f"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T131959_llm_native_live_a52947cf/verification.json",
+          "sha256": "929bd1e4211ade09bbb42290129f4332005efc91a183a936ce15595fc2800618"
+        }
+      ]
+    },
+    {
+      "run_id": "20261018T132025_llm_native_live_82c497e7",
+      "label": "native_formal_prior",
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/manifest.json",
+          "sha256": "0f9b9f00302e10c4bd8d19e378a208dcc602df0a5f4880476470339dfbfa71ad"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/trace.jsonl",
+          "sha256": "68cfcaa48cbd6fa92ed8ed3dbb1eb0d34b82a00a8ad6012ef35ead2e05107274"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/evaluation.json",
+          "sha256": "5e16bee5a3ca270f4ecb820f509d545e7888498e2c968f829ab57b130a61ac3a"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/metrics.json",
+          "sha256": "01902a53ed4eddcec09911ceb105b33a52d1755ec5556d383491253c1793385e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/workflow.json",
+          "sha256": "efd4d8a1f83d3d452f4e6b368a70420cdf465e9de14af4a5c9242c3ad21bb6a2"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T132025_llm_native_live_82c497e7/verification.json",
+          "sha256": "dbf8bd9a58431047b3f180553ae1268116cf6ca1d0f20a3c346c3c553552a938"
+        }
+      ]
+    },
+    {
+      "run_id": "20261018T140025_hybrid_live_9fd09d81",
+      "label": "hybrid_diagnostic_smoke",
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/manifest.json",
+          "sha256": "bd6ee2772f75b654c57844b618f7aeb8bba02569a42d0f4dd2c9611e37fc7223"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/trace.jsonl",
+          "sha256": "fd18cbb7af0e55faa0badfb0bb787af4bc9332dd22dc5f25dc01a9b2613ff8f9"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/evaluation.json",
+          "sha256": "c27292d0c24818eb3a661f3274f2bf99712f2691b38f103a62f8537e7f48db5e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/metrics.json",
+          "sha256": "237f05421731ff34e749af112aa0223d45c9207d014af7782d8c9e15fcef364d"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/workflow.json",
+          "sha256": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T140025_hybrid_live_9fd09d81/verification.json",
+          "sha256": "34e00b94bc1540b79626efe7dd9066d076bec43575f78d405f3635b07f92151d"
+        }
+      ]
+    },
+    {
+      "run_id": "20261017T112501_live_db897d9a",
+      "label": "jev_earlier_mvp_different_contract",
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/manifest.json",
+          "sha256": "82bdd580a1a340a831536c470876a511a09dca7cc451bf277e99218e6c5aa8a5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/trace.jsonl",
+          "sha256": "6d4007c1dda6cf831d512cb96128fd8b56798432150453cc6890e4b8feeed3aa"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/evaluation.json",
+          "sha256": "0027c3bbf13cac03c76e82ba67b40a15a6bcdaa66b7cf63c4c3202a85fb329cd"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/workflow.json",
+          "sha256": "906fb8abb2c7d7c49a12da1dbbbc678d6181bc0586021fe63d59c96108b0609b"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a/summary.md",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261017T112501_live_db897d9a/summary.md",
+          "sha256": "f06659d6e7502de6d7c669cc4befeeb704f9c8fd2ad7537ac9d0783ec0e2c561"
+        }
+      ]
+    },
+    {
+      "run_id": "20261018T094403_jev_live_3ec48d66",
+      "label": "jev_451_no_valid_loop",
+      "archive_copies": [
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/manifest.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/manifest.json",
+          "sha256": "9b15f7e1f0467217deb5ec2f872492b94acce09081cae410e58279f8ee93a3eb"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/tool_catalog.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/tool_catalog.json",
+          "sha256": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/trace.jsonl",
+          "sha256": "d8c29b43b783060c60d15728f62671732542c3d90ae74589e2171335db99d8b2"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/evaluation.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/evaluation.json",
+          "sha256": "24bb4ed06dd89898f8b6464071cdbd483ce8d5e3b18edb30398fd0cc2c3f532e"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/metrics.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/metrics.json",
+          "sha256": "4fc30ca314b40d867dbfa066e266c89b2a9977a5105069e8ce0e355fa748d157"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/workflow.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/workflow.json",
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "source": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66/verification.json",
+          "archive_copy": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/old_controls/20261018T094403_jev_live_3ec48d66/verification.json",
+          "sha256": "7f26a8b01a928270734cff7ec99f349a618ab2f2357af1354ef01ec1ddb3e9f5"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Full model requests/responses in raw trace and analysis/*_model_calls.json. No auth headers recorded.",
+    "Blocked rows have no actual HTTP and no replay execution; verification is artifact integrity only.",
+    "Archive includes unchanged copies of six historical controls; original files are never edited.",
+    "All relative payload hashes are additionally listed in files.sha256; this index excludes its own hash."
+  ]
+}

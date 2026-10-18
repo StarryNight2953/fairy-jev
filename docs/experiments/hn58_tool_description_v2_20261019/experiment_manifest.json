@@ -1,0 +1,1176 @@
+{
+  "experiment_id": "hn58-tool-description-v2-20261019",
+  "version": "tool_description_v2",
+  "experiment_commit": "bbe762c98a97e5f22cceb5f7b24fc3a67656fdb6",
+  "experiment_tag": "experiment/hn58-tool-description-v2-20261019",
+  "branch": "experiment/hn58-tool-description-v2-20261019",
+  "base_commit": "334136928fdc62260fd49d3cad2b83cbb255880b",
+  "docstring_commit": "e868559",
+  "purpose": "Evaluate only the user get_inventory Docstring update under the unchanged three architectures; one preregistered attempt per architecture, no replacement samples",
+  "status": "PARTIAL_ACCESS_BLOCKED",
+  "checkpoint_status": {
+    "C0": "PASSED",
+    "C1": "PASSED",
+    "C2": "PASSED",
+    "C3": "PARTIAL_ACCESS_BLOCKED",
+    "C4": "COMPLETE_WITH_BLOCKED_ROWS",
+    "C5": "COMPLETE"
+  },
+  "docstring_diff": [
+    {
+      "tool": "FarmWorldApp__get_inventory",
+      "field": "description",
+      "old": "Return the current farm inventory (seeds, pesticide, fertilizer, fuel, grain).",
+      "new": "Return the current farm inventory (seeds, pesticide, fertilizer, fuel, grain), management resource limits and usage (including irrigation quota), and post-harvest market information."
+    }
+  ],
+  "production_diff": "diff --git a/fairy/apps/farm_world/farm_world_app.py b/fairy/apps/farm_world/farm_world_app.py\nindex 10582b8..e7205e2 100644\n--- a/fairy/apps/farm_world/farm_world_app.py\n+++ b/fairy/apps/farm_world/farm_world_app.py\n@@ -356,7 +356,7 @@ class FarmWorldApp(App):\n     @data_tool()\n     @event_registered(operation_type=OperationType.READ)\n     def get_inventory(self) -> dict[str, Any]:\n-        \"\"\"Return the current farm inventory (seeds, pesticide, fertilizer, fuel, grain).\"\"\"\n+        \"\"\"Return the current farm inventory (seeds, pesticide, fertilizer, fuel, grain), management resource limits and usage (including irrigation quota), and post-harvest market information.\"\"\"\n         return {\n             **self._inventory.to_dict(),\n             \"management_regime\": self._management_regime.to_dict(),",
+  "additional_changes": "Only new offline regression test, separately committed; post-run documentation/orchestration archive commits do not change execution identity",
+  "seed": 1904,
+  "configs": {
+    "llm_native": {
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1904,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "llm_native",
+        "implementation_version": "fairy_native_observed_v1",
+        "llm": {
+          "provider": "vllm",
+          "model": "Qwen3.6-35B-A3B-FP8",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "authentication_mode": "none",
+          "base_url": "http://100.115.106.71:8000/v1",
+          "enable_thinking": false,
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+        "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+      },
+      "hash": "356f2bcd0039fbee4edae8ce4509ca102c89fd0147bd203612be5a3626636d46"
+    },
+    "jev": {
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1904,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "jev",
+        "implementation_version": "jev_mvp_v1_observed",
+        "llm": {
+          "provider": "vllm",
+          "model": "Qwen3.6-35B-A3B-FP8",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "authentication_mode": "none",
+          "base_url": "http://100.115.106.71:8000/v1",
+          "enable_thinking": false,
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+        "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+      },
+      "hash": "d38c7625f115b362cd5188d4378f2ee25f832c9d4968b63c41f9cf69775264f1"
+    },
+    "hybrid": {
+      "config": {
+        "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+        "seed": 1904,
+        "scenario_kwargs": {},
+        "init_kwargs": {},
+        "clock_source": "checkpoint",
+        "api_key_env": "TYPESAFE_API_KEY",
+        "base_url": "https://api.typesafe.ai",
+        "model": "jev-1.13.0",
+        "request_timeout_seconds": 30,
+        "history": {
+          "max_observations": 24,
+          "max_recent_actions": 6,
+          "max_feedback": 12
+        },
+        "budgets": {
+          "max_steps": 40,
+          "max_tool_calls": 40,
+          "max_decision_calls": 80,
+          "wall_timeout_seconds": 600,
+          "repeated_parameter_failure_limit": 3
+        },
+        "candidate_catalog": {
+          "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
+          "ridge_bounds": {
+            "values": [
+              0,
+              63
+            ],
+            "unit": "inclusive ridge ID",
+            "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"
+          },
+          "ranges": {
+            "values": [
+              [
+                0,
+                63
+              ]
+            ],
+            "unit": "inclusive ridge ID pair",
+            "source": "declared_catalog:full field; visible task ranges are added dynamically"
+          },
+          "sensor_ids": {
+            "soil": [
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ],
+            "canopy": [
+              "C1",
+              "C2",
+              "C3",
+              "C4",
+              "C5",
+              "C6"
+            ],
+            "source": "public_catalog:SensorApp single-sensor docstrings"
+          },
+          "implement": {
+            "values": [
+              "grader",
+              "furrower",
+              "harvester",
+              "sprayer",
+              "cultivator"
+            ],
+            "unit": "implement name",
+            "source": "public_catalog:TractorApp.ATTACHMENTS / get_status.available_implements"
+          },
+          "seed_type": {
+            "values": [
+              "EARLY_COLD",
+              "STANDARD",
+              "HIGH_DENSITY",
+              "STRESS_TOLERANT",
+              "HEIHE43",
+              "HEIHE50",
+              "HEINONG58",
+              "HEINONG60",
+              "HEINONG84",
+              "HEIKE71"
+            ],
+            "unit": "SeedType value",
+            "source": "public_catalog:fairy.apps.farm_world.models.SeedType"
+          },
+          "irrigation_hours": {
+            "values": [
+              0.5,
+              1.0
+            ],
+            "unit": "hours per ridge",
+            "source": "declared_catalog; positive task duration is added dynamically"
+          },
+          "wait_seconds": {
+            "values": [
+              60,
+              600,
+              3600,
+              10800
+            ],
+            "unit": "simulation seconds",
+            "source": "declared_catalog; visible effect_ready_at and ETA are added dynamically"
+          },
+          "notification_timeout": {
+            "values": [
+              60,
+              600
+            ],
+            "unit": "seconds",
+            "source": "declared_catalog; always explicit and positive"
+          },
+          "tool_values": {
+            "WeatherApp__get_forecast": {
+              "days": {
+                "values": [
+                  1,
+                  3
+                ],
+                "unit": "days (1-7)"
+              }
+            },
+            "FarmWorldApp__dry_grain": {
+              "target_moisture_pct": {
+                "values": [
+                  14.0
+                ],
+                "unit": "percent grain moisture"
+              }
+            },
+            "FarmWorldApp__apply_fertigation": {
+              "nutrient_amount": {
+                "values": [
+                  0.5,
+                  1.0,
+                  1.5
+                ],
+                "unit": "normalized nutrient dose"
+              },
+              "water_mm": {
+                "values": [
+                  0.0,
+                  1.0
+                ],
+                "unit": "mm per ridge"
+              }
+            },
+            "TractorApp__refuel": {
+              "liters": {
+                "values": [
+                  10.0,
+                  50.0,
+                  100.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__refill_pesticide_tank": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_pesticide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  80.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fungicide": {
+              "liters": {
+                "values": [
+                  10.0,
+                  40.0
+                ],
+                "unit": "L"
+              }
+            },
+            "TractorApp__load_fertilizer": {
+              "kg": {
+                "values": [
+                  50.0,
+                  200.0
+                ],
+                "unit": "kg"
+              }
+            },
+            "TractorApp__load_seeds": {
+              "count": {
+                "values": [
+                  10000,
+                  100000
+                ],
+                "unit": "seed count"
+              }
+            },
+            "TractorApp__form_ridges": {
+              "ridge_width_m": {
+                "values": [
+                  1.1
+                ],
+                "unit": "m"
+              }
+            },
+            "TractorApp__apply_fertilizer": {
+              "kg_per_ridge": {
+                "values": [
+                  1.0,
+                  5.0,
+                  10.0
+                ],
+                "unit": "kg per ridge"
+              }
+            },
+            "TractorApp__plant_seeds": {
+              "depth_cm": {
+                "values": [
+                  3.0,
+                  4.0,
+                  5.0
+                ],
+                "unit": "cm"
+              },
+              "seed_spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              }
+            },
+            "TractorApp__replant_seeds": {
+              "depth_cm": {
+                "values": [
+                  4.0
+                ],
+                "unit": "cm"
+              },
+              "spacing_cm": {
+                "values": [
+                  10.0
+                ],
+                "unit": "cm"
+              },
+              "full_replant": {
+                "values": [
+                  true
+                ],
+                "unit": "boolean; false signature default also included"
+              }
+            },
+            "TractorApp__spray_pesticide": {
+              "liters_per_ridge": {
+                "values": [
+                  4.0
+                ],
+                "unit": "L per ridge; signature default also included"
+              }
+            },
+            "TractorApp__apply_fungicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "TractorApp__apply_herbicide": {
+              "liters_per_ridge": {
+                "values": [
+                  2.0,
+                  4.0
+                ],
+                "unit": "L per ridge"
+              }
+            },
+            "FieldOpsApp__apply_pesticide_manual": {
+              "ridge_count": {
+                "values": [
+                  2
+                ],
+                "unit": "contiguous ridge count; signature default also included"
+              }
+            }
+          },
+          "max_pass_width": {
+            "TractorApp__apply_fertilizer": 10,
+            "TractorApp__plant_seeds": 4,
+            "TractorApp__apply_pesticide": 10,
+            "TractorApp__spray_pesticide": 10,
+            "TractorApp__apply_fungicide": 10,
+            "TractorApp__apply_herbicide": 10,
+            "TractorApp__mechanical_weed_control": 10,
+            "TractorApp__replant_seeds": 4,
+            "TractorApp__incorporate_residue": 10,
+            "TractorApp__harvest": 4
+          }
+        },
+        "architecture": "hybrid",
+        "implementation_version": "hybrid_sync_v1",
+        "llm": {
+          "provider": "vllm",
+          "model": "Qwen3.6-35B-A3B-FP8",
+          "temperature": 0.1,
+          "max_output_tokens": 2048,
+          "parallel_tool_calls": true,
+          "authentication_mode": "none",
+          "base_url": "http://100.115.106.71:8000/v1",
+          "enable_thinking": false,
+          "timeout": 30
+        },
+        "hybrid": {
+          "update_interval": 4,
+          "max_brief_chars": 4000,
+          "max_output_tokens": 2048,
+          "request_limits": {
+            "max_jev_request_bytes": 60000,
+            "max_jev_request_chars": 60000,
+            "max_llm_request_bytes": 120000
+          }
+        },
+        "experiment_limits": {
+          "max_tool_attempts": 40,
+          "max_decision_rounds": 40,
+          "max_http_attempts": 120,
+          "max_jev_http_attempts": 100,
+          "max_updater_attempts": 20,
+          "max_updates": 10,
+          "wall_timeout_seconds": 600
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "candidate_strategy_version": "jev_mvp_v1",
+        "requested_design_limits": {
+          "max_decision_rounds": 60,
+          "wall_timeout_seconds": 900,
+          "max_jev_decision_calls": 100
+        },
+        "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+        "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+        "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+      },
+      "hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1"
+    }
+  },
+  "shared_identity": {
+    "scenario_id": "scenario_l1_three_cultivar_hn58_action_ready_irrigation",
+    "checkpoint_hash": "808b2f7ff5cd2351eeabed1a9e9aa58611d96a8e5c0c40322129c458aa2cda7d",
+    "effective_start_time": 1786057131.7453332,
+    "clock_source": "checkpoint",
+    "scenario_source": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_three_cultivar_wet_disease_dry_harvest_sequence/scenario_l1_three_cultivar_hn58_action_ready_irrigation.py",
+      "sha256": "36a6c83bdb0b8d73548c372fc8ad9da21c262fe7f63b1080598581b1e11bddd7"
+    },
+    "data_assets": {
+      "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+    },
+    "catalog_hash": "11315fbbc99523ada8dc88f256cec22d5e21a6840a8d164e22d216af7f0184f6",
+    "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+    "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+    "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+    "parameter_catalog_hash": "4847af05cdfc7fdff85bc66e8f9cfe0db916a29f6b7b5d2fe70a8667238cfd34",
+    "evaluator_version": "hn58_semantic_v2",
+    "evaluator_hash": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+    "sdk_version": "0.7.5",
+    "openai_sdk_version": "2.44.0"
+  },
+  "ledger_reference": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "before_snapshot": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/c0_snapshot.json",
+    "after_snapshot": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58_tool_description_v2_20261019/budget_after.json"
+  },
+  "old_controls": [
+    {
+      "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131925_llm_native_live_d53c8d5e",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "evaluator_version": "hn58_semantic_v2",
+      "identity_limit": null
+    },
+    {
+      "run_id": "20261018T131959_llm_native_live_a52947cf",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T131959_llm_native_live_a52947cf",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "evaluator_version": "hn58_semantic_v2",
+      "identity_limit": null
+    },
+    {
+      "run_id": "20261018T132025_llm_native_live_82c497e7",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-qwen-v1/formal/20261018T132025_llm_native_live_82c497e7",
+      "code_commit": "4ad666c34abc2665425aef353cc38a9b2304d263",
+      "evaluator_version": "hn58_semantic_v2",
+      "identity_limit": null
+    },
+    {
+      "run_id": "20261018T140025_hybrid_live_9fd09d81",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81",
+      "code_commit": "a9df0e524a60b4d35db7c40a8a7c497f62b62576",
+      "evaluator_version": "hn58_semantic_v2",
+      "identity_limit": null
+    },
+    {
+      "run_id": "20261017T112501_live_db897d9a",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp/runs/jev/live/20261017T112501_live_db897d9a",
+      "code_commit": "215f8c3b7afca66f24ccdcc007f81e0c7cbf4dc8",
+      "evaluator_version": "legacy_unversioned",
+      "identity_limit": "Earlier dirty MVP implementation: recorded base commit alone does not pin uncommitted implementation; use saved implementation hashes; evaluator not hn58_semantic_v2"
+    },
+    {
+      "run_id": "20261018T094403_jev_live_3ec48d66",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hn58-three-agents-v1/smoke/20261018T094403_jev_live_3ec48d66",
+      "code_commit": "85ac64ff1a3897a9db72a35e5cf9d0476b9404c2",
+      "evaluator_version": "hn58_semantic_v2",
+      "identity_limit": null
+    }
+  ],
+  "planned_architectures": [
+    "llm_native",
+    "jev",
+    "hybrid"
+  ],
+  "executed_architectures": [
+    "llm_native"
+  ],
+  "blocked_architectures": [
+    "jev",
+    "hybrid"
+  ],
+  "access_rule_unchanged": true,
+  "new_catalog_hash": "11315fbbc99523ada8dc88f256cec22d5e21a6840a8d164e22d216af7f0184f6",
+  "raw_protected_before_count": 927,
+  "configuration_limit_note": "Unchanged inherited configuration_note refers to a historical metadata GET; this batch performed no metadata/network probes."
+}
