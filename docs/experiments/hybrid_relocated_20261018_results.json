@@ -1,0 +1,465 @@
+{
+  "experiment_id": "hn58-hybrid-relocated-proxy-smoke-20261018",
+  "runs": [
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/scripted_frozen/20261018T140217_hybrid_scripted_70323fad",
+      "run_id": "20261018T140217_hybrid_scripted_70323fad",
+      "mode": "scripted",
+      "code_commit": "a9df0e524a60b4d35db7c40a8a7c497f62b62576",
+      "source_clean": true,
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "live_integration_success": null,
+      "task_success": null,
+      "scripted_task_success": true,
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.5000, ktc_raw=1.0000, coverage=0.7143, ktc_adjusted=0.7143, combined=0.6071\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/scripted_frozen/20261018T140217_hybrid_scripted_70323fad/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/scripted_frozen/20261018T140217_hybrid_scripted_70323fad/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "assertions": {
+        "pre_irrigation_observations": true,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": true
+      },
+      "first_issue": null,
+      "integration_coverage": {
+        "live": "not_applicable"
+      },
+      "trace_verification_passed": true,
+      "replay_verification_passed": true,
+      "metrics": {
+        "model_http_attempts": 0,
+        "logical_model_requests": 0,
+        "roles": {},
+        "input_tokens": null,
+        "output_tokens": null,
+        "usage_status": "unavailable",
+        "tool_attempts": 10,
+        "tool_successes": 10,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 11,
+        "llm_updates": 3,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": false,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "updates": 3,
+            "decision_rounds": 11,
+            "logical_requests": 16,
+            "tool_attempts": 10
+          },
+          "role_http_attempts": {},
+          "role_logical_requests": {
+            "jev_tool_choice": 11,
+            "jev_argument_choice": 5
+          },
+          "elapsed_seconds": 0.41363320796517655,
+          "remaining_seconds": 599.5863667500089,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 0.41396066697780043,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786067511.8597672
+      },
+      "artifact_hashes": {
+        "evaluation.json": "4c4e93a27bfdafc8b8ff43e14140790862d7b57526ba2b9fa14903a9f59a240d",
+        "manifest.json": "c049400977e69815766a50c2e5b279ca33c2c0aab9f1d961e7fc3365e7a94264",
+        "metrics.json": "76efb0f3380e01b5e74dbfb4cd3bed129f53746821bad0ffa0a950e342982104",
+        "parameter_support_matrix.json": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+        "replay/actual_replay_workflow.json": "7b9ff8eb56e069f1dd0fde8c0ad5523f9913f2a119573025c878a4a0efad4028",
+        "replay/evaluation.json": "ce3bbb8288e9b9f4c8b49213d435088c6df85d427884e927948dbfee4b81be95",
+        "replay/evaluation_semantic_v2.json": "ad6601321c78d197a3ec754994caa176c1a188c39ad3b896497dfdeaf7ed3887",
+        "replay/manifest.json": "ed344ed8c33cbb7807eccd8b97a33d1d15313063b45209171dfa0465353e20fe",
+        "replay/parameter_support_matrix.json": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+        "replay/tool_catalog.json": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5",
+        "replay/trace.jsonl": "4c4278f75673c01fc33e94d50105e08739c7d225e5d1a9c4a1341900c5c12e22",
+        "replay/workflow.json": "6fdadde842eab74e715610d3a3ef39f3efbb4f24d5328f1594cc5d9ed7f51a0d",
+        "replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "6fdadde842eab74e715610d3a3ef39f3efbb4f24d5328f1594cc5d9ed7f51a0d",
+        "replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+        "tool_catalog.json": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5",
+        "trace.jsonl": "697827aefc81c441e24546c8315010fb1cddc07211ec45d73a0ce31839355c74",
+        "verification.json": "ba085e764b67a51b676072638be2c4d9b3e5abe5bc000441b876e28331622cf8",
+        "workflow.json": "6fdadde842eab74e715610d3a3ef39f3efbb4f24d5328f1594cc5d9ed7f51a0d",
+        "workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "6fdadde842eab74e715610d3a3ef39f3efbb4f24d5328f1594cc5d9ed7f51a0d",
+        "workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f"
+      },
+      "versions": {
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": "2.44.0",
+        "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+        "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+        "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+        "evaluator_version": "hn58_semantic_v2",
+        "evaluator_hash": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+        "scenario_source": {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_three_cultivar_wet_disease_dry_harvest_sequence/scenario_l1_three_cultivar_hn58_action_ready_irrigation.py",
+          "sha256": "36a6c83bdb0b8d73548c372fc8ad9da21c262fe7f63b1080598581b1e11bddd7"
+        },
+        "data_assets": {
+          "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+        }
+      }
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81",
+      "run_id": "20261018T140025_hybrid_live_9fd09d81",
+      "mode": "live",
+      "code_commit": "a9df0e524a60b4d35db7c40a8a7c497f62b62576",
+      "source_clean": true,
+      "config_hash": "fa486d45fb41854e0f72dc3de8b8764412ec5a42467ae9dd4f7578c9d73014b1",
+      "live_integration_success": true,
+      "task_success": false,
+      "scripted_task_success": null,
+      "native_validation": {
+        "success": true,
+        "message": "full-checkpoint L1 HEINONG58 irrigation split",
+        "rationale": "full-checkpoint L1 HEINONG58 irrigation split\nworkflow_eval: path_correctness=0.3750, ktc_raw=1.0000, coverage=0.4286, ktc_adjusted=0.4286, combined=0.4018\nworkflow_oracle=/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json, workflow_agent=/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/smoke/20261018T140025_hybrid_live_9fd09d81/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json",
+        "metadata": {}
+      },
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": false
+      },
+      "first_issue": {
+        "event_id": 68,
+        "step_id": "step_0004",
+        "decision_id": "decision_0004",
+        "decision_ids": [
+          "decision_0004",
+          "decision_0005"
+        ],
+        "tool_call_id": "tool_0004",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "target_state",
+            "remaining_quota"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      },
+      "integration_coverage": {
+        "http_response": "passed",
+        "native_execution": "passed",
+        "jev_tool_choice": "passed",
+        "jev_parameter_choice": "passed",
+        "llm_material_in_jev": "passed",
+        "cross_update_feedback": "passed",
+        "tool_feedback_in_later_request": "passed"
+      },
+      "trace_verification_passed": true,
+      "replay_verification_passed": true,
+      "metrics": {
+        "model_http_attempts": 11,
+        "logical_model_requests": 11,
+        "roles": {
+          "jev_argument_choice": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 0.6296550420229323,
+            "input_tokens": 5136,
+            "output_tokens": 229,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "jev_tool_choice": {
+            "http_attempts": 7,
+            "logical_requests": 7,
+            "latency_seconds": 4.959247582941316,
+            "input_tokens": 96315,
+            "output_tokens": 5989,
+            "usage_status": "reported",
+            "response_models": [
+              "jev-1.13.0"
+            ]
+          },
+          "llm_context_update": {
+            "http_attempts": 2,
+            "logical_requests": 2,
+            "latency_seconds": 16.455236624984536,
+            "input_tokens": 21656,
+            "output_tokens": 377,
+            "usage_status": "reported",
+            "response_models": [
+              "Qwen3.6-35B-A3B-FP8"
+            ]
+          }
+        },
+        "input_tokens": 123107,
+        "output_tokens": 6595,
+        "usage_status": "reported",
+        "tool_attempts": 6,
+        "tool_successes": 6,
+        "tool_errors": 0,
+        "pre_execution_errors": 0,
+        "decision_rounds": 7,
+        "llm_updates": 2,
+        "cost": {
+          "amount": null,
+          "currency": null,
+          "status": "unavailable",
+          "reason": "No verified price schedule or billed cost configured; no assumed caching discount"
+        },
+        "live": true,
+        "budget_consumption": {
+          "limits": {
+            "max_tool_attempts": 40,
+            "max_decision_rounds": 40,
+            "max_http_attempts": 120,
+            "max_jev_http_attempts": 100,
+            "max_updater_attempts": 20,
+            "max_updates": 10,
+            "wall_timeout_seconds": 600
+          },
+          "counts": {
+            "updates": 2,
+            "logical_requests": 11,
+            "http_attempts": 11,
+            "decision_rounds": 7,
+            "tool_attempts": 6
+          },
+          "role_http_attempts": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 7,
+            "jev_argument_choice": 2
+          },
+          "role_logical_requests": {
+            "llm_context_update": 2,
+            "jev_tool_choice": 7,
+            "jev_argument_choice": 2
+          },
+          "elapsed_seconds": 22.840679667016957,
+          "remaining_seconds": 577.1593192499713,
+          "stop_reason": null,
+          "deadline_policy": "POSIX whole-episode timer; per-HTTP timeout clamped to remaining time"
+        },
+        "latency_policy": "Episode monotonic wall time includes all roles, tool execution, state preparation and initialization; role durations are separate, not substituted for total.",
+        "episode_wall_seconds": 22.84104299999308,
+        "simulation_time_start": 1786057131.7453332,
+        "simulation_time_end": 1786071134.292843
+      },
+      "artifact_hashes": {
+        "evaluation.json": "c27292d0c24818eb3a661f3274f2bf99712f2691b38f103a62f8537e7f48db5e",
+        "manifest.json": "bd6ee2772f75b654c57844b618f7aeb8bba02569a42d0f4dd2c9611e37fc7223",
+        "metrics.json": "237f05421731ff34e749af112aa0223d45c9207d014af7782d8c9e15fcef364d",
+        "parameter_support_matrix.json": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+        "replay/actual_replay_workflow.json": "d185934155ce84f982f5da3de7ec1cce67f9e9330de0b006514c8b4025b62cda",
+        "replay/evaluation.json": "0aa7d8cefab8cdd08786bfb4fbebc1e3c37cf0b60f4cbf3c0001d385753efab4",
+        "replay/evaluation_semantic_v2.json": "f7143c67fc08538393f3bb81cfb831ddfad9cefd8473ef22b3ab9b6de16e96f6",
+        "replay/manifest.json": "0e0b1aa25a53fbf7a3d8f1588ed15c60fe012d4d1ebafbe19ebf19555e485387",
+        "replay/parameter_support_matrix.json": "c0c196319c6eb558cf044de62abea2bdaa80424b9af677c8ca082b7b868d98b4",
+        "replay/tool_catalog.json": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5",
+        "replay/trace.jsonl": "1b827107a75beede9bb5e355cb6ce811850898cc5a1fca2ea6ed2f52b8e16464",
+        "replay/workflow.json": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+        "replay/workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+        "replay/workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f",
+        "tool_catalog.json": "32cfd01360023b20daa4cd6b8fd0635dd075c85d8d8b2c581055531e25fef1d5",
+        "trace.jsonl": "fd18cbb7af0e55faa0badfb0bb787af4bc9332dd22dc5f25dc01a9b2613ff8f9",
+        "verification.json": "34e00b94bc1540b79626efe7dd9066d076bec43575f78d405f3635b07f92151d",
+        "workflow.json": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+        "workflows/workflow_agent_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "6883987c06d14f33d3fb95dd74e9bd468b9bc27b2e77566a5f540161e51cebf4",
+        "workflows/workflow_oracle_scenario_l1_three_cultivar_hn58_action_ready_irrigation.json": "fc4d5826a74edd2e6965d881cda13cdce357d6750ee92c48ef29f89d7729658f"
+      },
+      "versions": {
+        "sdk_version": "0.7.5",
+        "openai_sdk_version": "2.44.0",
+        "lockfile_hash": "2dc939e2dc529ca902f496da7fe1ccf728a3f8c9db8e6e90619db2dd1136732a",
+        "prompt_hash": "e06358755d6ce2192611a766ce0bfb2da30605017f6d2218f405fae76e928c96",
+        "candidate_strategy_hash": "3fa0aadb96cd6746983b0c0fb7b0c5b34224300334150d7a13db2c1efadfd3a9",
+        "evaluator_version": "hn58_semantic_v2",
+        "evaluator_hash": "6244ee2755d3a65cc664e5227547cf5921356fe4c2ac307d1eca41425a9d77a8",
+        "scenario_source": {
+          "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_three_cultivar_wet_disease_dry_harvest_sequence/scenario_l1_three_cultivar_hn58_action_ready_irrigation.py",
+          "sha256": "36a6c83bdb0b8d73548c372fc8ad9da21c262fe7f63b1080598581b1e11bddd7"
+        },
+        "data_assets": {
+          "tangyan5_workbook": "ebbb7d09efdcad0d45b99f5fe80dcb3875f1842ecf9a4534e6854af42e314ba3"
+        }
+      }
+    }
+  ],
+  "scope": "One hybrid diagnostic smoke using its previously unused slot; not a replacement formal comparison. All original model choices and task criteria preserved.",
+  "checkpoint_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/checkpoint.json",
+  "analysis_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/hybrid_relocated_20261018/agent_analysis.json",
+  "workspace_mapping": {
+    "version": 1,
+    "path_mapping": {
+      "/Users/ouyangkun/PHD/Project/Fairy-Jev": "jev-mvp",
+      "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid": "llm-jev-hybrid",
+      "/Users/ouyangkun/PHD/Project/Fairy-Jev-hn58-reproduce": "hn58-reproduce"
+    }
+  },
+  "live_budget_before": {
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "episodes": [
+      {
+        "run_id": "20261018T094403_jev_live_3ec48d66",
+        "architecture": "jev",
+        "stage": "smoke",
+        "slot": "smoke_jev",
+        "http_attempts": 1,
+        "status": "integration_error"
+      },
+      {
+        "run_id": "20261018T131742_llm_native_live_4b089439",
+        "architecture": "llm_native",
+        "stage": "smoke",
+        "slot": "smoke_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_1_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131959_llm_native_live_a52947cf",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_2_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T132025_llm_native_live_82c497e7",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_3_llm_native",
+        "http_attempts": 3,
+        "status": "completed"
+      }
+    ],
+    "http_attempts": 19,
+    "max_episodes": 12,
+    "max_http_attempts": 1440
+  },
+  "live_budget_after": {
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "episodes": [
+      {
+        "run_id": "20261018T094403_jev_live_3ec48d66",
+        "architecture": "jev",
+        "stage": "smoke",
+        "slot": "smoke_jev",
+        "http_attempts": 1,
+        "status": "integration_error"
+      },
+      {
+        "run_id": "20261018T131742_llm_native_live_4b089439",
+        "architecture": "llm_native",
+        "stage": "smoke",
+        "slot": "smoke_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131925_llm_native_live_d53c8d5e",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_1_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T131959_llm_native_live_a52947cf",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_2_llm_native",
+        "http_attempts": 5,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T132025_llm_native_live_82c497e7",
+        "architecture": "llm_native",
+        "stage": "formal",
+        "slot": "formal_block_3_llm_native",
+        "http_attempts": 3,
+        "status": "completed"
+      },
+      {
+        "run_id": "20261018T140025_hybrid_live_9fd09d81",
+        "architecture": "hybrid",
+        "stage": "smoke",
+        "slot": "smoke_hybrid",
+        "http_attempts": 11,
+        "status": "completed"
+      }
+    ],
+    "http_attempts": 30,
+    "max_episodes": 12,
+    "max_http_attempts": 1440
+  },
+  "evidence_sha256": {
+    "agent_analysis.json": "ba2ae1b35e4d13617fa1a46fcab18ef8b95d05e9f0e15031bdeb404036ac5777",
+    "checkpoint.json": "cf4966fd3b5855d62fbc426f299f091e08263869dd1d52cc1bbb0cb8c1c65e5c",
+    "historical_access_review.json": "78dda266d7e4a8dcaef3767d3a0aa098a5b438596a35318bd8477ccfa380b20e",
+    "live_budget_after.json": "d3f80b7024a6ae2cab374c38d649d6308243724698d2666bb19aa4b322a6526f",
+    "live_budget_before.json": "c8f81d11b21f646cdbad22a51b2aa18cb42d7c5dd3ff207fb6d6efb6b8d9d5e6",
+    "preflight.json": "edb338deb5d43fa5525469f4759bd32d5ef6e7028fec2d1964d4d2682372a98f",
+    "preregistration.json": "a227d9ceb94d140c4177b49aae4877e6ea55098acd81e5c376a3031e01d61b2e",
+    "smoke_result.json": "c93d698e1d530d6766d794962fdbc7df6898fd98e2936b92da3cd8a41fb5ae4a"
+  },
+  "tests": {
+    "passed": 281,
+    "log": "/Users/ouyangkun/PHD/Project/Fairy-Jev/workspace-evidence/20261018T215018/regression.txt"
+  },
+  "historical_preservation_check": "/Users/ouyangkun/PHD/Project/Fairy-Jev/workspace-evidence/20261018T215018/preservation_after_test.json"
+}
