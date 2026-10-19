@@ -1,0 +1,154 @@
+{
+  "implementation_commit": "27a04823959505aa8d817f02bc6fa1a73279e055",
+  "default_state_strategy": "visible_state_v1",
+  "new_state_strategy": "task_history_v1",
+  "default_changed": false,
+  "candidate_prompt_loop_evaluator_changed": false,
+  "offline_tests": {
+    "passed": 730,
+    "failed": 0,
+    "seconds": 13.55,
+    "network_blocked": true
+  },
+  "offline_first_overflow_requests": {
+    "count": 62,
+    "malformed_task_count": 3,
+    "original": {
+      "request_utf8_bytes": {
+        "min": 71794,
+        "median": 75123.5,
+        "max": 89672,
+        "sum": 4748184
+      },
+      "request_chars": {
+        "min": 71232,
+        "median": 74679.5,
+        "max": 88986,
+        "sum": 4717992
+      },
+      "change_pct": {
+        "min": 0.0,
+        "median": 0.0,
+        "max": 0.0,
+        "sum": 0.0
+      },
+      "smaller_than_original": 0,
+      "same_as_original": 62,
+      "larger_than_original": 0,
+      "aggregate_change_pct": 0.0
+    },
+    "reference_bare": {
+      "request_utf8_bytes": {
+        "min": 45783,
+        "median": 62477.0,
+        "max": 507602,
+        "sum": 4868039
+      },
+      "request_chars": {
+        "min": 45435,
+        "median": 62149.5,
+        "max": 506776,
+        "sum": 4742331
+      },
+      "change_pct": {
+        "min": -39.084329013544796,
+        "median": -17.333065043654557,
+        "max": 576.0004794310751,
+        "sum": 119.82513833187538
+      },
+      "smaller_than_original": 52,
+      "same_as_original": 0,
+      "larger_than_original": 10,
+      "aggregate_change_pct": 2.5242282101957336
+    },
+    "task_history_v1": {
+      "request_utf8_bytes": {
+        "min": 56299,
+        "median": 66048.0,
+        "max": 524620,
+        "sum": 5192888
+      },
+      "request_chars": {
+        "min": 56045,
+        "median": 65647.5,
+        "max": 523794,
+        "sum": 5067074
+      },
+      "change_pct": {
+        "min": -22.392236328798088,
+        "median": -13.291257446727222,
+        "max": 598.6642517545846,
+        "sum": 543.8863262112419
+      },
+      "smaller_than_original": 52,
+      "same_as_original": 0,
+      "larger_than_original": 10,
+      "aggregate_change_pct": 9.365770155495245
+    }
+  },
+  "hn58_note": "17 requests from historical continuation run 20261018T173848_jev_live_a0df2d85; all smaller, aggregate bytes -10.93%; no original context overflow",
+  "live_probe": {
+    "source_run": "20261019T083659_jev_live_d254aa4d",
+    "source_request_event_id": 341,
+    "source_response_event_id": 342,
+    "selection_rule": "first chronological historical overflow",
+    "groups": [
+      {
+        "group": "A_original",
+        "valid_choice": false,
+        "http_status": 400,
+        "selected_option": null,
+        "request_sdk_utf8_bytes": 72022,
+        "latency_seconds": 1.2196704580055666,
+        "response_model": null,
+        "usage": null,
+        "error": {
+          "detail": {
+            "error_type": "max_tokens_exceeded"
+          }
+        }
+      },
+      {
+        "group": "B_task_history",
+        "valid_choice": true,
+        "http_status": 200,
+        "selected_option": "TractorApp__unload_grain",
+        "request_sdk_utf8_bytes": 62188,
+        "latency_seconds": 0.5444321250033681,
+        "response_model": "jev-1.13.0",
+        "usage": {
+          "input_tokens": 27972,
+          "output_tokens": 740
+        },
+        "error": null
+      }
+    ],
+    "http_attempts": 2,
+    "tool_executions": 0,
+    "agent_runs": 0,
+    "only_changed_field": "state"
+  },
+  "scripted": {
+    "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/diagnostics/jev_task_history_state_20261019/scripted/20261019T125622_jev_scripted_22342d46",
+    "scripted_task_success": true,
+    "tool_call_count": 10,
+    "model_http_attempts": 0
+  },
+  "live_integration_success": null,
+  "task_success": null,
+  "acceptance_scope": "one frozen failure-point request accepted; full live episode not run",
+  "preservation": {
+    "old_batch_files_checked": 6706,
+    "old_batch_changed_files": 0,
+    "other_worktrees_unchanged": true,
+    "reference_source_unchanged": true,
+    "ledger_history_and_caps_unchanged": true,
+    "ledger_delta_slots": 1,
+    "ledger_delta_http": 2,
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "ledger_total_slots": 368,
+    "ledger_total_http": 30854,
+    "stopped_batch_restart_authorized": false
+  },
+  "evidence_directory": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/diagnostics/jev_task_history_state_20261019"
+}
