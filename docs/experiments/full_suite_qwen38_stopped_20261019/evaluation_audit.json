@@ -1,0 +1,833 @@
+{
+  "scope": "Read-only saved-source and saved-evidence audit; zero network/model/FAIRY execution; no raw artifact or verdict changes. 318 finished rows only; excludes 3 interrupted and 417 cancelled-before-start.",
+  "batch": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800",
+  "source_commit": "366fc8320d78afac002f996c66003f14854d7ca2",
+  "counts": {
+    "finished": 318,
+    "task_success": {
+      "true": 0,
+      "false": 2,
+      "unknown": 316
+    },
+    "native_contract_by_architecture": {
+      "jev": {
+        "True": 36,
+        "False": 84
+      },
+      "llm_native": {
+        "True": 7,
+        "False": 4
+      },
+      "hybrid": {
+        "None": 187
+      }
+    },
+    "scenario_validator_preflight": [
+      {
+        "level": "L1",
+        "base_default": false,
+        "count": 78
+      },
+      {
+        "level": "L2",
+        "base_default": false,
+        "count": 78
+      },
+      {
+        "level": "L3",
+        "base_default": true,
+        "count": 90
+      }
+    ],
+    "matched_scenarios_all_three_finished": 11,
+    "matched_scenarios": [
+      "scenario_l1_hb_coldspring_heihe50_emergence_check",
+      "scenario_l1_hb_coldspring_heihe50_field_prep_execution",
+      "scenario_l1_hb_coldspring_heihe50_harvest_store_ready",
+      "scenario_l1_hb_coldspring_heihe50_planting_execution",
+      "scenario_l1_hb_disease_drought_harvest_ready",
+      "scenario_l1_hb_disease_drought_mid_fungicide_20_43_action",
+      "scenario_l1_hb_disease_drought_r5_irrigation_20_43_action",
+      "scenario_l1_hb_disease_drought_whole_field_planting_execution",
+      "scenario_l1_hb_fertilizer_quota_apply_mild_edge_fertigation",
+      "scenario_l1_hb_fertilizer_quota_apply_severe_edge_fertigation",
+      "scenario_l1_three_cultivar_hn58_action_ready_irrigation"
+    ],
+    "matched_scenarios_with_all_three_reaching_tools": 0
+  },
+  "evaluator_interpretation": {
+    "independent_contract": "HN58 only, hn58_semantic_v2; 245 other scenarios configured scenario_native_v1. 156 L1/L2 validators override base, all 90 L3 default no verdict per frozen preflight.",
+    "generic_task_success": "scenario_native_v1 deliberately leaves task_success None, scope observational_only; not 0% success.",
+    "native_true_false": "Native true generally means no detected returned error/store warning; false can persist after a recoverable error. Neither is independent semantic completion.",
+    "first_issue": "Earliest technical/candidate/tool/limit issue; may be recovered and is not necessarily terminal cause.",
+    "workflow_similarity": "Exact tool-and-argument path similarity, not semantic equivalence or task-success percentage."
+  },
+  "malformed_briefings": {
+    "planned_scenarios": 15,
+    "levels": {
+      "L1": 7,
+      "L2": 8
+    },
+    "planned_slots": 45,
+    "affected_finished_runs": 28,
+    "affected_architectures": {
+      "hybrid": 15,
+      "jev": 12,
+      "llm_native": 1
+    },
+    "mechanism": "15 scenario builders pass (prefix,briefing_text) where helper signature expects (briefing_text,prefix). send_message_to_agent receives o_* identifier. Engine faithfully resolves that wrong briefing and preflight passes because it checks clock/interface, not task semantics.",
+    "scenarios": [
+      {
+        "scenario_id": "scenario_l1_hb_disease_drought_r5_irrigation_20_43_action",
+        "level": "L1",
+        "actual_public_task": "o_r5_irrigation_20_43",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l1_hb_disease_drought_r5_irrigation_20_43_action.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_disease_then_drought_recovery_tradeoff/scenario_l1_hb_disease_drought_r5_irrigation_20_43_action.py",
+            "line": 44,
+            "function": "build_management_l1_flow",
+            "fourth_argument": "'o_r5_irrigation_20_43'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T084350_hybrid_live_096688e0",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T084239_jev_live_7ebb181a",
+            "execution_status": "completed"
+          },
+          {
+            "architecture": "llm_native",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T104735_llm_native_live_214dcd22",
+            "execution_status": "integration_error"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l1_hb_laterain_insect_r5_insecticide_36_55_action",
+        "level": "L1",
+        "actual_public_task": "o_r5_insecticide_36_55",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l1_hb_laterain_insect_r5_insecticide_36_55_action.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_laterain_insect_risk/scenario_l1_hb_laterain_insect_r5_insecticide_36_55_action.py",
+            "line": 44,
+            "function": "build_management_l1_flow",
+            "fourth_argument": "'o_r5_insecticide_36_55'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T090644_hybrid_live_1da96c44",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T093658_jev_live_6903ebbd",
+            "execution_status": "integration_error"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l1_hb_lowcarbon_wetdisease_mid_fungicide_24_47_action",
+        "level": "L1",
+        "actual_public_task": "o_mid_fungicide_24_47",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l1_hb_lowcarbon_wetdisease_mid_fungicide_24_47_action.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_lowcarbon_batch_operations_wetdisease/scenario_l1_hb_lowcarbon_wetdisease_mid_fungicide_24_47_action.py",
+            "line": 44,
+            "function": "build_management_l1_flow",
+            "fourth_argument": "'o_mid_fungicide_24_47'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T090951_hybrid_live_01d688a1",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T093813_jev_live_5bad6bbb",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l1_hb_potassium_dry_r1_fertigation_20_39_action",
+        "level": "L1",
+        "actual_public_task": "o_r1_fertigation_20_39",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l1_hb_potassium_dry_r1_fertigation_20_39_action.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_potassium_deficit_dry_podfill_interaction/scenario_l1_hb_potassium_dry_r1_fertigation_20_39_action.py",
+            "line": 44,
+            "function": "build_management_l1_flow",
+            "fourth_argument": "'o_r1_fertigation_20_39'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T091259_hybrid_live_d17d6490",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T093932_jev_live_5d6dfc95",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l1_hb_skip_rows_emergence_replant_28_31_action",
+        "level": "L1",
+        "actual_public_task": "o_emergence_replant_28_31",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l1_hb_skip_rows_emergence_replant_28_31_action.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_planter_skip_rows_stand_gap/scenario_l1_hb_skip_rows_emergence_replant_28_31_action.py",
+            "line": 44,
+            "function": "build_management_l1_flow",
+            "fourth_argument": "'o_emergence_replant_28_31'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T092323_hybrid_live_5c09d451",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T100343_jev_live_e18e3dff",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l1_hb_wetjune_recheck_mid_fungicide_20_43_action",
+        "level": "L1",
+        "actual_public_task": "o_mid_fungicide_20_43",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l1_hb_wetjune_recheck_mid_fungicide_20_43_action.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l1_hb_wetjune_recheck_mid_fungicide_20_43_action.py",
+            "line": 44,
+            "function": "build_management_l1_flow",
+            "fourth_argument": "'o_mid_fungicide_20_43'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T094108_hybrid_live_8e5ad205",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T103138_jev_live_ff27701c",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l1_hb_wetjune_recheck_r5_fungicide_20_43_action",
+        "level": "L1",
+        "actual_public_task": "o_r5_fungicide_20_43",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l1_hb_wetjune_recheck_r5_fungicide_20_43_action.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l1_hb_wetjune_recheck_r5_fungicide_20_43_action.py",
+            "line": 44,
+            "function": "build_management_l1_flow",
+            "fourth_argument": "'o_r5_fungicide_20_43'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T094211_hybrid_live_dbddde1b",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T103153_jev_live_cb4d710a",
+            "execution_status": "integration_error"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_disease_drought_r5_irrigation_20_43",
+        "level": "L2",
+        "actual_public_task": "o_r5_irrigation_20_43",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_disease_drought_r5_irrigation_20_43.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_disease_then_drought_recovery_tradeoff/scenario_l2_hb_disease_drought_r5_irrigation_20_43.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_r5_irrigation_20_43'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T100407_hybrid_live_949fbc34",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T104554_jev_live_27f51fbf",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_hn60_water_budget_r5_irrigation_40_55",
+        "level": "L2",
+        "actual_public_task": "o_r5_irrigation_40_55",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_hn60_water_budget_r5_irrigation_40_55.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_heinong60_highdensity_fertigation_irrigation_water_budget/scenario_l2_hb_hn60_water_budget_r5_irrigation_40_55.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_r5_irrigation_40_55'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T102050_hybrid_live_f7fbda08",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T111132_jev_live_cdd0b671",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_laterain_insect_r5_insecticide_36_55",
+        "level": "L2",
+        "actual_public_task": "o_r5_insecticide_36_55",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_laterain_insect_r5_insecticide_36_55.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_laterain_insect_risk/scenario_l2_hb_laterain_insect_r5_insecticide_36_55.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_r5_insecticide_36_55'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T102809_hybrid_live_8a28c835",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T112343_jev_live_3a799d35",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_lowcarbon_wetdisease_mid_fungicide_24_47",
+        "level": "L2",
+        "actual_public_task": "o_mid_fungicide_24_47",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_lowcarbon_wetdisease_mid_fungicide_24_47.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_lowcarbon_batch_operations_wetdisease/scenario_l2_hb_lowcarbon_wetdisease_mid_fungicide_24_47.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_mid_fungicide_24_47'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T103117_hybrid_live_3c402549",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T112904_jev_live_ea0b6c2d",
+            "execution_status": "completed"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_r5_leaf_feeder_r5_insecticide_16_39",
+        "level": "L2",
+        "actual_public_task": "o_r5_insecticide_16_39",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_r5_leaf_feeder_r5_insecticide_16_39.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_r5_leaf_feeder_defoliation/scenario_l2_hb_r5_leaf_feeder_r5_insecticide_16_39.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_r5_insecticide_16_39'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T103835_hybrid_live_7a36312b",
+            "execution_status": "integration_error"
+          },
+          {
+            "architecture": "jev",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T114659_jev_live_2ae9dd91",
+            "execution_status": "integration_error"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_skip_rows_emergence_replant_28_31",
+        "level": "L2",
+        "actual_public_task": "o_emergence_replant_28_31",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_skip_rows_emergence_replant_28_31.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_planter_skip_rows_stand_gap/scenario_l2_hb_skip_rows_emergence_replant_28_31.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_emergence_replant_28_31'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T104347_hybrid_live_23a5d020",
+            "execution_status": "integration_error"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_wetjune_recheck_mid_fungicide_20_43",
+        "level": "L2",
+        "actual_public_task": "o_mid_fungicide_20_43",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_wetjune_recheck_mid_fungicide_20_43.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l2_hb_wetjune_recheck_mid_fungicide_20_43.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_mid_fungicide_20_43'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T110130_hybrid_live_f1b02940",
+            "execution_status": "integration_error"
+          }
+        ]
+      },
+      {
+        "scenario_id": "scenario_l2_hb_wetjune_recheck_r5_fungicide_20_43",
+        "level": "L2",
+        "actual_public_task": "o_r5_fungicide_20_43",
+        "preflight_passed": true,
+        "preflight_file": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/preflight/scenario_l2_hb_wetjune_recheck_r5_fungicide_20_43.json",
+        "swapped_call": [
+          {
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l2_hb_wetjune_recheck_r5_fungicide_20_43.py",
+            "line": 44,
+            "function": "build_management_l2_flow",
+            "fourth_argument": "'o_r5_fungicide_20_43'",
+            "fifth_argument": "briefing_text"
+          }
+        ],
+        "finished_runs": [
+          {
+            "architecture": "hybrid",
+            "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T110233_hybrid_live_aed4644e",
+            "execution_status": "integration_error"
+          }
+        ]
+      }
+    ],
+    "live_http_proof": {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T112343_jev_live_3a799d35/trace.jsonl",
+      "run_start_event_id": 2,
+      "run_start_line": 3,
+      "first_http_event_id": 5,
+      "first_http_line": 6,
+      "actual_http_state_task": "o_r5_insecticide_36_55"
+    },
+    "interpretation": "Confirmed scenario/task-construction bug and experimental confound. Affects all architectures for these scenario definitions, not unique Jev reasoning; saved affected outcomes cannot measure adherence to the full intended Chinese brief."
+  },
+  "native_replay_false_audit": {
+    "runs": 4,
+    "identical_error_results": 8,
+    "records": [
+      {
+        "scenario_id": "scenario_l1_hb_coldspring_heihe50_field_prep_execution",
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T090529_llm_native_live_c2de5097",
+        "original_replay_verification": false,
+        "divergences": [
+          {
+            "step": "step7",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': \"Already have 'grader' attached.\"}",
+            "actual_result": {
+              "error": "Already have 'grader' attached."
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Already have 'grader' attached."
+            },
+            "source_result_exactly_equals_replayed_result": true
+          }
+        ],
+        "effect_comparisons": {
+          "new_action_effects": true,
+          "quota": true,
+          "pending_irrigation": true
+        },
+        "model_request_count": 0,
+        "interpretation": "False is preserved. The recorded execution_status mismatch is caused by native source op_type TOOL for error-return content; replay only recognizes TOOL_ERROR. These reported errors themselves replayed identically."
+      },
+      {
+        "scenario_id": "scenario_l1_hb_coldspring_heihe50_planting_execution",
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T094600_llm_native_live_df4500f8",
+        "original_replay_verification": false,
+        "divergences": [
+          {
+            "step": "step18",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': 'Insufficient HEIHE50 seeds in hopper: need 26148, have 12372'}",
+            "actual_result": {
+              "error": "Insufficient HEIHE50 seeds in hopper: need 26148, have 12372"
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Insufficient HEIHE50 seeds in hopper: need 26148, have 12372"
+            },
+            "source_result_exactly_equals_replayed_result": true
+          }
+        ],
+        "effect_comparisons": {
+          "new_action_effects": true,
+          "quota": true,
+          "pending_irrigation": true
+        },
+        "model_request_count": 0,
+        "interpretation": "False is preserved. The recorded execution_status mismatch is caused by native source op_type TOOL for error-return content; replay only recognizes TOOL_ERROR. These reported errors themselves replayed identically."
+      },
+      {
+        "scenario_id": "scenario_l1_hb_disease_drought_harvest_ready",
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T100751_llm_native_live_8fdea80e",
+        "original_replay_verification": false,
+        "divergences": [
+          {
+            "step": "step12",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': 'Grain bin would overflow: 1105 + 980 kg > 2000 kg. Call unload_grain first.'}",
+            "actual_result": {
+              "error": "Grain bin would overflow: 1105 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Grain bin would overflow: 1105 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_result_exactly_equals_replayed_result": true
+          },
+          {
+            "step": "step20",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': 'Grain bin would overflow: 1386 + 980 kg > 2000 kg. Call unload_grain first.'}",
+            "actual_result": {
+              "error": "Grain bin would overflow: 1386 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Grain bin would overflow: 1386 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_result_exactly_equals_replayed_result": true
+          },
+          {
+            "step": "step25",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': 'Grain bin would overflow: 1252 + 980 kg > 2000 kg. Call unload_grain first.'}",
+            "actual_result": {
+              "error": "Grain bin would overflow: 1252 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Grain bin would overflow: 1252 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_result_exactly_equals_replayed_result": true
+          },
+          {
+            "step": "step30",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': 'Grain bin would overflow: 1523 + 980 kg > 2000 kg. Call unload_grain first.'}",
+            "actual_result": {
+              "error": "Grain bin would overflow: 1523 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Grain bin would overflow: 1523 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_result_exactly_equals_replayed_result": true
+          },
+          {
+            "step": "step34",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': 'Grain bin would overflow: 1105 + 980 kg > 2000 kg. Call unload_grain first.'}",
+            "actual_result": {
+              "error": "Grain bin would overflow: 1105 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Grain bin would overflow: 1105 + 980 kg > 2000 kg. Call unload_grain first."
+            },
+            "source_result_exactly_equals_replayed_result": true
+          }
+        ],
+        "effect_comparisons": {
+          "new_action_effects": true,
+          "quota": true,
+          "pending_irrigation": true
+        },
+        "model_request_count": 0,
+        "interpretation": "False is preserved. The recorded execution_status mismatch is caused by native source op_type TOOL for error-return content; replay only recognizes TOOL_ERROR. These reported errors themselves replayed identically."
+      },
+      {
+        "scenario_id": "scenario_l1_hb_disease_drought_mid_fungicide_20_43_action",
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T102954_llm_native_live_09006439",
+        "original_replay_verification": false,
+        "divergences": [
+          {
+            "step": "step10",
+            "kind": "execution_status",
+            "source_error": false,
+            "actual_error": "{'error': 'Range cannot exceed 10 ridges per pass'}",
+            "actual_result": {
+              "error": "Range cannot exceed 10 ridges per pass"
+            },
+            "source_op_type": "TOOL",
+            "source_content": {
+              "error": "Range cannot exceed 10 ridges per pass"
+            },
+            "source_result_exactly_equals_replayed_result": true
+          }
+        ],
+        "effect_comparisons": {
+          "new_action_effects": true,
+          "quota": true,
+          "pending_irrigation": true
+        },
+        "model_request_count": 0,
+        "interpretation": "False is preserved. The recorded execution_status mismatch is caused by native source op_type TOOL for error-return content; replay only recognizes TOOL_ERROR. These reported errors themselves replayed identically."
+      }
+    ],
+    "source_refs": [
+      {
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/agents/Jev/replay.py",
+        "line": 72
+      },
+      {
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/agents/Jev/replay.py",
+        "line": 92
+      }
+    ]
+  },
+  "hn58": [
+    {
+      "architecture": "hybrid",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083634_hybrid_live_29fc27ca",
+      "task_success": null,
+      "live_integration_success": false,
+      "assertions": {},
+      "pre_irrigation_evidence": null,
+      "returned_recheck_coverage": null
+    },
+    {
+      "architecture": "jev",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083634_jev_live_e22c92ae",
+      "task_success": false,
+      "live_integration_success": true,
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": true
+      },
+      "pre_irrigation_evidence": {
+        "weather": true,
+        "soil": true,
+        "target_state": false,
+        "quota": true,
+        "before_actual_irrigation": true,
+        "source": "actual returned fields and timestamps; requested arguments alone do not prove coverage"
+      },
+      "returned_recheck_coverage": [
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    {
+      "architecture": "llm_native",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083634_llm_native_live_8a22d9c4",
+      "task_success": false,
+      "live_integration_success": false,
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "pre_irrigation_evidence": {
+        "weather": true,
+        "soil": false,
+        "target_state": true,
+        "quota": true,
+        "before_actual_irrigation": true,
+        "source": "actual returned fields and timestamps; requested arguments alone do not prove coverage"
+      },
+      "returned_recheck_coverage": [
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    }
+  ],
+  "hn58_interpretation": {
+    "jev": "Correct target/dose/quota, genuine wait/full recheck/report; only target_state before irrigation missing. Current false depends on controversial independent state precheck proxy, as previously reviewed.",
+    "llm_native": "New Qwen did wait two hours and read S6 after ETA. S6 returns coverage54–63 only, leaving43–53 unobserved for soil precheck and postcheck. Dose/quota correct; final answer unavailable due API timeout. Do not label no waiting, or complete recheck, or voluntary early finish.",
+    "hybrid": "0 real tools, updater timeout; cannot test task semantics."
+  },
+  "evaluator_examples": [
+    {
+      "run": "20261019T083649_jev_live_1eadfa36",
+      "source_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083649_jev_live_1eadfa36/trace.jsonl",
+      "native_contract_success": false,
+      "evidence": "E69/line70 attach furrower rejected due grader; E79 detach then E95 attach succeed; E121 base_fertilize and E137 form_ridges succeed. Native false persists after recovered error, not an independent final-task failure proof."
+    },
+    {
+      "run": "20261019T083644_jev_live_19a6e509",
+      "source_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083644_jev_live_19a6e509/trace.jsonl",
+      "native_contract_success": true,
+      "evidence": "E17/line18 inspect_emergence requested0–63 but returned covered0–7 and uncovered8–63, followed by soil and canopy only; 3tools then FINISH. Shows native true is not a coverage-completeness check."
+    },
+    {
+      "run": "20261019T093932_jev_live_5d6dfc95",
+      "source_path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T093932_jev_live_5d6dfc95/trace.jsonl",
+      "native_contract_success": true,
+      "evidence": "E37/line38 applies fertigation0–63; actual task only o_r1_fertigation_20_39 due malformed briefing. Native true despite full-field application, no post-action target recheck or report. Strongly confounded by task-construction bug; do not classify isolated model failure."
+    }
+  ],
+  "code_refs": [
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/experiments/full_suite.py",
+      "line": 117
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/experiments/scenario_evaluation.py",
+      "line": 101
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/_batch_generated_split_common.py",
+      "line": 85
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/_batch_generated_split_common.py",
+      "line": 314
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/_batch_generated_split_common.py",
+      "line": 337
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/controllers/engine.py",
+      "line": 188
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/experiments/suite_inventory.py",
+      "line": 163
+    },
+    {
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/fairy/experiments/evaluation.py",
+      "line": 18
+    }
+  ],
+  "conclusion": "Evidence confirms input-construction bugs, replay status-classification bugs and inadequate general semantic evaluator coverage, alongside real API timeouts and actual repeated/error tool behavior. It does not support an architecture-success ranking, a 0% task-success claim, or attributing all failures to evaluator. HN58 needs item-wise review; other scenarios need defined outcome contracts before semantic success rates."
+}

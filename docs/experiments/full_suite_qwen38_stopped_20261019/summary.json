@@ -1,0 +1,322 @@
+{
+  "generated_at": "2026-10-19T19:56:15.481390+08:00",
+  "batch": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800",
+  "frozen_commit": "366fc8320d78afac002f996c66003f14854d7ca2",
+  "status": "terminated_by_user",
+  "stop_time": "2026-10-19T19:51:51.645883+08:00",
+  "planned": 738,
+  "terminal_live_records": 318,
+  "interrupted": 3,
+  "cancelled_before_start": 417,
+  "new_model_requests_by_analysis": 0,
+  "architectures": {
+    "llm_native": {
+      "terminal_live_records": 11,
+      "levels": {
+        "L1": 11
+      },
+      "execution_status": {
+        "integration_error": 11
+      },
+      "stop_reasons": {
+        "native_error": 11
+      },
+      "live_integration_success": {
+        "True": 0,
+        "False": 11,
+        "None": 0
+      },
+      "task_success": {
+        "True": 0,
+        "False": 1,
+        "None": 10
+      },
+      "native_contract_success": {
+        "True": 7,
+        "False": 4,
+        "None": 0
+      },
+      "trace_verification": {
+        "True": 11,
+        "False": 0,
+        "None": 0
+      },
+      "replay_verification": {
+        "True": 7,
+        "False": 4,
+        "None": 0
+      },
+      "http_attempts": 458,
+      "tool_calls": 205,
+      "wall_seconds_sum": 11160.919077291997,
+      "wall_seconds_median": 1003.2780551249962,
+      "reported_input_tokens": 2970911,
+      "reported_output_tokens": 9017,
+      "token_scope": "Sum of saved service-reported usage only; missing usage and timed-out generation are unknown, not zero consumption.",
+      "cancelled_before_start": 234,
+      "interrupted": 1
+    },
+    "jev": {
+      "terminal_live_records": 120,
+      "levels": {
+        "L1": 78,
+        "L2": 42
+      },
+      "execution_status": {
+        "completed": 26,
+        "integration_error": 63,
+        "budget_exhausted": 31
+      },
+      "stop_reasons": {
+        "model_finish": 26,
+        "decision_error": 63,
+        "max_steps": 31
+      },
+      "live_integration_success": {
+        "True": 57,
+        "False": 63,
+        "None": 0
+      },
+      "task_success": {
+        "True": 0,
+        "False": 1,
+        "None": 119
+      },
+      "native_contract_success": {
+        "True": 36,
+        "False": 84,
+        "None": 0
+      },
+      "trace_verification": {
+        "True": 120,
+        "False": 0,
+        "None": 0
+      },
+      "replay_verification": {
+        "True": 120,
+        "False": 0,
+        "None": 0
+      },
+      "http_attempts": 23945,
+      "tool_calls": 12655,
+      "wall_seconds_sum": 11216.518119625005,
+      "wall_seconds_median": 25.928220458503347,
+      "reported_input_tokens": 499063132,
+      "reported_output_tokens": 11269161,
+      "token_scope": "Sum of saved service-reported usage only; missing usage and timed-out generation are unknown, not zero consumption.",
+      "cancelled_before_start": 125,
+      "interrupted": 1
+    },
+    "hybrid": {
+      "terminal_live_records": 187,
+      "levels": {
+        "L3": 31,
+        "L1": 78,
+        "L2": 78
+      },
+      "execution_status": {
+        "integration_error": 187
+      },
+      "stop_reasons": {
+        "llm_update_error": 187
+      },
+      "live_integration_success": {
+        "True": 0,
+        "False": 187,
+        "None": 0
+      },
+      "task_success": {
+        "True": 0,
+        "False": 0,
+        "None": 187
+      },
+      "native_contract_success": {
+        "True": 0,
+        "False": 0,
+        "None": 187
+      },
+      "trace_verification": {
+        "True": 187,
+        "False": 0,
+        "None": 0
+      },
+      "replay_verification": {
+        "True": 0,
+        "False": 0,
+        "None": 187
+      },
+      "http_attempts": 374,
+      "tool_calls": 0,
+      "wall_seconds_sum": 11338.72498229595,
+      "wall_seconds_median": 60.59603787500237,
+      "reported_input_tokens": 0,
+      "reported_output_tokens": 0,
+      "token_scope": "Sum of saved service-reported usage only; missing usage and timed-out generation are unknown, not zero consumption.",
+      "cancelled_before_start": 58,
+      "interrupted": 1
+    }
+  },
+  "common_terminal_scenarios": [
+    "scenario_l1_hb_coldspring_heihe50_emergence_check",
+    "scenario_l1_hb_coldspring_heihe50_field_prep_execution",
+    "scenario_l1_hb_coldspring_heihe50_harvest_store_ready",
+    "scenario_l1_hb_coldspring_heihe50_planting_execution",
+    "scenario_l1_hb_disease_drought_harvest_ready",
+    "scenario_l1_hb_disease_drought_mid_fungicide_20_43_action",
+    "scenario_l1_hb_disease_drought_r5_irrigation_20_43_action",
+    "scenario_l1_hb_disease_drought_whole_field_planting_execution",
+    "scenario_l1_hb_fertilizer_quota_apply_mild_edge_fertigation",
+    "scenario_l1_hb_fertilizer_quota_apply_severe_edge_fertigation",
+    "scenario_l1_three_cultivar_hn58_action_ready_irrigation"
+  ],
+  "common_terminal_scenario_count": 11,
+  "valid_three_way_behavior_comparisons": 0,
+  "valid_comparison_reason": "All Hybrid records stopped in initial Qwen updater with zero Jev or tool calls.",
+  "task_success": {
+    "True": 0,
+    "False": 2,
+    "None": 316
+  },
+  "hn58": [
+    {
+      "architecture": "hybrid",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083634_hybrid_live_29fc27ca",
+      "task_success": null,
+      "live_integration_success": false,
+      "stop_reason": "llm_update_error",
+      "assertions": {},
+      "first_issue": {
+        "event_id": 9,
+        "step_id": null,
+        "decision_id": null,
+        "decision_ids": null,
+        "tool_call_id": null,
+        "failure_layer": "model_service",
+        "reason": "Model HTTP attempt failed: ReadTimeout",
+        "details": {
+          "http_status": null,
+          "role": "llm_context_update",
+          "request_id": "model_0001",
+          "attempt_id": "http_0001",
+          "error": "timed out",
+          "raw_response_body": null,
+          "meaning": "Earliest technical failure; later recovery does not erase this event."
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": null
+      }
+    },
+    {
+      "architecture": "jev",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083634_jev_live_e22c92ae",
+      "task_success": false,
+      "live_integration_success": true,
+      "stop_reason": "model_finish",
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": true,
+        "factual_final_report": true
+      },
+      "first_issue": {
+        "event_id": 47,
+        "step_id": "step_0004",
+        "decision_id": "decision_0004",
+        "decision_ids": [
+          "decision_0004",
+          "decision_0005"
+        ],
+        "tool_call_id": "tool_0004",
+        "failure_layer": "tool_selection",
+        "reason": "Irrigation executed before required visible observations were completed",
+        "details": {
+          "missing_pre_irrigation_observations": [
+            "target_state"
+          ],
+          "outside_target_ridges": [],
+          "overdosed_ridges": [],
+          "cumulative_hours_by_ridge": {
+            "43": 0.8,
+            "44": 0.8,
+            "45": 0.8,
+            "46": 0.8,
+            "47": 0.8,
+            "48": 0.8,
+            "49": 0.8,
+            "50": 0.8,
+            "51": 0.8,
+            "52": 0.8,
+            "53": 0.8,
+            "54": 0.8,
+            "55": 0.8,
+            "56": 0.8,
+            "57": 0.8,
+            "58": 0.8,
+            "59": 0.8,
+            "60": 0.8,
+            "61": 0.8,
+            "62": 0.8,
+            "63": 0.8
+          },
+          "irreversible_for_task_assertions": true
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      }
+    },
+    {
+      "architecture": "llm_native",
+      "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/agent_comparison/full_l1_l2_l3_qwen38_fresh_20261019T163336+0800/live/20261019T083634_llm_native_live_8a22d9c4",
+      "task_success": false,
+      "live_integration_success": false,
+      "stop_reason": "native_error",
+      "assertions": {
+        "pre_irrigation_observations": false,
+        "new_irrigation_exact_target_and_dose": true,
+        "quota_consumption": true,
+        "processed_waited_rechecked_response": false,
+        "factual_final_report": false
+      },
+      "first_issue": {
+        "event_id": 8,
+        "step_id": null,
+        "decision_id": null,
+        "decision_ids": null,
+        "tool_call_id": null,
+        "failure_layer": "model_service",
+        "reason": "Model HTTP attempt failed: ReadTimeout",
+        "details": {
+          "http_status": null,
+          "role": "llm_native_decision",
+          "request_id": "model_0001",
+          "attempt_id": "http_0001",
+          "error": "timed out",
+          "raw_response_body": null,
+          "meaning": "Earliest technical failure; later recovery does not erase this event."
+        },
+        "evaluator_version": "hn58_semantic_v2",
+        "evidence": "trace.jsonl",
+        "assertion_evidence": "evaluation.json:assertions"
+      }
+    }
+  ],
+  "ledger": {
+    "ledger_id": "ba456f29add04993a04ac60636f1dc0f",
+    "batch_episodes": 321,
+    "batch_http": 25251,
+    "terminal_result_http": 24777,
+    "interrupted_http": 474,
+    "cumulative_http": 30852
+  },
+  "source_comparison_sha256": "360769dd091f07971dd79de199fac31a9ec06bd40a3d8ea927d3814da6db0a29",
+  "interpretation": [
+    "Terminal live record is not task completion.",
+    "Unknown task success is neither false nor true.",
+    "Only HN58 has an independent strict semantic task contract in this batch.",
+    "Episode times overlap across concurrent architectures; do not sum them as batch elapsed time.",
+    "Interrupted samples retain partial evidence only; remote cancellation cannot be confirmed."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "validated_at": "2026-10-19T20:00:05.464987+08:00",
+  "frozen_execution_commit": "366fc8320d78afac002f996c66003f14854d7ca2",
+  "head_before_documentation_commit": "366fc8320d78afac002f996c66003f14854d7ca2",
+  "raw_files_checked": 5264,
+  "raw_files_changed": [],
+  "historic_files_checked": 3434,
+  "historic_files_changed": [],
+  "all_slot_counts_consistent": true,
+  "all_local_batch_processes_stopped": true,
+  "remaining_process_ids": [],
+  "automatic_restart_disabled": true,
+  "progress_active_empty": true,
+  "ledger_id_preserved": true,
+  "historical_ledger_rows_unchanged": true,
+  "ledger_unchanged_since_stop": true,
+  "ledger_http_sum_consistent": true,
+  "batch_http_matches_saved_records": true,
+  "new_model_requests": 0,
+  "model_requests_or_environment_execution_by_validation": false
+}
