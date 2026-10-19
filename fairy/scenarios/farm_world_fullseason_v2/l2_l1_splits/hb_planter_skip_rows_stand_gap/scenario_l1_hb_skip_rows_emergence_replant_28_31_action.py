@@ -41,7 +41,7 @@ class ScenarioL1HbSkipRowsEmergenceReplant2831Action(Scenario):
             briefing_text = '任务：承接已确认的stand-gap replanting action-ready 状态。请重新复核当前天气、短期预报、土壤/冠层、目标区状态、库存和设备；条件支持时完成一次处理并复查目标区。'
         else:
             briefing_text = '任务：复核条件后，对已确认区域执行一次stand-gap replanting并复查。'
-        build_management_l1_flow(self, SPEC, SPEC.actions[1], 'o_emergence_replant_28_31', briefing_text)
+        build_management_l1_flow(self, SPEC, SPEC.actions[1], briefing_text=briefing_text, prefix='o_emergence_replant_28_31')
 
     def validate(self, env) -> ScenarioValidationResult:
         return validate_native_workflow(self, env, 'hb_planter_skip_rows_stand_gap emergence_replant_28_31 L1')

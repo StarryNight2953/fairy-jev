@@ -41,7 +41,7 @@ class ScenarioL2HbWetjuneRecheckMidFungicide2043(Scenario):
             briefing_text = '任务：从MID窗口巡查后的真实状态出发，围绕disease-control fungicide application做短闭环。请先用天气、预报、土壤、冠层、目标区状态、无人机和地面检查建立证据链；若证据和窗口支持，按当前资源约束对确认区域执行处理并复查响应。'
         else:
             briefing_text = '任务：诊断MID窗口的disease-control fungicide application需求；证据支持时处理确认区域并复查。'
-        build_management_l2_flow(self, SPEC, SPEC.actions[0], 'o_mid_fungicide_20_43', briefing_text)
+        build_management_l2_flow(self, SPEC, SPEC.actions[0], briefing_text=briefing_text, prefix='o_mid_fungicide_20_43')
 
     def validate(self, env) -> ScenarioValidationResult:
         return validate_native_workflow(self, env, 'hb_wetjune_disease_recheck_after_fungicide mid_fungicide_20_43 L2')

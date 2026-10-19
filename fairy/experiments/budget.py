@@ -27,7 +27,7 @@ DEFAULT_LIMITS = {
     "max_tool_attempts": 40, "max_decision_rounds": 40,
     "max_http_attempts": 120, "max_jev_http_attempts": 100,
     "max_updater_attempts": 20, "max_updates": 10,
-    "wall_timeout_seconds": 900,
+    "wall_timeout_seconds": 7200,
 }
 
 

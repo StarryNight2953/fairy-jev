@@ -7,5 +7,5 @@
   "authentication_mode": "none",
   "base_url": "http://100.89.223.79:8000/v1",
   "enable_thinking": false,
-  "timeout": 30
+  "timeout": 1800
 }

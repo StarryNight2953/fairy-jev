@@ -14,7 +14,7 @@ from .tools import ToolExecutor, validate_arguments
 from .trace import digest
 
 DEFAULT_BUDGETS = {"max_steps": 40, "max_tool_calls": 40, "max_decision_calls": 80,
-                   "wall_timeout_seconds": 600, "repeated_parameter_failure_limit": 3}
+                   "wall_timeout_seconds": 7200, "repeated_parameter_failure_limit": 3}
 
 
 class JevAgent:

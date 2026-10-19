@@ -1,0 +1,208 @@
+{
+  "repair_id": "timeout_tasks_numeric_20261019T201635+0800",
+  "completed_at": "2026-10-19T20:24:24.121541+08:00",
+  "base_commit": "9681010ce9cfef96af679f5e8c3f7236611a881d",
+  "scope": "llm-jev-hybrid current source; all three architectures share this source; other worktrees unchanged",
+  "timeouts": {
+    "llm_request_seconds": 1800,
+    "episode_wall_seconds": 7200,
+    "typesafe_request_seconds": 30,
+    "count_limits_changed": false,
+    "retry_counts_changed": false,
+    "explicit_timeout_overrides_supported": true,
+    "request_clamped_to_remaining_episode_deadline": true
+  },
+  "task_inputs": {
+    "corrected_count": 15,
+    "level_counts": {
+      "L1": 7,
+      "L2": 8
+    },
+    "formal_fixture_checks": 246,
+    "management_helper_callers_audited": 32,
+    "records": [
+      {
+        "scenario_id": "scenario_l1_hb_disease_drought_r5_irrigation_20_43_action",
+        "level": "L1",
+        "historical_public_task": "o_r5_irrigation_20_43",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_disease_then_drought_recovery_tradeoff/scenario_l1_hb_disease_drought_r5_irrigation_20_43_action.py",
+        "public_task_sha256": "dd3d1e84f6de1f58f219fe002fca4e24d8641525f0769afde5c698c055ba2375"
+      },
+      {
+        "scenario_id": "scenario_l1_hb_laterain_insect_r5_insecticide_36_55_action",
+        "level": "L1",
+        "historical_public_task": "o_r5_insecticide_36_55",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_laterain_insect_risk/scenario_l1_hb_laterain_insect_r5_insecticide_36_55_action.py",
+        "public_task_sha256": "2c1127e0ec87846e1fdce5ecf91def7714594cc071c6031ccd298f8548244cbe"
+      },
+      {
+        "scenario_id": "scenario_l1_hb_lowcarbon_wetdisease_mid_fungicide_24_47_action",
+        "level": "L1",
+        "historical_public_task": "o_mid_fungicide_24_47",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_lowcarbon_batch_operations_wetdisease/scenario_l1_hb_lowcarbon_wetdisease_mid_fungicide_24_47_action.py",
+        "public_task_sha256": "a596d9b87a4d620a6cc3ddb51c9a6e8a3981e6f89fbcea9065dcf2b53d642b57"
+      },
+      {
+        "scenario_id": "scenario_l1_hb_potassium_dry_r1_fertigation_20_39_action",
+        "level": "L1",
+        "historical_public_task": "o_r1_fertigation_20_39",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_potassium_deficit_dry_podfill_interaction/scenario_l1_hb_potassium_dry_r1_fertigation_20_39_action.py",
+        "public_task_sha256": "af9027b73b30470f2e108e92e3ef0b237ab2a01e72f30861d7a6842ac4a2bb5f"
+      },
+      {
+        "scenario_id": "scenario_l1_hb_skip_rows_emergence_replant_28_31_action",
+        "level": "L1",
+        "historical_public_task": "o_emergence_replant_28_31",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_planter_skip_rows_stand_gap/scenario_l1_hb_skip_rows_emergence_replant_28_31_action.py",
+        "public_task_sha256": "5226b580047a4f1904a40ff4fdef4c9f3527898fd7089cba0198c6f537079950"
+      },
+      {
+        "scenario_id": "scenario_l1_hb_wetjune_recheck_mid_fungicide_20_43_action",
+        "level": "L1",
+        "historical_public_task": "o_mid_fungicide_20_43",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l1_hb_wetjune_recheck_mid_fungicide_20_43_action.py",
+        "public_task_sha256": "a596d9b87a4d620a6cc3ddb51c9a6e8a3981e6f89fbcea9065dcf2b53d642b57"
+      },
+      {
+        "scenario_id": "scenario_l1_hb_wetjune_recheck_r5_fungicide_20_43_action",
+        "level": "L1",
+        "historical_public_task": "o_r5_fungicide_20_43",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l1_hb_wetjune_recheck_r5_fungicide_20_43_action.py",
+        "public_task_sha256": "a596d9b87a4d620a6cc3ddb51c9a6e8a3981e6f89fbcea9065dcf2b53d642b57"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_disease_drought_r5_irrigation_20_43",
+        "level": "L2",
+        "historical_public_task": "o_r5_irrigation_20_43",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_disease_then_drought_recovery_tradeoff/scenario_l2_hb_disease_drought_r5_irrigation_20_43.py",
+        "public_task_sha256": "3a3a0820c4676d6adb7476fa46319a0f87a70f2398559ce80a94306ad5d12871"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_hn60_water_budget_r5_irrigation_40_55",
+        "level": "L2",
+        "historical_public_task": "o_r5_irrigation_40_55",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_heinong60_highdensity_fertigation_irrigation_water_budget/scenario_l2_hb_hn60_water_budget_r5_irrigation_40_55.py",
+        "public_task_sha256": "3a3a0820c4676d6adb7476fa46319a0f87a70f2398559ce80a94306ad5d12871"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_laterain_insect_r5_insecticide_36_55",
+        "level": "L2",
+        "historical_public_task": "o_r5_insecticide_36_55",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_laterain_insect_risk/scenario_l2_hb_laterain_insect_r5_insecticide_36_55.py",
+        "public_task_sha256": "c26fd5a1af1b5549472b6432f3b6f2a4f897dc86dc1c530648b2254244ba9129"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_lowcarbon_wetdisease_mid_fungicide_24_47",
+        "level": "L2",
+        "historical_public_task": "o_mid_fungicide_24_47",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_lowcarbon_batch_operations_wetdisease/scenario_l2_hb_lowcarbon_wetdisease_mid_fungicide_24_47.py",
+        "public_task_sha256": "e662d6eb6f2b952efa210e938212493deb708b3dd15f41cb67f87ed7084f9284"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_r5_leaf_feeder_r5_insecticide_16_39",
+        "level": "L2",
+        "historical_public_task": "o_r5_insecticide_16_39",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_r5_leaf_feeder_defoliation/scenario_l2_hb_r5_leaf_feeder_r5_insecticide_16_39.py",
+        "public_task_sha256": "c26fd5a1af1b5549472b6432f3b6f2a4f897dc86dc1c530648b2254244ba9129"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_skip_rows_emergence_replant_28_31",
+        "level": "L2",
+        "historical_public_task": "o_emergence_replant_28_31",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_planter_skip_rows_stand_gap/scenario_l2_hb_skip_rows_emergence_replant_28_31.py",
+        "public_task_sha256": "b929a80b250be745a9bd3b0537a602772c0a6f54a93a70112c6aa0f2b729bfaa"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_wetjune_recheck_mid_fungicide_20_43",
+        "level": "L2",
+        "historical_public_task": "o_mid_fungicide_20_43",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l2_hb_wetjune_recheck_mid_fungicide_20_43.py",
+        "public_task_sha256": "e662d6eb6f2b952efa210e938212493deb708b3dd15f41cb67f87ed7084f9284"
+      },
+      {
+        "scenario_id": "scenario_l2_hb_wetjune_recheck_r5_fungicide_20_43",
+        "level": "L2",
+        "historical_public_task": "o_r5_fungicide_20_43",
+        "source_path": "fairy/scenarios/farm_world_fullseason_v2/l2_l1_splits/hb_wetjune_disease_recheck_after_fungicide/scenario_l2_hb_wetjune_recheck_r5_fungicide_20_43.py",
+        "public_task_sha256": "3e0e4d174773feb354f6c6e6b1f7c6927b2ed5a315142ffa8822a84b41034433"
+      }
+    ]
+  },
+  "numeric_candidates": {
+    "strategy": "jev_numeric_visible_v2",
+    "initial_scenarios": 246,
+    "initial_tool_menu_status_counts": {
+      "ready": 13878
+    },
+    "new_unavailable_menus": [],
+    "cases": [
+      {
+        "scenario_id": "scenario_l1_hb_disease_drought_mid_fungicide_20_43_action",
+        "tool": "TractorApp__apply_fungicide",
+        "parameter": "liters_per_ridge",
+        "required_visible_value": 3.8,
+        "complete_candidate_count": 32
+      },
+      {
+        "scenario_id": "scenario_l1_hb_potassium_dry_r5_irrigation_20_39_action",
+        "tool": "FieldOpsApp__irrigate",
+        "parameter": "hours",
+        "required_visible_value": 0.65,
+        "complete_candidate_count": 6
+      },
+      {
+        "scenario_id": "scenario_l1_hb_heihe43_apply_nutrient_fertigation",
+        "tool": "FarmWorldApp__apply_fertigation",
+        "parameter": "nutrient_amount",
+        "required_visible_value": 0.24,
+        "complete_candidate_count": 48
+      },
+      {
+        "scenario_id": "scenario_l2_hb_replant_heinong84_establishment_planting",
+        "tool": "TractorApp__plant_seeds",
+        "parameter": "seed_spacing_cm",
+        "required_visible_value": 7.9,
+        "complete_candidate_count": 160
+      }
+    ]
+  },
+  "offline_tests": {
+    "passed": 699,
+    "failed": 0,
+    "seconds": 6.63,
+    "initial_run": {
+      "passed": 696,
+      "failed": 3,
+      "cause": "Offline SDK construction tests depended on import-time environment credentials; changed tests to explicit synthetic keys only."
+    }
+  },
+  "preservation": {
+    "at": "2026-10-19T20:22:56.146380+08:00",
+    "old_batch_files_checked": 6706,
+    "old_batch_files_changed": [],
+    "ledger_and_stop_files_unchanged": true,
+    "other_worktrees": [
+      {
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/jev-mvp",
+        "unchanged": true
+      },
+      {
+        "path": "/Users/ouyangkun/PHD/Project/Fairy-Jev/hn58-reproduce",
+        "unchanged": true
+      }
+    ],
+    "stopped_batch_not_restarted": true,
+    "new_model_requests": 0
+  },
+  "new_live_model_requests": 0,
+  "live_integration_success": null,
+  "task_success": null,
+  "live_acceptance_status": "not_run_for_this_revision",
+  "limitations": [
+    "Numeric candidate scan covers initial public tasks and empty action histories; later observations can still enlarge menus.",
+    "Finite language and catalog adapter; not exhaustive continuous coverage.",
+    "Larger request timeout does not establish that backend latency or live task success is resolved.",
+    "Existing context length, report template and evaluator coverage issues are outside this repair."
+  ],
+  "evidence_directory": "/Users/ouyangkun/PHD/Project/Fairy-Jev/llm-jev-hybrid/runs/repairs/timeout_tasks_numeric_20261019T201635+0800"
+}

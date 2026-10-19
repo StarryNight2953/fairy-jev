@@ -41,7 +41,7 @@ class ScenarioL2HbLaterainInsectR5Insecticide3655(Scenario):
             briefing_text = '任务：从R5窗口巡查后的真实状态出发，围绕insect-control pesticide application做短闭环。请先用天气、预报、土壤、冠层、目标区状态、无人机和地面检查建立证据链；若证据和窗口支持，按当前资源约束对确认区域执行处理并复查响应。'
         else:
             briefing_text = '任务：诊断R5窗口的insect-control pesticide application需求；证据支持时处理确认区域并复查。'
-        build_management_l2_flow(self, SPEC, SPEC.actions[0], 'o_r5_insecticide_36_55', briefing_text)
+        build_management_l2_flow(self, SPEC, SPEC.actions[0], briefing_text=briefing_text, prefix='o_r5_insecticide_36_55')
 
     def validate(self, env) -> ScenarioValidationResult:
         return validate_native_workflow(self, env, 'hb_laterain_insect_risk r5_insecticide_36_55 L2')

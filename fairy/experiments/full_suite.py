@@ -24,6 +24,7 @@ from urllib.parse import parse_qsl, urlsplit
 from zoneinfo import ZoneInfo
 
 from fairy.agents.Jev.trace import digest, write_json as _write_json
+from fairy.agents.Jev.candidates import CANDIDATE_STRATEGY_VERSION
 from fairy.experiments.budget import LiveLedger
 from fairy.experiments.episode import ROOT, artifact_hashes, git, run_episode, verify_and_replay
 
@@ -33,7 +34,7 @@ LEDGER = ROOT / "runs/agent_comparison/live_budget_20261018.json"
 LIMITS = {"max_tool_attempts": 300, "max_decision_rounds": 300,
           "max_http_attempts": 900, "max_jev_http_attempts": 600,
           "max_updater_attempts": 160, "max_updates": 80,
-          "wall_timeout_seconds": 1800}
+          "wall_timeout_seconds": 7200}
 
 
 def now():
@@ -117,10 +118,11 @@ def make_config(base, scenario, architecture):
     profile = "hn58_semantic_v2" if scenario["scenario_id"] == HN58 else "scenario_native_v1"
     cfg.update(evaluation_profile=profile, evaluator_version=profile)
     cfg["experiment_limits"] = dict(LIMITS)
-    cfg["budgets"].update(max_steps=300, max_tool_calls=300,
-                          max_decision_calls=600, wall_timeout_seconds=1800)
-    cfg["effective_limit_note"] = "User-authorized full-suite budget expansion; fixed before samples; no retry episodes."
-    cfg["configuration_note"] = "Existing model, prompt, K, candidate space and agent loop preserved; new suite runner and evaluation applicability only."
+    cfg["budgets"].update(max_steps=LIMITS["max_decision_rounds"], max_tool_calls=LIMITS["max_tool_attempts"],
+                          max_decision_calls=LIMITS["max_jev_http_attempts"], wall_timeout_seconds=LIMITS["wall_timeout_seconds"])
+    cfg["candidate_strategy_version"] = CANDIDATE_STRATEGY_VERSION
+    cfg["effective_limit_note"] = "User-authorized 7200s episode wall limit; existing attempt counts retained; fixed before samples; no retry episodes."
+    cfg["configuration_note"] = "Current source includes task-briefing fixes and visible numeric candidate enrichment; prompt, K, report template, loop and model sampling preserved."
     return config_for_scenario(scenario, cfg)
 
 
@@ -197,7 +199,7 @@ def prepare(out, include_legacy=False, llm_config_path=None):
             slot = f"{row['scenario_id']}__{architecture}__seed1904"
             cfg = make_config(bases[architecture], row, architecture)
             if override is not None and architecture in ("llm_native", "hybrid"):
-                cfg["configuration_note"] = "LLM provider configuration explicitly replaced from frozen override; prompt, K, candidates, agent loop and Jev provider preserved."
+                cfg["configuration_note"] = "LLM provider configuration explicitly replaced from frozen override; current task-briefing and numeric-candidate fixes apply; prompt, K, report template, loop and Jev provider preserved."
             write_json(out / "configs" / f"{slot}.json", cfg)
             slots.append({"slot": slot, "ledger_slot": f"{out.name}__{slot}",
                           "architecture": architecture, "scenario_id": row["scenario_id"],
@@ -210,7 +212,7 @@ def prepare(out, include_legacy=False, llm_config_path=None):
               "limits": LIMITS, "maximum_concurrency": 3, "max_parallel_per_architecture": 1,
               "evaluation": "HN58 keeps exact semantic_v2; all other task_success unknown, native validator and workflow scores retained without invented thresholds",
               "rules": ["No replacement samples, including failures and interrupted slots", "No model action replacement or automatic repair",
-                        "Keep prompt/K/candidates/report template/agent loop/model sampling unchanged",
+                        "Freeze current task inputs, numeric candidate strategy and LLM timeout before samples; keep prompt/K/report template/agent loop/model sampling unchanged during the batch",
                         "No oracle action execution; static oracle used only after execution for existing descriptive metrics",
                         "L1/L2 checkpoint clocks, L3 declared clocks", "Service access errors stop dependent future slots; no route changes"],
               "known_existing_limitations": ["Jev report candidate is irrigation-specific", "Finite candidate values can omit other tasks' required values",
@@ -219,7 +221,7 @@ def prepare(out, include_legacy=False, llm_config_path=None):
               "cost": {"status": "unknown", "no_verified_price_schedule": True}}
     if override_record is not None:
         prereg["llm_override"] = override_record
-        prereg["rules"][2] = "Keep prompt/K/candidates/report template/agent loop unchanged; freeze the explicit LLM provider override before samples"
+        prereg["rules"][2] = "Freeze current task inputs, numeric candidates and explicit LLM provider override before samples; keep prompt/K/report template/agent loop unchanged during the batch"
     prereg["worktrees"] = [{"path": str(ROOT.parent/name),
                             "head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT.parent/name, text=True).strip(),
                             "status": subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT.parent/name, text=True).strip()}

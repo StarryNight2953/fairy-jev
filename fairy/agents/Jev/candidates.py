@@ -17,6 +17,187 @@ from .tools import validate_arguments
 _RANGE = re.compile(r"(?:(?:ridges?|垄)\s*)?(\d+)\s*[-–—~至到]\s*(\d+)(?:\s*垄)?", re.I)
 _DURATION = re.compile(r"(\d+(?:\.\d+)?)\s*(?:小时|hours?\b|h\b)", re.I)
 _IRRIGATION = {"irrigate", "irrigate_range", "irrigate_ridge"}
+CANDIDATE_STRATEGY_VERSION = "jev_numeric_visible_v2"
+_NUMBER = r"(?<![A-Za-z0-9_.+-])(?P<value>\d+(?:\.\d+)?)"
+_PER_RIDGE = r"\s*(?:/\s*(?:垄|ridges?\b)|per\s+ridge\b)"
+_LITERS = r"(?:lit(?:er|re)s?(?![A-Za-z])|L(?![A-Za-z])|升)"
+_KG = r"(?:kg(?![A-Za-z])|kilograms?(?![A-Za-z])|千克|公斤)"
+_TIME_UNIT = r"(?P<unit>小时|分钟|秒|天|hours?\b|minutes?\b|seconds?\b|days?\b|h\b)"
+_ACTION_MARKERS = {
+    "fungicide": r"杀菌剂|fungicide",
+    "herbicide": r"除草剂|herbicide",
+    "pesticide": r"杀虫剂|农药|虫害|背负式点喷|pesticide|insecticide",
+    "fertilizer": r"肥料|施肥|追肥|fertili[sz]er",
+    "fuel": r"加油|燃油|柴油|refuel|fuel|diesel",
+    "irrigation": r"灌溉|irrigat\w*",
+    "wait": r"等待|推进|wait\w*|advance\s+time",
+}
+_NUMERIC_KEYS = {"liters_per_ridge", "kg_per_ridge", "liters", "kg", "count", "depth_cm",
+                 "seed_spacing_cm", "spacing_cm", "ridge_width_m", "nutrient_amount", "water_mm",
+                 "target_moisture_pct", "days", "hours", "duration_hours"}
+
+
+def _nearest_action(text: str, offset: int) -> str | None:
+    """The last named action in the current sentence, never an arbitrary number."""
+    prefix = re.split(r"[。；;\n.!?](?!\d)", text[:offset])[-1]
+    found = [(match.start(), kind) for kind, pattern in _ACTION_MARKERS.items()
+             for match in re.finditer(pattern, prefix, re.I)]
+    return max(found)[1] if found else None
+
+
+def _quantity_action(text: str, match: re.Match) -> str | None:
+    # Chinese often places the action after its duration: "0.8小时灌溉".
+    suffix = re.split(r"[，,。；;\n.!?]", text[match.end():match.end() + 20])[0]
+    found = [(m.start(), kind) for kind, pattern in _ACTION_MARKERS.items()
+             for m in re.finditer(pattern, suffix, re.I)]
+    if found:
+        offset, kind = min(found)
+        # An adjacent suffix wins over an earlier wait. Do not leap across
+        # another quantity in "等待6小时后执行0.65小时灌溉".
+        if re.fullmatch(r"\s*(?:定向|的|的定向|of)?\s*", suffix[:offset], re.I):
+            return kind
+    return _nearest_action(text, match.start("value"))
+
+
+def _chemical_action(text: str, match: re.Match) -> str | None:
+    action = _quantity_action(text, match)
+    if action is not None:
+        return action
+    # A separate "剂量为..." step may refer to the sole chemical named in
+    # the public task. Ambiguous multi-chemical tasks get no guessed binding.
+    kinds = [kind for kind in ("fungicide", "herbicide", "pesticide")
+             if re.search(_ACTION_MARKERS[kind], text, re.I)]
+    return kinds[0] if len(kinds) == 1 else None
+
+
+def _numeric_value(parameter: dict, value: float) -> int | float | None:
+    if not math.isfinite(value) or value <= 0:
+        return None
+    key, kind = parameter["name"], parameter["type"]
+    if key == "depth_cm" and not 3 <= value <= 5:
+        return None  # Public plant/replant tool contract.
+    if key == "target_moisture_pct" and value > 100:
+        return None
+    if key == "days" and not 1 <= value <= 7:
+        return None  # Public forecast tool contract.
+    if kind in {"int", "integer"}:
+        return int(value) if value.is_integer() else None
+    return value if kind in {"float", "number"} else None
+
+
+def task_numeric_values(tool_name: str, parameter: dict, task: Any) -> list[tuple[int | float, str]]:
+    """Add explicit quantities with matching units and parameter/action meaning.
+
+    This is a finite language adapter, not a task solver. It never reads oracle
+    data, copies all task numbers, or estimates a dose from simulator state.
+    Multiple stated values remain choices; the model still chooses the action.
+    """
+    if not isinstance(task, str) or parameter["name"] not in _NUMERIC_KEYS:
+        return []
+    key, method = parameter["name"], tool_name.split("__")[-1]
+    patterns: list[tuple[str, str | None, float]] = []
+    chemical = {"apply_fungicide": "fungicide", "load_fungicide": "fungicide",
+                "apply_herbicide": "herbicide", "spray_pesticide": "pesticide",
+                "apply_pesticide_manual": "pesticide", "load_pesticide": "pesticide",
+                "refill_pesticide_tank": "pesticide"}.get(method)
+    if key in {"liters_per_ridge", "kg_per_ridge"}:
+        unit, action = (_LITERS, chemical) if key == "liters_per_ridge" else (_KG, "fertilizer")
+        if action:
+            patterns.append((_NUMBER + r"\s*" + unit + _PER_RIDGE, action, 1))
+    elif key in {"liters", "kg"}:
+        unit = _LITERS if key == "liters" else _KG
+        action = chemical or ("fuel" if method == "refuel" else "fertilizer" if key == "kg" else None)
+        if action:
+            patterns.append((_NUMBER + r"\s*" + unit + r"(?!\s*(?:/|per\b))", action, 1))
+    elif key in {"hours", "duration_hours"} and method in _IRRIGATION:
+        patterns.append((_NUMBER + r"\s*(?:小时|hours?\b|h\b)", "irrigation", 1))
+        patterns.append((r"\b(?:hours|duration_hours)\s*[=:]\s*" + _NUMBER, "irrigation", 1))
+    elif key in {"depth_cm", "seed_spacing_cm", "spacing_cm", "ridge_width_m"}:
+        label, unit = {
+            "depth_cm": (r"播深|播种深度|depth", r"cm(?![A-Za-z])|厘米"),
+            "seed_spacing_cm": (r"株距|种子间距|seed\s+spacing|spacing", r"cm(?![A-Za-z])|厘米"),
+            "spacing_cm": (r"株距|种子间距|seed\s+spacing|spacing", r"cm(?![A-Za-z])|厘米"),
+            "ridge_width_m": (r"垄距|垄宽|ridge\s+width", r"m(?![A-Za-z])|米"),
+        }[key]
+        patterns.append((rf"(?:{label})\s*(?:为|是|of|=|:|：)?\s*{_NUMBER}\s*(?:{unit})", None, 1))
+        patterns.append((rf"{_NUMBER}\s*(?:{unit})\s*(?:{label})", None, 1))
+    elif key == "count" and method == "load_seeds":
+        patterns.append((_NUMBER + r"\s*(?:粒(?:种子)?|seeds?\b)", None, 1))
+    elif key == "target_moisture_pct":
+        patterns.append((r"(?:干燥|dry\w*)[^。；;\n]{0,30}?" + _NUMBER + r"\s*%", None, 1))
+    elif key == "days" and method == "get_forecast":
+        patterns.append((_NUMBER + r"\s*(?:天|days?\b)\s*(?:天气)?(?:预报|forecast)", None, 1))
+    elif key == "water_mm":
+        patterns.append((r"(?:水量|water(?:\s+amount)?)\s*(?:为|=|:|：)?\s*" + _NUMBER + r"\s*(?:mm\b|毫米)", None, 1))
+    elif key == "nutrient_amount":
+        patterns.append((r"(?:fertigation|水肥)[^。；;\n]{0,20}?\bamount\s*[=:]\s*" + _NUMBER, None, 1))
+
+    # Unambiguous named numeric arguments (e.g. seed_spacing_cm=7.9).
+    # Generic liters/kg and shared chemical rates still need action context.
+    if key not in {"liters", "kg", "count", "days", "hours", "duration_hours", "liters_per_ridge", "kg_per_ridge"}:
+        aliases = r"(?:seed_spacing_cm|spacing_cm)" if key in {"seed_spacing_cm", "spacing_cm"} else re.escape(key)
+        patterns.append((rf"\b{aliases}\s*[=:]\s*{_NUMBER}", None, 1))
+    values = []
+    for pattern, action, scale in patterns:
+        for match in re.finditer(pattern, task, re.I):
+            actual_action = _chemical_action(task, match) if action in {"fungicide", "herbicide", "pesticide"} else _quantity_action(task, match)
+            if action and actual_action != action:
+                continue
+            value = _numeric_value(parameter, float(match["value"]) * scale)
+            if value is not None:
+                values.append((value, f"visible_task:quantity:{key}:{match.start()}-{match.end()}"))
+    return list(dict.fromkeys(values))
+
+
+def task_wait_seconds(task: Any) -> list[tuple[int, str]]:
+    """Convert explicitly requested waits to seconds, separate from irrigation."""
+    if not isinstance(task, str):
+        return []
+    values = []
+    for match in re.finditer(_NUMBER + r"\s*" + _TIME_UNIT, task, re.I):
+        if _quantity_action(task, match) != "wait":
+            continue
+        unit = match["unit"].lower()
+        factor = 86400 if unit in {"天", "day", "days"} else 3600 if unit in {"小时", "h", "hour", "hours"} else 60 if unit in {"分钟", "minute", "minutes"} else 1
+        seconds = float(match["value"]) * factor
+        if math.isfinite(seconds) and seconds > 0:
+            values.append((math.ceil(seconds), f"visible_task:wait:{match.start()}-{match.end()}"))
+    return list(dict.fromkeys(values))
+
+
+def _task_spacing_scope_matches(arguments: dict, refs: list[str], task: Any) -> bool:
+    """Bind new per-zone spacing to its stated range; retain catalog choices.
+
+    Expanding three explicit cultivar spacings over every unrelated zone can
+    exceed Choice capacity and creates combinations absent from the task. A
+    nearby public range restricts only that new task-derived spacing value.
+    """
+    if not isinstance(task, str) or "start_ridge" not in arguments:
+        return True
+    for key in ("seed_spacing_cm", "spacing_cm"):
+        if key not in arguments:
+            continue
+        if any(ref.endswith(f".{key}.default") or (ref.startswith("declared_catalog:") and f".{key}" in ref) for ref in refs):
+            continue
+        scopes = []
+        for ref in refs:
+            match = re.fullmatch(rf"visible_task:quantity:{key}:(\d+)-(\d+)", ref)
+            if not match:
+                continue
+            prefix = re.split(r"[。；;\n]", task[:int(match[1])])[-1]
+            ranges = [m for m in _RANGE.finditer(prefix)
+                      if 0 <= int(m[1]) <= int(m[2]) < 1000]
+            # Require one explicitly labelled adjacent range in this clause.
+            # "0-20 and 21-42" is ambiguous; retain unbound choices in that case.
+            if (len(ranges) == 1 and re.search(r"ridges?|垄", ranges[0][0], re.I)
+                    and len(prefix) - ranges[0].end() <= 160):
+                scopes.append((int(ranges[0][1]), int(ranges[0][2])))
+            else:
+                scopes.append(None)
+        if scopes and None not in scopes and not any(
+                start <= arguments["start_ridge"] <= arguments["end_ridge"] <= end for start, end in scopes):
+            return False
+    return True
 
 
 def extract_task_parameters(task: Any) -> dict:
@@ -179,9 +360,9 @@ class CandidateResolver:
                 if key in {"start", "end", "start_ridge", "end_ridge", "ridge_id"}:
                     units[key], sources[key] = "inclusive ridge ID", ["visible_task:ranges", "visible_tool_result:ranges", "public_catalog:ridge_bounds", "declared_catalog:ranges"]
                 elif key in {"hours", "duration_hours"} and name.split("__")[-1] in _IRRIGATION:
-                    units[key], sources[key] = "hours per ridge", ["visible_task:duration", "declared_catalog:irrigation_hours"]
+                    units[key], sources[key] = "hours per ridge", ["visible_task:quantity", "declared_catalog:irrigation_hours"]
                 elif key in {"seconds", "minutes", "hours", "days", "timeout"} and name.startswith("SystemApp__"):
-                    units[key], sources[key] = key if key != "timeout" else "seconds", ["visible_tool_result:effect_ready_at/ETA", "declared_catalog:positive_waits"]
+                    units[key], sources[key] = key if key != "timeout" else "seconds", ["visible_task:wait", "visible_tool_result:effect_ready_at/ETA", "declared_catalog:positive_waits"]
                 elif key == "sensor_id":
                     units[key], sources[key] = "sensor identifier", ["public_catalog:sensor_ids"]
                 elif key in {"implement", "seed_type"}:
@@ -191,12 +372,14 @@ class CandidateResolver:
                 else:
                     units[key] = values.get(key, {}).get("unit", {"advance_time": "boolean", "liters_per_ridge": "L per ridge", "target_moisture_pct": "percent", "days": "days"}.get(key, "signature value"))
                     sources[key] = ([f"declared_catalog:tool_values.{name}.{key}"] if key in values else []) + ([] if p["required"] else [f"tool_signature:{key}.default"])
+                    if key in _NUMERIC_KEYS:
+                        sources[key] += ["visible_task:quantity", "declared_catalog:numeric_midpoint_if_capacity"]
             rows.append({"tool_name": name, "parameter_category": "no_parameters" if not entry["parameters"] else "required" if required else "optional_only",
                          "required_parameters": required, "optional_parameters": optional,
                          "resolver_id": self._strategy(entry), "implementation_status": "implemented",
                          "value_sources": sources, "units": units,
                          "limits": {"max_candidates": 255, "max_pass_width": self.catalog.get("max_pass_width", {}).get(name)},
-                         "finite_catalog_not_exhaustive": True})
+                         "finite_catalog_not_exhaustive": True, "candidate_strategy_version": CANDIDATE_STRATEGY_VERSION})
         return rows
 
     def _range_options(self, state, tool_name):
@@ -237,13 +420,11 @@ class CandidateResolver:
         elif key in {"implement", "seed_type"}:
             values.extend((v, f"public_catalog:{key}") for v in self.catalog.get(key, {}).get("values", []))
         elif key in {"hours", "duration_hours"} and method in _IRRIGATION:
-            duration = extract_task_parameters(state.get("task", ""))["irrigation_hours"]
-            if duration is not None and duration > 0:
-                values.append((duration, "visible_task:duration"))
             values.extend((v, "declared_catalog:irrigation_hours") for v in self.catalog.get("irrigation_hours", {}).get("values", []))
         elif key == "content":
             values.append((factual_report(state), "deterministic_template:visible_executed_facts"))
         values.extend((v, f"declared_catalog:tool_values.{name}.{key}") for v in self.catalog.get("tool_values", {}).get(name, {}).get(key, {}).get("values", []))
+        values.extend(task_numeric_values(name, parameter, state.get("task", "")))
         unique = {}
         for value, ref in values:
             marker = json.dumps(value, sort_keys=True)
@@ -251,17 +432,48 @@ class CandidateResolver:
             else: unique[marker] = [value, [ref]]
         return list(unique.values())
 
+    def _add_numeric_midpoints(self, tool_name, parameters, groups, group_indices):
+        """Densify catalog intervals only in remaining complete-call capacity.
+
+        Original/default/task choices are never removed. When their product
+        already exceeds 255, generation retains its explicit overflow result.
+        Midpoints are optional proposals, not newly inferred task requirements.
+        """
+        additions, skipped = [], []
+        for parameter in parameters:
+            key = parameter["name"]
+            if key not in _NUMERIC_KEYS or key not in group_indices:
+                continue
+            declared = self.catalog.get("tool_values", {}).get(tool_name, {}).get(key, {}).get("values", [])
+            points = sorted(set(float(v) for v in declared if type(v) in {int, float} and math.isfinite(v)))
+            group = groups[group_indices[key]]
+            for left, right in zip(points, points[1:]):
+                midpoint = _numeric_value(parameter, round((left + right) / 2, 8))
+                if midpoint is None or any(args[key] == midpoint for args, _ in group):
+                    continue
+                if math.prod(len(g) + (g is group) for g in groups) > 255:
+                    skipped.append({"parameter": key, "value": midpoint, "reason": "complete_call_capacity"})
+                    continue
+                group.append(({key: midpoint}, [f"declared_catalog:numeric_midpoint:{tool_name}.{key}:{left:g}:{right:g}"]))
+                additions.append({"parameter": key, "value": midpoint})
+        return {"added_midpoints": additions, "skipped_midpoints": skipped,
+                "original_and_explicit_task_choices_preserved": True,
+                "task_spacing_scope_policy": "Only task-derived spacing is bound to a single adjacent public ridge range; ambiguous scope stays unbound",
+                "task_spacing_scope_filtered_candidates": 0}
+
     def generate(self, tool_name: str, visible_state: dict) -> dict:
         if tool_name not in self.entries:
             return {"status": "unsupported", "candidates": {}, "missing_fields": [], "reason": "tool absent from visible catalog"}
         entry = self.entries[tool_name]
         parameters = entry["parameters"]
-        base = {"tool_name": tool_name, "resolver_id": self._strategy(entry), "missing_fields": [], "reason": None}
+        base = {"tool_name": tool_name, "resolver_id": self._strategy(entry), "missing_fields": [], "reason": None,
+                "candidate_strategy_version": CANDIDATE_STRATEGY_VERSION}
         if not parameters:
             return {**base, "status": "ready", "candidates": {"args_000": {"arguments": {}, "source_refs": ["tool_signature:no_parameters"]}}, "candidate_count": 1}
         method = tool_name.split("__")[-1]
         if method in {"advance_time", "wait_for_notification"}:
             waits = visible_wait_seconds(visible_state)
+            waits += task_wait_seconds(visible_state.get("task", ""))
             key = "wait_seconds" if method == "advance_time" else "notification_timeout"
             waits += [(v, f"declared_catalog:{key}") for v in self.catalog.get(key, {}).get("values", [])]
             raw = []
@@ -272,7 +484,7 @@ class CandidateResolver:
         else:
             names = {p["name"] for p in parameters}
             pair_names = ("start", "end") if {"start", "end"} <= names else ("start_ridge", "end_ridge") if {"start_ridge", "end_ridge"} <= names else None
-            groups = []
+            groups, group_indices = [], {}
             if pair_names:
                 ranges = self._range_options(visible_state, tool_name)
                 if not ranges:
@@ -284,12 +496,17 @@ class CandidateResolver:
                 values = self._values(tool_name, parameter, visible_state)
                 if not values:
                     base["missing_fields"].append(key)
+                group_indices[key] = len(groups)
                 groups.append([({key: value}, refs) for value, refs in values])
             if base["missing_fields"]:
                 return {**base, "status": "needs_context", "candidates": {}, "reason": "required values absent from visible facts, signature defaults and declared catalog"}
+            base["numeric_enrichment"] = self._add_numeric_midpoints(tool_name, parameters, groups, group_indices)
             raw = ((dict(pair for args, _ in combo for pair in args.items()), [ref for _, refs in combo for ref in refs]) for combo in itertools.product(*groups))
         candidates, deduped = {}, {}
         for arguments, refs in raw:
+            if not _task_spacing_scope_matches(arguments, refs, visible_state.get("task", "")):
+                base["numeric_enrichment"]["task_spacing_scope_filtered_candidates"] += 1
+                continue
             bounds = self.catalog.get("ridge_bounds", {}).get("values", [])
             if "ridge_count" in arguments and bounds and arguments["ridge_id"] + arguments["ridge_count"] - 1 > bounds[1]: continue
             try:

@@ -17,9 +17,10 @@
     "max_steps": 40,
     "max_tool_calls": 40,
     "max_decision_calls": 80,
-    "wall_timeout_seconds": 600,
+    "wall_timeout_seconds": 7200,
     "repeated_parameter_failure_limit": 3
   },
+  "candidate_strategy_version": "jev_numeric_visible_v2",
   "candidate_catalog": {
     "provenance": "declared_catalog: finite choices, not exhaustive continuous parameter coverage or model reasoning",
     "ridge_bounds": {"values": [0, 63], "unit": "inclusive ridge ID", "source": "public_catalog:FarmWorldApp.get_ridge_state docstring"},

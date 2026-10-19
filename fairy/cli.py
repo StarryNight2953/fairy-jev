@@ -149,7 +149,7 @@ def main() -> None:
     parser.add_argument("--endpoint", default=None, help="OpenAI-compatible base URL for --agent provider")
     parser.add_argument("--parallel-tool-calls", type=_str_to_bool, default=True, help="Allow the model to return multiple tool calls in one LLM turn")
     parser.add_argument("--max-tool-calls", type=int, default=300, help="Maximum tool calls for --agent")
-    parser.add_argument("--timeout-seconds", type=float, default=1200.0, help="Wall-time limit for --agent")
+    parser.add_argument("--timeout-seconds", type=float, default=7200.0, help="Whole-agent wall-time limit (default: 7200s; separate from the LLM request timeout)")
     parser.add_argument("--a2a", type=_str_to_bool, default=False, help="Enable Agent2Agent app wrappers")
     parser.add_argument("--a2a-app-prop", type=float, default=0.5, help="Fraction of eligible apps to wrap for A2A")
     parser.add_argument("--a2a-policy", default="generic", choices=["generic", "typed_experts"], help="A2A app-agent selection policy")

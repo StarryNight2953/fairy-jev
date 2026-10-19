@@ -622,7 +622,7 @@ fairy-run \
 | `--endpoint` | URL | provider 默认 | 覆盖 OpenAI-compatible base URL。会传成 client 的 `base_url`。 |
 | `--parallel-tool-calls` | `true` / `false` | `true` | 是否允许一个 assistant turn 返回多个 native function calls。严格要求每轮只调用一个工具时设为 `false`。 |
 | `--max-tool-calls` | int | `300` | 主 agent 最多允许多少次工具调用。到达后 `run_report.status=stopped`，`stopped_reason=max_tool_calls`。 |
-| `--timeout-seconds` | float | `1200.0` | 主 agent 最大 wall time。到达后 `stopped_reason=timeout`。 |
+| `--timeout-seconds` | float | `7200.0` | 主 agent 最大 wall time。到达后 `stopped_reason=timeout`。 |
 | `--scenario-kwargs` | JSON object string | `{}` | 创建 scenario 对象时传入的参数。`detailed_briefing` / detail-context 模式就放这里。 |
 | `--init-kwargs` | JSON object string | `{}` | 调用 `scenario.setup(**init_kwargs)` 时传入的参数。普通 FARM 场景一般不用；只有某个场景的 `setup()` 明确需要额外初始化参数时才用。 |
 

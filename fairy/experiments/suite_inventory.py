@@ -12,6 +12,7 @@ import hashlib
 import inspect
 import json
 from pathlib import Path
+import re
 
 from fairy.scenarios.registry import get_scenario_class, list_scenarios
 from fairy.scenarios.scenario import Scenario
@@ -134,6 +135,20 @@ def config_for_scenario(row: dict, baseconfig: dict) -> dict:
     return config
 
 
+def validate_public_task(task: str) -> None:
+    """Reject missing briefings and bare oracle IDs, not judge task semantics.
+
+    A swapped ``briefing_text``/``prefix`` argument can otherwise produce a
+    healthy fixture whose entire user task is an internal ``o_*`` event ID.
+    This deliberately narrow input check does not prescribe task wording,
+    actions, or success criteria.
+    """
+    if not isinstance(task, str) or not task.strip():
+        raise ValueError("Invalid public task: briefing is empty")
+    if re.fullmatch(r"o_[A-Za-z0-9_]+", task.strip()):
+        raise ValueError("Invalid public task: briefing contains only an oracle event identifier")
+
+
 def preflight_one(row: dict, baseconfig: dict) -> dict:
     """Initialize one isolated fixture and inspect its public interface.
 
@@ -157,6 +172,7 @@ def preflight_one(row: dict, baseconfig: dict) -> dict:
     scenario, engine, metadata = create_fixture(config)
     catalog = ToolCatalog(scenario.apps)
     task = public_task(engine)
+    validate_public_task(task)
     result = {
         "scenario_id": row["scenario_id"],
         "level": row["level"],

@@ -1,6 +1,10 @@
 # llm/base_llm.py
 
+import math
 import os
+
+
+DEFAULT_LLM_REQUEST_TIMEOUT_S = 1800.0
 
 
 def _coerce_bool(value, field_name: str) -> bool:
@@ -33,10 +37,15 @@ class BaseLLM:
         # Store any additional initialization parameters (e.g., api_key)
         self.params = kwargs
         self.llm_class = self.__class__.llm_class
-        raw_timeout = kwargs.get("timeout", os.getenv("FAIRY_LLM_REQUEST_TIMEOUT_S"))
-        self.request_timeout = (
-            float(raw_timeout) if raw_timeout not in (None, "") else None
+        raw_timeout = kwargs.get("timeout")
+        if raw_timeout in (None, ""):
+            raw_timeout = os.getenv("FAIRY_LLM_REQUEST_TIMEOUT_S")
+        self.request_timeout = float(
+            raw_timeout if raw_timeout not in (None, "")
+            else DEFAULT_LLM_REQUEST_TIMEOUT_S
         )
+        if not math.isfinite(self.request_timeout) or self.request_timeout <= 0:
+            raise ValueError("LLM request timeout must be a finite positive number of seconds")
         raw_max_tokens = kwargs.get(
             "max_output_tokens",
             kwargs.get("max_tokens", os.getenv("FAIRY_LLM_MAX_OUTPUT_TOKENS", "2048")),

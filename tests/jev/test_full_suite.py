@@ -51,8 +51,23 @@ def test_hn58_keeps_its_existing_evaluator_and_all_limits_are_synced():
     assert config["budgets"]["max_tool_calls"] == limits["max_tool_attempts"]
     assert config["budgets"]["max_decision_calls"] == limits["max_jev_http_attempts"]
     assert config["budgets"]["wall_timeout_seconds"] == limits["wall_timeout_seconds"]
+    assert limits["wall_timeout_seconds"] == 7200
+    assert config["llm"]["timeout"] == 1800
     assert limits["max_updater_attempts"] >= 2 * limits["max_updates"]
     assert limits["max_http_attempts"] >= limits["max_jev_http_attempts"] + limits["max_updater_attempts"]
+
+
+def test_future_suite_updates_strategy_identity_without_mutating_old_base():
+    base = base_config()
+    base["candidate_strategy_version"] = "jev_mvp_v1"
+    base["budgets"]["wall_timeout_seconds"] = 600
+    config = full_suite.make_config(base, {
+        "scenario_id": full_suite.HN58, "clock_source": "checkpoint",
+        "effective_start_time": 1786057131.7453332}, "hybrid")
+    assert config["candidate_strategy_version"] == "jev_numeric_visible_v2"
+    assert config["budgets"]["wall_timeout_seconds"] == 7200
+    assert base["candidate_strategy_version"] == "jev_mvp_v1"
+    assert base["budgets"]["wall_timeout_seconds"] == 600
 
 
 def test_make_config_uses_current_inventory_clock_not_stale_hn58_time():

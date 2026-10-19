@@ -17,7 +17,7 @@
     "max_steps": 40,
     "max_tool_calls": 40,
     "max_decision_calls": 80,
-    "wall_timeout_seconds": 600,
+    "wall_timeout_seconds": 7200,
     "repeated_parameter_failure_limit": 3
   },
   "candidate_catalog": {
@@ -315,7 +315,7 @@
     "authentication_mode": "none",
     "base_url": "http://100.89.223.79:8000/v1",
     "enable_thinking": false,
-    "timeout": 30
+    "timeout": 1800
   },
   "hybrid": {
     "update_interval": 4,
@@ -334,16 +334,16 @@
     "max_jev_http_attempts": 100,
     "max_updater_attempts": 20,
     "max_updates": 10,
-    "wall_timeout_seconds": 600
+    "wall_timeout_seconds": 7200
   },
   "evaluator_version": "hn58_semantic_v2",
-  "candidate_strategy_version": "jev_mvp_v1",
+  "candidate_strategy_version": "jev_numeric_visible_v2",
   "requested_design_limits": {
     "max_decision_rounds": 60,
-    "wall_timeout_seconds": 900,
+    "wall_timeout_seconds": 7200,
     "max_jev_decision_calls": 100
   },
-  "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
+  "effective_limit_note": "User-authorized 7200s whole-episode wall limit and 1800s LLM request timeout; tool, decision and HTTP attempt limits retained. TypeSafe request timeout remains 30s.",
   "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
   "configuration_note": "User-selected Qwen3.8 provider on 2026-10-19; native and hybrid updater share this LLM configuration. Explicit authentication_mode=none uses a public SDK placeholder only. Sampling parameters and TypeSafe configuration unchanged; historical experiment configs retained."
 }

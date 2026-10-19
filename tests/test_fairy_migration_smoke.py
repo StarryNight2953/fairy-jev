@@ -1025,7 +1025,6 @@ def test_vllm_qwen_client_disables_thinking_in_chat_template(monkeypatch) -> Non
 
 
 def test_deepseek_client_passes_parallel_tool_calls(monkeypatch) -> None:
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     captured: dict = {}
 
     class _CaptureCompletions:
@@ -1043,6 +1042,7 @@ def test_deepseek_client_passes_parallel_tool_calls(monkeypatch) -> None:
         {
             "provider": "deepseek",
             "model": "deepseek-chat",
+            "api_key": "offline-fixture-key",
             "parallel_tool_calls": False,
             "max_output_tokens": 4096,
         }
@@ -1058,17 +1058,16 @@ def test_deepseek_client_passes_parallel_tool_calls(monkeypatch) -> None:
 def test_llm_max_output_tokens_default_and_environment_override(
     monkeypatch,
 ) -> None:
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     monkeypatch.delenv("FAIRY_LLM_MAX_OUTPUT_TOKENS", raising=False)
 
     default_client = BaseLLM.llm_builder(
-        {"provider": "deepseek", "model": "deepseek-chat"}
+        {"provider": "deepseek", "model": "deepseek-chat", "api_key": "offline-fixture-key"}
     )
     assert default_client.max_output_tokens == 2048
 
     monkeypatch.setenv("FAIRY_LLM_MAX_OUTPUT_TOKENS", "3072")
     environment_client = BaseLLM.llm_builder(
-        {"provider": "deepseek", "model": "deepseek-chat"}
+        {"provider": "deepseek", "model": "deepseek-chat", "api_key": "offline-fixture-key"}
     )
     assert environment_client.max_output_tokens == 3072
 
@@ -1077,20 +1076,20 @@ def test_llm_max_output_tokens_default_and_environment_override(
             {
                 "provider": "deepseek",
                 "model": "deepseek-chat",
+                "api_key": "offline-fixture-key",
                 "max_output_tokens": 0,
             }
         )
 
 
 def test_openai_compatible_clients_accept_request_timeout(monkeypatch) -> None:
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     monkeypatch.setenv("FAIRY_LLM_REQUEST_TIMEOUT_S", "12.5")
 
     deepseek = BaseLLM.llm_builder(
-        {"provider": "deepseek", "model": "deepseek-chat"}
+        {"provider": "deepseek", "model": "deepseek-chat", "api_key": "offline-fixture-key"}
     )
     qwen = BaseLLM.llm_builder(
-        {"provider": "qwen", "model": "qwen-plus", "timeout": 7}
+        {"provider": "qwen", "model": "qwen-plus", "timeout": 7, "api_key": "offline-fixture-key"}
     )
 
     assert deepseek.request_timeout == 12.5

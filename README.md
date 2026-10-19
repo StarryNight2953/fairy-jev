@@ -622,7 +622,7 @@ Parameters:
 | `--endpoint` | URL | provider default | Override OpenAI-compatible base URL. Passed to the client as `base_url`. |
 | `--parallel-tool-calls` | `true` / `false` | `true` | Allow one assistant turn to return multiple native function calls. Set `false` for strict one-tool-call-per-turn traces. |
 | `--max-tool-calls` | int | `300` | Maximum main-agent tool calls. If reached, `run_report.status=stopped` and `stopped_reason=max_tool_calls`. |
-| `--timeout-seconds` | float | `1200.0` | Maximum main-agent wall time. If reached, `stopped_reason=timeout`. |
+| `--timeout-seconds` | float | `7200.0` | Maximum main-agent wall time. If reached, `stopped_reason=timeout`. |
 | `--scenario-kwargs` | JSON object string | `{}` | Arguments passed when the scenario object is created. Put `detailed_briefing` / detail-context mode here. |
 | `--init-kwargs` | JSON object string | `{}` | Arguments passed to `scenario.setup(**init_kwargs)`. Most FARM scenarios do not need this; keep `{}` unless a scenario's `setup()` explicitly requires extra initialization arguments. |
 
