@@ -1,0 +1,16 @@
+﻿architecture,assertion,evaluator_passed,manual_assessment,evidence_event_ids,note
+llm_native,pre_irrigation_observations,True,agree,"[15, 20, 25, 30]",实际记录支持该判定。
+llm_native,new_irrigation_exact_target_and_dose,True,agree,"[40, 43]",实际记录支持该判定。
+llm_native,quota_consumption,True,agree,"[25, 43]",实际记录支持该判定。
+llm_native,processed_waited_rechecked_response,False,agree,"[43, 49, 52, 55]",实际记录支持该判定。
+llm_native,factual_final_report,False,agree,"[49, 52, 55]",有终端文本，但复查仍是未来计划；这是合格最终报告复合断言失败，不是没有说话。与等待复查失败同源，勿计作两个独立行为缺陷。
+jev,pre_irrigation_observations,False,agree_process_gap_with_contract_ambiguity,"[11, 21, 31, 47, 121]",任务单列目标区状态；实际未取得独立作物/运行状态。精确代理字段未公开，故总判定对该合同解释敏感，不认定已证明误杀。
+jev,new_irrigation_exact_target_and_dose,True,agree,"[46, 47]",实际记录支持该判定。
+jev,quota_consumption,True,agree,"[31, 47]",实际记录支持该判定。
+jev,processed_waited_rechecked_response,True,agree,"[47, 63, 73, 121]",实际记录支持该判定。
+jev,factual_final_report,True,agree,"[89, 105, 137, 142, 145]",实际记录支持该判定。
+hybrid,pre_irrigation_observations,False,agree_process_gap_with_contract_ambiguity,"[37, 49, 61, 92]",同Jev的灌前状态合同争议；另有不依赖该条款的通信缺失。
+hybrid,new_irrigation_exact_target_and_dose,True,agree,"[91, 92]",实际记录支持该判定。
+hybrid,quota_consumption,True,agree,"[49, 69, 74, 79, 92]",实际消耗正确；不等于正确理解配额。E69将1.4误述为无限额，五断言没有捕获。
+hybrid,processed_waited_rechecked_response,True,agree,"[92, 111, 123]",实际记录支持该判定。
+hybrid,factual_final_report,False,agree,"[129, 130, 131, 133]",完全未通信；公开工具菜单规定最终通信渠道。本样本无需依赖隐藏关键词即可确认缺失。

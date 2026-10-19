@@ -1,0 +1,188 @@
+[
+  {
+    "architecture": "llm_native",
+    "assertion": "pre_irrigation_observations",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      15,
+      20,
+      25,
+      30
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "llm_native",
+    "assertion": "new_irrigation_exact_target_and_dose",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      40,
+      43
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "llm_native",
+    "assertion": "quota_consumption",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      25,
+      43
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "llm_native",
+    "assertion": "processed_waited_rechecked_response",
+    "evaluator_passed": false,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      43,
+      49,
+      52,
+      55
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "llm_native",
+    "assertion": "factual_final_report",
+    "evaluator_passed": false,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      49,
+      52,
+      55
+    ],
+    "note": "有终端文本，但复查仍是未来计划；这是合格最终报告复合断言失败，不是没有说话。与等待复查失败同源，勿计作两个独立行为缺陷。"
+  },
+  {
+    "architecture": "jev",
+    "assertion": "pre_irrigation_observations",
+    "evaluator_passed": false,
+    "manual_assessment": "agree_process_gap_with_contract_ambiguity",
+    "evidence_event_ids": [
+      11,
+      21,
+      31,
+      47,
+      121
+    ],
+    "note": "任务单列目标区状态；实际未取得独立作物/运行状态。精确代理字段未公开，故总判定对该合同解释敏感，不认定已证明误杀。"
+  },
+  {
+    "architecture": "jev",
+    "assertion": "new_irrigation_exact_target_and_dose",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      46,
+      47
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "jev",
+    "assertion": "quota_consumption",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      31,
+      47
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "jev",
+    "assertion": "processed_waited_rechecked_response",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      47,
+      63,
+      73,
+      121
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "jev",
+    "assertion": "factual_final_report",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      89,
+      105,
+      137,
+      142,
+      145
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "hybrid",
+    "assertion": "pre_irrigation_observations",
+    "evaluator_passed": false,
+    "manual_assessment": "agree_process_gap_with_contract_ambiguity",
+    "evidence_event_ids": [
+      37,
+      49,
+      61,
+      92
+    ],
+    "note": "同Jev的灌前状态合同争议；另有不依赖该条款的通信缺失。"
+  },
+  {
+    "architecture": "hybrid",
+    "assertion": "new_irrigation_exact_target_and_dose",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      91,
+      92
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "hybrid",
+    "assertion": "quota_consumption",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      49,
+      69,
+      74,
+      79,
+      92
+    ],
+    "note": "实际消耗正确；不等于正确理解配额。E69将1.4误述为无限额，五断言没有捕获。"
+  },
+  {
+    "architecture": "hybrid",
+    "assertion": "processed_waited_rechecked_response",
+    "evaluator_passed": true,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      92,
+      111,
+      123
+    ],
+    "note": "实际记录支持该判定。"
+  },
+  {
+    "architecture": "hybrid",
+    "assertion": "factual_final_report",
+    "evaluator_passed": false,
+    "manual_assessment": "agree",
+    "evidence_event_ids": [
+      129,
+      130,
+      131,
+      133
+    ],
+    "note": "完全未通信；公开工具菜单规定最终通信渠道。本样本无需依赖隐藏关键词即可确认缺失。"
+  }
+]
