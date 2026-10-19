@@ -32,6 +32,17 @@ ROOT = Path(__file__).resolve().parents[2]
 IMPLEMENTATIONS = {"llm_native": "fairy_native_observed_v1", "jev": "jev_mvp_v1_observed", "hybrid": "hybrid_sync_v1"}
 
 
+def evaluation_adapter(config):
+    """Select post-run assessment without changing any decision-time behavior."""
+    profile = config.get("evaluation_profile", "hn58_semantic_v2")
+    if profile == "hn58_semantic_v2":
+        return evaluate_task, semantic_first_issue, "hn58_semantic_v2", ROOT/"fairy/experiments/evaluation.py"
+    if profile == "scenario_native_v1":
+        from .scenario_evaluation import evaluate_task as generic_evaluation, generic_first_issue, VERSION
+        return generic_evaluation, generic_first_issue, VERSION, ROOT/"fairy/experiments/scenario_evaluation.py"
+    raise ValueError(f"Unknown evaluation_profile: {profile}")
+
+
 def file_hash(path):
     p = Path(path)
     return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else None
@@ -147,6 +158,7 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
     episode_started=time.monotonic()
     architecture=architecture or config.get("architecture","jev")
     if architecture not in IMPLEMENTATIONS:raise ValueError("unknown architecture")
+    task_evaluator, first_issue, evaluator_version, evaluator_path = evaluation_adapter(config)
     run_id=datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")+f"_{architecture}_{mode}_"+uuid4().hex[:8]
     output=Path(output_dir).resolve()/run_id
     output.mkdir(parents=True,exist_ok=False)
@@ -165,7 +177,8 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         "candidate_strategy_version":config.get("candidate_strategy_version","jev_mvp_v1"),
         "candidate_strategy_hash":file_hash(ROOT/"fairy/agents/Jev/candidates.py"),
         "parameter_catalog_hash":digest(config.get("candidate_catalog",{})),
-        "evaluator_version":config.get("evaluator_version","hn58_semantic_v2"),"evaluator_hash":file_hash(ROOT/"fairy/experiments/evaluation.py"),
+        "evaluation_profile":config.get("evaluation_profile","hn58_semantic_v2"),
+        "evaluator_version":evaluator_version,"evaluator_hash":file_hash(evaluator_path),
         "data_assets":{"tangyan5_workbook":file_hash(ROOT/"fairy/scenarios/farm_world_fullseason/tangyan5_table_fitted/data/糖研所5号地数据汇总-1206_副本.xlsx")},
         "randomness":{"scenario_seed":config.get("seed"),"remote_sampling_seed":"not supplied; cannot promise remote determinism","clock":"checkpoint initial time; wall-derived subsecond progression remains"},
         "global_live_ledger":str(ledger.path) if ledger else None,
@@ -258,18 +271,18 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         attempted=any((e["event"]=="decision_end" and e.get("status")=="ok") or (e["event"]=="native_event" and e.get("native_event",{}).get("event_type")=="llm_call_end" and e.get("native_event",{}).get("status")=="ok") for e in trace.events)
         if before is not None and (executed or attempted):
             try:
-                strict=evaluate_task(scenario,engine,workflow,before,events=trace.events,environment_valid=manifest.get("environment_check")=="passed",output_dir=output)
+                strict=task_evaluator(scenario,engine,workflow,before,events=trace.events,environment_valid=manifest.get("environment_check")=="passed",output_dir=output)
                 success=strict.pop("task_success")
                 evaluation.update(strict)
                 evaluation["task_assertions"]=strict["assertions"]
                 evaluation["task_success"]=success if mode=="live" else None
                 evaluation["scripted_task_success"]=success if mode=="scripted" else None
-                evaluation["first_issue"]=semantic_first_issue(trace.events,engine._resolve_agent_task(),strict["assertions"])
+                evaluation["first_issue"]=first_issue(trace.events,engine._resolve_agent_task(),strict["assertions"])
                 evaluation["first_violation_event_id"]=evaluation["first_issue"]["event_id"] if evaluation["first_issue"] else None
             except Exception as exc:
                 evaluation.update(execution_status="integration_error",failure_layer="evaluation",evaluation_error=f"{type(exc).__name__}: {exc}")
                 trace.emit("evaluation_error",error=f"{type(exc).__name__}: {exc}")
-        evaluation["first_issue"]=semantic_first_issue(trace.events,engine._resolve_agent_task() if engine else "",evaluation.get("assertions"))
+        evaluation["first_issue"]=first_issue(trace.events,engine._resolve_agent_task() if engine else "",evaluation.get("assertions"))
         evaluation["first_violation_event_id"]=evaluation["first_issue"]["event_id"] if evaluation["first_issue"] else None
         if evaluation.get("stop_reason") not in {"missing_credentials","invalid_environment","preflight_blocked"}:
             evaluation.update(integration_coverage(trace.events,architecture,mode=="live"))
@@ -287,7 +300,9 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         metrics=summarize_metrics(trace.events,runtime,live=mode=="live")
         metrics["episode_wall_seconds"]=time.monotonic()-episode_started
         evaluation["decision_call_count"]=sum(e["event"]=="decision_start" for e in trace.events)
-        if mode=="scripted":evaluation["scripted_loop_check"]="passed" if evaluation.get("scripted_task_success") else "failed"
+        if mode=="scripted":
+            evaluation["scripted_loop_check"]=("not_assessed" if evaluator_version=="scenario_native_v1" and evaluation.get("scripted_task_success") is None
+                else "passed" if evaluation.get("scripted_task_success") else "failed")
         metrics["simulation_time_start"]=manifest.get("effective_start_time")
         metrics["simulation_time_end"]=engine.time_manager.time() if engine else None
         evaluation.update(budget_consumption=runtime.snapshot(),model_request_count=metrics["logical_model_requests"],
@@ -316,12 +331,22 @@ def verify_and_replay(output, config):
     evaluation["trace_verification"]=verification
     if evaluation.get("tool_call_count",0):
         try:
-            replay=replay_run(output/"workflow.json",config,output/"replay")
-            source_events=[json.loads(line) for line in (output/"trace.jsonl").read_text().splitlines()]
-            semantic=apply_semantic_contract(replay,Workflow.load_workflow(str(output/"workflow.json")),source_events)
-            semantic["replay_task_success"]=semantic["task_success"]
-            if replay.get("source_backend")=="scripted":semantic["task_success"]=None
-            write_json(output/"replay"/"evaluation_semantic_v2.json",semantic)
+            manifest=json.loads((output/"manifest.json").read_text())
+            source_profile=manifest.get("config",{}).get("evaluation_profile",manifest.get("evaluation_profile","hn58_semantic_v2"))
+            if "evaluation_profile" in config and config["evaluation_profile"]!=source_profile:
+                raise ValueError("Replay configuration conflict for evaluation_profile; source manifest is authoritative")
+            if source_profile=="scenario_native_v1":
+                evaluator,_,_,_=evaluation_adapter({"evaluation_profile":source_profile})
+                replay=replay_run(output/"workflow.json",config,output/"replay",evaluation_callback=evaluator)
+                semantic=replay
+            else:
+                evaluation_adapter({"evaluation_profile":source_profile})
+                replay=replay_run(output/"workflow.json",config,output/"replay")
+                source_events=[json.loads(line) for line in (output/"trace.jsonl").read_text().splitlines()]
+                semantic=apply_semantic_contract(replay,Workflow.load_workflow(str(output/"workflow.json")),source_events)
+                semantic["replay_task_success"]=semantic["task_success"]
+                if replay.get("source_backend")=="scripted":semantic["task_success"]=None
+                write_json(output/"replay"/"evaluation_semantic_v2.json",semantic)
             evaluation["replay_verification"]={"passed":replay["replay"]["replay_success"],"details":replay["replay"],"task_success":semantic.get("replay_task_success")}
         except Exception as exc:
             evaluation["replay_verification"]={"passed":False,"error":f"{type(exc).__name__}: {exc}"}

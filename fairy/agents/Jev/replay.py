@@ -24,20 +24,23 @@ def _action_effects(snapshot, prefix_length):
             for a in snapshot["actions"][prefix_length:]]
 
 
-def replay_run(workflow_path, config, output_dir):
-    """No model calls. Resolve fixture from sibling manifest; reject conflicts."""
+def replay_run(workflow_path, config, output_dir, *, evaluation_callback=None):
+    """Replay saved actions; optional post-run evaluator defaults to HN58 v1."""
     source_path, output = Path(workflow_path).resolve(), Path(output_dir)
     manifest_path = source_path.parent / "manifest.json"
     if not manifest_path.is_file():
         raise ValueError(f"Replay requires source manifest: {manifest_path}")
     source_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     source_config = dict(source_manifest.get("config") or {})
-    for key in ("scenario_id", "seed", "scenario_kwargs", "init_kwargs", "clock_source"):
+    for key in ("scenario_id", "seed", "scenario_kwargs", "init_kwargs", "clock_source", "evaluation_profile"):
         if key not in source_config and key in source_manifest:
             source_config[key] = source_manifest[key]
     for key in ("scenario_id", "seed", "scenario_kwargs", "init_kwargs", "clock_source", "candidate_catalog"):
         if key in config and key in source_config and config[key] != source_config[key]:
             raise ValueError(f"Replay configuration conflict for {key}; source manifest is authoritative")
+    if ("evaluation_profile" in config
+            and config["evaluation_profile"] != source_config.get("evaluation_profile", "hn58_semantic_v2")):
+        raise ValueError("Replay configuration conflict for evaluation_profile; source manifest is authoritative")
     source_config["effective_start_time"] = source_manifest["effective_start_time"]
     scenario, engine, metadata = create_fixture(source_config)
     if metadata["checkpoint_hash"] != source_manifest.get("checkpoint_hash"):
@@ -116,7 +119,8 @@ def replay_run(workflow_path, config, output_dir):
             # Preserve exactly what the agent saw; actual replay returns remain in trace.
             workflow.add_node(WorkflowStep(**step))
             previous_post_time = post_time
-        result = evaluate_task(scenario, engine, workflow, before,
+        evaluator = evaluation_callback if evaluation_callback is not None else evaluate_task
+        result = evaluator(scenario, engine, workflow, before,
                                environment_valid=metadata["environment_check"] == "passed", output_dir=output)
         source_eval_path = source_path.parent / "evaluation.json"
         if source_eval_path.is_file():
