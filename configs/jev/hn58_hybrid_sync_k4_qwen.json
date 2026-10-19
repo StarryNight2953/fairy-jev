@@ -308,12 +308,12 @@
   "implementation_version": "hybrid_sync_v1",
   "llm": {
     "provider": "vllm",
-    "model": "Qwen3.6-35B-A3B-FP8",
+    "model": "Qwen3.8-27B-FP8",
     "temperature": 0.1,
     "max_output_tokens": 2048,
     "parallel_tool_calls": true,
     "authentication_mode": "none",
-    "base_url": "http://100.115.106.71:8000/v1",
+    "base_url": "http://100.89.223.79:8000/v1",
     "enable_thinking": false,
     "timeout": 30
   },
@@ -345,5 +345,5 @@
   },
   "effective_limit_note": "Retain existing stricter Jev 40 rounds,80 Choice calls,600s wall budget per instruction9.1; all architectures use40 native attempts and600s wall.",
   "global_live_ledger": "/Users/ouyangkun/PHD/Project/Fairy-Jev-hybrid/runs/agent_comparison/live_budget_20261018.json",
-  "configuration_note": "User-selected local vLLM endpoint confirmed by metadata GET; native and hybrid updater share this exact model config. Explicit authentication_mode=none uses a public SDK placeholder only. No TypeSafe access override."
+  "configuration_note": "User-selected Qwen3.8 provider on 2026-10-19; native and hybrid updater share this LLM configuration. Explicit authentication_mode=none uses a public SDK placeholder only. Sampling parameters and TypeSafe configuration unchanged; historical experiment configs retained."
 }

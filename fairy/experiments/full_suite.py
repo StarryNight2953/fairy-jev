@@ -483,12 +483,13 @@ def main():
     parser.add_argument("action", choices=["prepare", "preflight", "preflight-child", "run", "child", "report"])
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--include-legacy", action="store_true")
-    parser.add_argument("--llm-config", type=Path, help="Public LLM-only JSON override for a new batch; credentials use api_key_env")
+    parser.add_argument("--llm-config", type=Path, help="Public LLM-only JSON override for a new batch (prepare default: configs/llm/qwen_current.json); credentials use api_key_env")
     parser.add_argument("--slot")
     args = parser.parse_args(); out = args.output.resolve()
     if args.llm_config is not None and args.action != "prepare":
         parser.error("--llm-config is only valid when preparing a new batch")
-    if args.action == "prepare": prepare(out, args.include_legacy, llm_config_path=args.llm_config)
+    if args.action == "prepare":
+        prepare(out, args.include_legacy, llm_config_path=args.llm_config or ROOT / "configs/llm/qwen_current.json")
     elif args.action == "preflight": preflight(out)
     elif args.action == "preflight-child": preflight_child(out, args.slot)
     elif args.action == "run": run(out)

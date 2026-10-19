@@ -326,6 +326,9 @@ def test_cli_llm_override_only_prepares_new_batch(tmp_path, monkeypatch):
     monkeypatch.setattr(full_suite.sys, "argv", ["suite", "prepare", "--output", str(output), "--llm-config", str(source)])
     full_suite.main()
     assert calls == [((output.resolve(), False), {"llm_config_path": source})]
+    monkeypatch.setattr(full_suite.sys, "argv", ["suite", "prepare", "--output", str(output)])
+    full_suite.main()
+    assert calls[-1] == ((output.resolve(), False), {"llm_config_path": full_suite.ROOT / "configs/llm/qwen_current.json"})
     monkeypatch.setattr(full_suite, "run", lambda *a: pytest.fail("CLI tried to run with mutable override"))
     monkeypatch.setattr(full_suite.sys, "argv", ["suite", "run", "--output", str(output), "--llm-config", str(source)])
     with pytest.raises(SystemExit) as error:
