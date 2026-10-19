@@ -20,6 +20,7 @@ import subprocess
 import sys
 import time
 from uuid import uuid4
+from urllib.parse import parse_qsl, urlsplit
 from zoneinfo import ZoneInfo
 
 from fairy.agents.Jev.trace import digest, write_json as _write_json
@@ -53,6 +54,58 @@ def write_json(path, data):
     temporary = path.with_name(path.name + f".{os.getpid()}.{uuid4().hex}.tmp")
     _write_json(temporary, data)
     os.replace(temporary, path)
+
+
+def require_restart_authorized(out):
+    """A saved user stop must be resolved explicitly before any live restart."""
+    marker = Path(out) / "stop_requested.json"
+    if marker.exists() and load(marker).get("restart_authorized") is not True:
+        raise RuntimeError("Batch stopped by user; restart_authorized is not true")
+
+
+def load_llm_override(path):
+    """Read a public LLM configuration, never an inline credential or environment value."""
+    path = Path(path).resolve()
+    raw = path.read_bytes()
+    config = json.loads(raw)
+    if not isinstance(config, dict):
+        raise ValueError("--llm-config must contain a LLM configuration object")
+    def credential_field(key):
+        normalized = re.sub(r"[^a-z0-9]", "", str(key).lower())
+        return (normalized.endswith(("apikey", "apitoken", "accesstoken", "authtoken"))
+                or normalized in {"secret", "clientsecret", "password", "authorization",
+                                  "proxyauthorization", "token", "bearertoken", "credentials"})
+    def check_public(value):
+        if isinstance(value, dict):
+            if any(credential_field(key) for key in value):
+                raise ValueError("--llm-config forbids inline credentials; use api_key_env")
+            for child in value.values():
+                check_public(child)
+        elif isinstance(value, list):
+            for child in value:
+                check_public(child)
+    check_public(config)
+    for key in ("provider", "model", "base_url"):
+        if not isinstance(config.get(key), str) or not config[key].strip():
+            raise ValueError(f"--llm-config requires a nonempty {key}")
+    mode = config.get("authentication_mode", "environment")
+    if mode not in {"environment", "none"} or (mode == "none" and config["provider"].lower() != "vllm"):
+        raise ValueError("--llm-config authentication_mode is unsupported for this provider")
+    name = config.get("api_key_env")
+    if (mode == "environment" or "api_key_env" in config) and (
+            not isinstance(name, str) or not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name)):
+        raise ValueError("--llm-config requires api_key_env to name an environment variable, not a key value")
+    endpoint = urlsplit(config["base_url"])
+    if (endpoint.scheme not in {"http", "https"} or not endpoint.hostname
+            or endpoint.username is not None or endpoint.password is not None
+            or any(credential_field(key) or key.lower() == "key"
+                   for key, _ in parse_qsl(endpoint.query))):
+        raise ValueError("--llm-config base_url must be an HTTP(S) endpoint without embedded credentials")
+    return config, {"source_path": str(path), "source_sha256": hashlib.sha256(raw).hexdigest(),
+                    "config_sha256": digest(config), "config": deepcopy(config),
+                    "applied_architectures": ["llm_native", "hybrid"],
+                    "credential_values_recorded": False,
+                    "credential_policy": "Environment-variable name only; inline credentials and authenticated URLs rejected"}
 
 
 def make_config(base, scenario, architecture):
@@ -113,8 +166,9 @@ def _redact_streams():
     sys.stdout, sys.stderr = Redacted(sys.stdout), Redacted(sys.stderr)
 
 
-def prepare(out, include_legacy=False):
+def prepare(out, include_legacy=False, llm_config_path=None):
     from fairy.experiments.suite_inventory import discover_scenarios
+    override, override_record = load_llm_override(llm_config_path) if llm_config_path is not None else (None, None)
     assert not git("status", "--porcelain"), "Freeze a clean version before preparing"
     out.mkdir(parents=True, exist_ok=False)
     inventory = discover_scenarios(include_legacy=include_legacy)
@@ -131,6 +185,10 @@ def prepare(out, include_legacy=False):
     assert sum(e["http_attempts"] for e in before["episodes"]) == before["http_attempts"]
     write_json(out / "budget_before.json", before)
     bases = {a: load(ROOT / "runs/agent_comparison/hn58_tool_description_v2_20261019" / f"config_{a}.json") for a in ARCHITECTURES}
+    if override is not None:
+        for architecture in ("llm_native", "hybrid"):
+            bases[architecture]["llm"] = deepcopy(override)
+        write_json(out / "llm_override.json", override_record)
     slots = []
     for index, row in enumerate(scenarios):
         # Rotate architecture order across scenarios to avoid one fixed ordering.
@@ -138,6 +196,8 @@ def prepare(out, include_legacy=False):
         for architecture in order:
             slot = f"{row['scenario_id']}__{architecture}__seed1904"
             cfg = make_config(bases[architecture], row, architecture)
+            if override is not None and architecture in ("llm_native", "hybrid"):
+                cfg["configuration_note"] = "LLM provider configuration explicitly replaced from frozen override; prompt, K, candidates, agent loop and Jev provider preserved."
             write_json(out / "configs" / f"{slot}.json", cfg)
             slots.append({"slot": slot, "ledger_slot": f"{out.name}__{slot}",
                           "architecture": architecture, "scenario_id": row["scenario_id"],
@@ -157,6 +217,9 @@ def prepare(out, include_legacy=False):
                         "Default waits may be too short for full-season tasks", "Weak or absent validators do not establish task completion",
                         "Native round count is descriptive; its unchanged loop is bounded by HTTP/tools/wall time"],
               "cost": {"status": "unknown", "no_verified_price_schedule": True}}
+    if override_record is not None:
+        prereg["llm_override"] = override_record
+        prereg["rules"][2] = "Keep prompt/K/candidates/report template/agent loop unchanged; freeze the explicit LLM provider override before samples"
     prereg["worktrees"] = [{"path": str(ROOT.parent/name),
                             "head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT.parent/name, text=True).strip(),
                             "status": subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT.parent/name, text=True).strip()}
@@ -229,6 +292,7 @@ def amend_budget(out):
 
 
 def child(out, slot):
+    require_restart_authorized(out)
     _redact_streams()
     pre = load(out / "preregistration.json")
     row = next(r for r in pre["slots"] if r["slot"] == slot)
@@ -268,12 +332,14 @@ def child(out, slot):
 
 
 def run(out):
+    require_restart_authorized(out)
     with (out / "scheduler.lock").open("a+") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         return _run_locked(out)
 
 
 def _run_locked(out):
+    require_restart_authorized(out)
     pre = load(out / "preregistration.json")
     assert pre["code_commit"] == git("rev-parse", "HEAD") and not git("status", "--porcelain")
     assert load(out / "regression_result.json")["exit_code"] == 0
@@ -417,9 +483,12 @@ def main():
     parser.add_argument("action", choices=["prepare", "preflight", "preflight-child", "run", "child", "report"])
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--include-legacy", action="store_true")
+    parser.add_argument("--llm-config", type=Path, help="Public LLM-only JSON override for a new batch; credentials use api_key_env")
     parser.add_argument("--slot")
     args = parser.parse_args(); out = args.output.resolve()
-    if args.action == "prepare": prepare(out, args.include_legacy)
+    if args.llm_config is not None and args.action != "prepare":
+        parser.error("--llm-config is only valid when preparing a new batch")
+    if args.action == "prepare": prepare(out, args.include_legacy, llm_config_path=args.llm_config)
     elif args.action == "preflight": preflight(out)
     elif args.action == "preflight-child": preflight_child(out, args.slot)
     elif args.action == "run": run(out)

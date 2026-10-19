@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-19T15:07:08.469268+08:00",
+  "status": "terminated_by_user",
+  "finished": false,
+  "termination_reason": "user_requested_stop",
+  "planned": 738,
+  "completed_live_results": 29,
+  "interrupted_live_samples": 3,
+  "cancelled_before_start": 706,
+  "started_episodes": 32,
+  "batch_http_attempts": 5533,
+  "cumulative_http_attempts": 5599,
+  "active": [],
+  "pending": 0,
+  "recorded_slots": 738,
+  "restart_authorized": false,
+  "new_model_calls_during_termination": 0,
+  "original_live_files_preserved": 512,
+  "interrupted_slots": [
+    "scenario_l1_hb_disease_drought_harvest_ready__hybrid__seed1904",
+    "scenario_l1_hb_disease_drought_mid_fungicide_20_43_action__llm_native__seed1904",
+    "scenario_l1_hb_hn58_dual_stress_r5_fungicide_40_55_action__jev__seed1904"
+  ]
+}

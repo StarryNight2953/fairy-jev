@@ -14,6 +14,7 @@ def no_network(monkeypatch):
     def forbidden(*args, **kwargs):
         pytest.fail("Full-suite unit tests must not perform network calls")
     monkeypatch.setattr(socket.socket, "connect", forbidden)
+    monkeypatch.setattr(socket.socket, "connect_ex", forbidden)
     monkeypatch.setattr(socket, "create_connection", forbidden)
 
 
@@ -193,3 +194,140 @@ def test_second_scheduler_cannot_enter_same_batch(tmp_path, monkeypatch):
         fcntl.flock(held, fcntl.LOCK_EX | fcntl.LOCK_NB)
         with pytest.raises(BlockingIOError):
             full_suite.run(tmp_path)
+
+
+@pytest.mark.parametrize("entry", ["run", "_run_locked", "child"])
+def test_user_stopped_batch_rejected_before_ledger_worker_or_claim(tmp_path, monkeypatch, entry):
+    marker = tmp_path / "stop_requested.json"
+    full_suite.write_json(marker, {"requested_by": "user", "restart_authorized": False})
+    original = marker.read_bytes()
+    def forbidden(*args, **kwargs):
+        pytest.fail("Stopped batch touched a live boundary")
+    for name in ("LiveLedger", "amend_budget", "run_episode", "git", "_redact_streams"):
+        monkeypatch.setattr(full_suite, name, forbidden)
+    monkeypatch.setattr(full_suite.subprocess, "Popen", forbidden)
+    args = (tmp_path, "unstarted-slot") if entry == "child" else (tmp_path,)
+    with pytest.raises(RuntimeError, match="Batch stopped by user"):
+        getattr(full_suite, entry)(*args)
+    assert marker.read_bytes() == original
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["stop_requested.json"]
+
+
+def test_stop_marker_requires_explicit_true_for_restart(tmp_path):
+    full_suite.require_restart_authorized(tmp_path)
+    full_suite.write_json(tmp_path / "stop_requested.json", {"requested_by": "user"})
+    with pytest.raises(RuntimeError, match="restart_authorized"):
+        full_suite.require_restart_authorized(tmp_path)
+    full_suite.write_json(tmp_path / "stop_requested.json", {"restart_authorized": True})
+    full_suite.require_restart_authorized(tmp_path)
+
+
+def provider_override():
+    return {"provider": "openai-compatible", "model": "new-model",
+            "base_url": "https://provider.example.invalid/v1", "api_key_env": "NEW_PROVIDER_API_KEY",
+            "authentication_mode": "environment", "temperature": 0.1,
+            "max_output_tokens": 2048, "parallel_tool_calls": True, "timeout": 30,
+            "extra_body": {"provider_option": {"enabled": True}}}
+
+
+def test_unauthenticated_vllm_override_does_not_require_unused_key_variable(tmp_path):
+    config = {**provider_override(), "provider": "vllm", "authentication_mode": "none"}
+    config.pop("api_key_env")
+    path = tmp_path / "local.json"
+    full_suite.write_json(path, config)
+    selected, provenance = full_suite.load_llm_override(path)
+    assert selected == config and provenance["config"] == config
+    full_suite.write_json(path, {**config, "api_key_env": "not-a-variable-name"})
+    with pytest.raises(ValueError, match="api_key_env"):
+        full_suite.load_llm_override(path)
+
+
+@pytest.mark.parametrize("change", [
+    {"api_key": "inline-sentinel"},
+    {"extra_headers": {"Authorization": "Bearer inline-sentinel"}},
+    {"extra_headers": {"X-API-Key": "inline-sentinel"}},
+    {"apiKey": "inline-sentinel"},
+    {"extra_body": {"settings": [{"access_token": "inline-sentinel"}]}},
+    {"base_url": "https://username:inline-sentinel@provider.example.invalid/v1"},
+    {"base_url": "https://provider.example.invalid/v1?api_key=inline-sentinel"},
+    {"api_key_env": "sk-inline-sentinel"},
+    {"api_key_env": None},
+])
+def test_llm_override_rejects_embedded_credentials_before_batch_creation(tmp_path, change):
+    path = tmp_path / "provider.json"
+    full_suite.write_json(path, {**provider_override(), **change})
+    out = tmp_path / "new-batch"
+    with pytest.raises(ValueError) as error:
+        full_suite.prepare(out, llm_config_path=path)
+    assert "inline-sentinel" not in str(error.value)
+    assert not out.exists()
+
+
+@pytest.fixture
+def isolated_prepare_inputs(tmp_path, monkeypatch):
+    from fairy.experiments import suite_inventory
+    root = tmp_path / "workspace" / "hybrid"
+    old = root / "runs/agent_comparison/hn58_tool_description_v2_20261019"
+    for architecture in full_suite.ARCHITECTURES:
+        full_suite.write_json(old / f"config_{architecture}.json", base_config())
+    ledger = root / "runs/agent_comparison/live_budget_20261018.json"
+    full_suite.write_json(ledger, {"ledger_id": "offline-fixture", "episodes": [], "http_attempts": 0,
+                                  "max_episodes": 13, "max_http_attempts": 1440})
+    scenario = {"scenario_id": "scenario_l2_fixture", "clock_source": "checkpoint", "level": "L2",
+                "effective_start_time": 123.0}
+    monkeypatch.setattr(full_suite, "ROOT", root)
+    monkeypatch.setattr(full_suite, "LEDGER", ledger)
+    monkeypatch.setattr(suite_inventory, "discover_scenarios", lambda **kwargs: [deepcopy(scenario)])
+    monkeypatch.setattr(full_suite, "git", lambda *args: "frozen" if args[0] == "rev-parse" else "")
+    monkeypatch.setattr(full_suite.subprocess, "check_output", lambda command, **kwargs: "" if "status" in command else "frozen")
+    monkeypatch.setattr(full_suite, "run_episode", lambda *a, **k: pytest.fail("Preparation executed an episode"))
+    return root, old, ledger
+
+
+def test_prepare_freezes_override_only_for_llm_consumers(tmp_path, monkeypatch, isolated_prepare_inputs):
+    root, old, ledger = isolated_prepare_inputs
+    original_files = {p: p.read_bytes() for p in old.glob("*.json")}
+    original_ledger = ledger.read_bytes()
+    baseline, changed = root / "runs/baseline", root / "runs/new-provider"
+    full_suite.prepare(baseline)
+    path = tmp_path / "provider.json"
+    public = provider_override()
+    full_suite.write_json(path, public)
+    monkeypatch.setenv("NEW_PROVIDER_API_KEY", "secret-sentinel-must-not-be-read-or-saved")
+    full_suite.prepare(changed, llm_config_path=path)
+    for architecture in full_suite.ARCHITECTURES:
+        name = f"scenario_l2_fixture__{architecture}__seed1904.json"
+        original, actual = full_suite.load(baseline / "configs" / name), full_suite.load(changed / "configs" / name)
+        if architecture == "jev":
+            assert actual == original
+        else:
+            assert actual["llm"] == public
+            expected = {**original, "llm": public, "configuration_note": actual["configuration_note"]}
+            assert actual == expected
+    provenance = full_suite.load(changed / "llm_override.json")
+    assert provenance["source_sha256"] == full_suite.sha(path)
+    assert provenance["source_path"] == str(path.resolve())
+    assert provenance["config"] == public
+    assert provenance["config_sha256"] == full_suite.digest(public)
+    assert provenance["credential_values_recorded"] is False
+    assert provenance["applied_architectures"] == ["llm_native", "hybrid"]
+    assert full_suite.load(changed / "preregistration.json")["llm_override"] == provenance
+    assert not (baseline / "llm_override.json").exists()
+    assert "llm_override" not in full_suite.load(baseline / "preregistration.json")
+    assert all(p.read_bytes() == content for p, content in original_files.items())
+    assert ledger.read_bytes() == original_ledger
+    assert all("secret-sentinel-must-not-be-read-or-saved" not in p.read_text() for p in changed.rglob("*.json"))
+
+
+def test_cli_llm_override_only_prepares_new_batch(tmp_path, monkeypatch):
+    calls = []
+    monkeypatch.setattr(full_suite, "prepare", lambda *a, **kw: calls.append((a, kw)))
+    source, output = tmp_path / "provider.json", tmp_path / "new-batch"
+    monkeypatch.setattr(full_suite.sys, "argv", ["suite", "prepare", "--output", str(output), "--llm-config", str(source)])
+    full_suite.main()
+    assert calls == [((output.resolve(), False), {"llm_config_path": source})]
+    monkeypatch.setattr(full_suite, "run", lambda *a: pytest.fail("CLI tried to run with mutable override"))
+    monkeypatch.setattr(full_suite.sys, "argv", ["suite", "run", "--output", str(output), "--llm-config", str(source)])
+    with pytest.raises(SystemExit) as error:
+        full_suite.main()
+    assert error.value.code == 2
