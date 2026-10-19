@@ -349,3 +349,148 @@ def test_cli_llm_override_only_prepares_new_batch(tmp_path, monkeypatch):
     with pytest.raises(SystemExit) as error:
         full_suite.main()
     assert error.value.code == 2
+
+
+def test_formal_scope_defaults_and_l1_selection():
+    from fairy.experiments.suite_inventory import discover_scenarios
+    inventory = discover_scenarios()
+    all_rows, levels, variants = full_suite.select_scope(inventory)
+    assert len(all_rows) == 246 and levels == ("L1", "L2", "L3")
+    assert variants == full_suite.ARCHITECTURES
+    rows, levels, variants = full_suite.select_scope(inventory, ["L1"], list(full_suite.VARIANTS))
+    assert len(rows) == 78 and {r["level"] for r in rows} == {"L1"}
+    assert len(rows) * len(variants) == 312
+
+
+@pytest.mark.parametrize("levels,variants", [([], None), (["L4"], None), (["L1", "L1"], None),
+                                               (None, []), (None, ["jev", "jev"]), (None, ["unknown"])])
+def test_invalid_scope_fails_before_creating_batch(tmp_path, isolated_prepare_inputs, levels, variants):
+    out = tmp_path / "bad-selection"
+    with pytest.raises(ValueError):
+        full_suite.prepare(out, levels=levels, variants=variants)
+    assert not out.exists()
+
+
+def test_l1_four_variants_freeze_distinct_slots_and_only_pure_state_differs(tmp_path, monkeypatch, isolated_prepare_inputs):
+    from fairy.experiments import suite_inventory
+    root, old, ledger = isolated_prepare_inputs
+    inventory = [{"scenario_id": f"scenario_l1_{index:03}", "level": "L1", "clock_source": "checkpoint",
+                  "effective_start_time": 123.0} for index in range(78)]
+    inventory.append({"scenario_id": "excluded_l2", "level": "L2", "clock_source": "checkpoint",
+                      "effective_start_time": 123.0})
+    monkeypatch.setattr(suite_inventory, "discover_scenarios", lambda **kwargs: deepcopy(inventory))
+    # Existing ceilings are never reduced, and preparation does not mutate the ledger.
+    full_suite.write_json(ledger, {**full_suite.load(ledger), "max_episodes": 1000, "max_http_attempts": 999999})
+    original_ledger = ledger.read_bytes()
+    out = root / "runs/l1-four"
+    text = "批准一次覆盖 L1 的真实运行测试：四种实现各一次"
+    full_suite.prepare(out, levels=["L1"], variants=list(full_suite.VARIANTS), authorization_text=text)
+    pre = full_suite.load(out / "preregistration.json")
+    assert pre["scenario_count"] == 78 and pre["planned_samples"] == 312
+    assert len({r["slot"] for r in pre["slots"]}) == 312
+    assert pre["levels"] == ["L1"] and pre["variants"] == list(full_suite.VARIANTS)
+    assert pre["maximum_concurrency"] == 3 and pre["max_parallel_per_variant"] == 1
+    assert pre["max_parallel_per_architecture"] == 1
+    for scenario in inventory[:78]:
+        rows = [r for r in pre["slots"] if r["scenario_id"] == scenario["scenario_id"]]
+        configs = {r["variant"]: full_suite.load(out / "configs" / f"{r['slot']}.json") for r in rows}
+        assert configs["jev"]["architecture"] == configs["jev_task_history"]["architecture"] == "jev"
+        assert configs["jev"]["state_strategy"] == "visible_state_v1"
+        assert configs["jev_task_history"]["state_strategy"] == "task_history_v1"
+        assert configs["jev_task_history"] == {**configs["jev"], "state_strategy": "task_history_v1",
+                                               "implementation_version": "jev_task_history_v1_observed"}
+        assert all(r["config_hash"] == full_suite.digest(configs[r["variant"]]) for r in rows)
+        assert len({r["config_hash"] for r in rows}) == 4
+    auth = full_suite.load(out / "budget_authorization.json")
+    assert auth["user_instruction"] == text
+    assert auth["new_max_episodes"] == 1000 and auth["new_max_http_attempts"] == 999999
+    assert ledger.read_bytes() == original_ledger
+
+
+def test_preflight_uses_an_available_variant_without_legacy_jev_slot(tmp_path, monkeypatch):
+    from fairy.experiments import suite_inventory
+    row = {"scenario_id": "scenario_l1_fixture", "level": "L1"}
+    slot = f"{row['scenario_id']}__jev_task_history__seed1904"
+    cfg = {"architecture": "jev", "state_strategy": "task_history_v1"}
+    full_suite.write_json(tmp_path / "scenario_inventory.json", [row])
+    full_suite.write_json(tmp_path / "preregistration.json", {"slots": [{**row, "slot": slot}]})
+    full_suite.write_json(tmp_path / "configs" / f"{slot}.json", cfg)
+    calls = []
+    monkeypatch.setattr(suite_inventory, "preflight_one", lambda r, c: calls.append((r, c)) or {"status": "passed"})
+    full_suite.preflight_child(tmp_path, row["scenario_id"])
+    assert calls == [(row, cfg)]
+    assert full_suite.load(tmp_path / "preflight" / f"{row['scenario_id']}.json")["passed"] is True
+
+
+def test_summary_keeps_two_pure_jev_variants_separate(tmp_path):
+    slots = [{"scenario_id": "scenario_l1_fixture", "level": "L1", "architecture": "jev", "variant": variant,
+              "state_strategy": full_suite.VARIANTS[variant][1]} for variant in ("jev", "jev_task_history")]
+    full_suite.write_json(tmp_path / "preregistration.json", {"slots": slots})
+    for index, row in enumerate(slots):
+        full_suite.write_json(tmp_path / "results" / f"{index}.json", {**row, "evaluation": {
+            "execution_status": "completed", "task_success": index == 1, "model_http_attempts": index + 1}})
+    summary = full_suite.summarize(tmp_path, finished=True)
+    assert set(summary["groups"]) == {"L1/jev", "L1/jev_task_history"}
+    assert summary["groups"]["L1/jev"]["task_false"] == 1
+    assert summary["groups"]["L1/jev_task_history"]["task_true"] == 1
+    assert {r["state_strategy"] for r in summary["rows"]} == {"visible_state_v1", "task_history_v1"}
+
+
+def test_cli_selection_only_applies_to_fresh_preparation(tmp_path, monkeypatch):
+    calls = []
+    monkeypatch.setattr(full_suite, "prepare", lambda *a, **kw: calls.append((a, kw)))
+    output = tmp_path / "new-batch"
+    options = ["--levels", "L1", "--variants", "jev", "jev_task_history", "--authorization-text", "本次授权"]
+    monkeypatch.setattr(full_suite.sys, "argv", ["suite", "prepare", "--output", str(output), *options])
+    full_suite.main()
+    assert calls[0][1] == {"levels": ["L1"], "variants": ["jev", "jev_task_history"],
+                          "authorization_text": "本次授权", "llm_config_path": full_suite.ROOT / "configs/llm/qwen_current.json"}
+    monkeypatch.setattr(full_suite, "run", lambda *a: pytest.fail("Mutable selection reached live run"))
+    monkeypatch.setattr(full_suite.sys, "argv", ["suite", "run", "--output", str(output), *options])
+    with pytest.raises(SystemExit):
+        full_suite.main()
+
+
+def test_scheduler_runs_both_pure_variants_once_in_one_architecture_lane(tmp_path, monkeypatch):
+    slots = [{"slot": variant, "ledger_slot": f"batch-{variant}", "scenario_id": "scenario_l1_fixture",
+              "level": "L1", "variant": variant, "architecture": full_suite.VARIANTS[variant][0],
+              "state_strategy": full_suite.VARIANTS[variant][1]} for variant in full_suite.VARIANTS]
+    full_suite.write_json(tmp_path / "preregistration.json", {"code_commit": "frozen", "slots": slots})
+    full_suite.write_json(tmp_path / "preflight_summary.json", {"passed": 1})
+    full_suite.write_json(tmp_path / "preflight/scenario_l1_fixture.json", {"passed": True})
+    full_suite.write_json(tmp_path / "regression_result.json", {"exit_code": 0})
+    full_suite.write_json(tmp_path / "preservation_before.json", {"files": {}})
+    monkeypatch.setattr(full_suite, "git", lambda *args: "frozen" if args[0] == "rev-parse" else "")
+    class OfflineLedger:
+        def snapshot(self): return {"episodes": [], "http_attempts": 0}
+    monkeypatch.setattr(full_suite, "amend_budget", lambda out: OfflineLedger())
+    monkeypatch.setattr(full_suite, "artifact_hashes", lambda out: None)
+    started, active_architectures = [], set()
+    class OfflineWorker:
+        def __init__(self, command, **kwargs):
+            slot = command[-1]
+            row = next(r for r in slots if r["slot"] == slot)
+            self.architecture = row["architecture"]
+            assert self.architecture not in active_architectures
+            active_architectures.add(self.architecture)
+            assert len(active_architectures) <= 3
+            started.append(slot)
+            self.pid = 1000 + len(started)
+            self.returncode = None
+            full_suite.write_json(tmp_path / "results" / f"{slot}.json", {**row, "evaluation": {
+                "execution_status": "completed", "task_success": None, "model_http_attempts": 0}})
+        def poll(self):
+            if self.returncode is None:
+                active_architectures.remove(self.architecture)
+                self.returncode = 0
+            return self.returncode
+    monkeypatch.setattr(full_suite.subprocess, "Popen", OfflineWorker)
+    monkeypatch.setattr(full_suite, "run_episode", lambda *a, **kw: pytest.fail("Offline scheduler executed an agent"))
+    full_suite._run_locked(tmp_path)
+    assert len(started) == len(set(started)) == 4
+    assert set(started) == set(full_suite.VARIANTS)
+    assert started.index("jev") < started.index("jev_task_history")
+    progress = full_suite.load(tmp_path / "progress.json")
+    assert progress["finished"] is True and progress["status"] == "completed"
+    assert progress["pending"] == 0 and progress["active"] == [] and progress["completed_records"] == 4
+    assert full_suite.load(tmp_path / "comparison.json")["finished"] is True

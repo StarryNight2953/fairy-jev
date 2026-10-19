@@ -29,6 +29,11 @@ from fairy.experiments.budget import LiveLedger
 from fairy.experiments.episode import ROOT, artifact_hashes, git, run_episode, verify_and_replay
 
 ARCHITECTURES = ("llm_native", "jev", "hybrid")
+VARIANTS = {"llm_native": ("llm_native", "native_messages_v1"),
+            "jev": ("jev", "visible_state_v1"),
+            "jev_task_history": ("jev", "task_history_v1"),
+            "hybrid": ("hybrid", "hybrid_packet_v1")}
+LEVELS = ("L1", "L2", "L3")
 HN58 = "scenario_l1_three_cultivar_hn58_action_ready_irrigation"
 LEDGER = ROOT / "runs/agent_comparison/live_budget_20261018.json"
 LIMITS = {"max_tool_attempts": 300, "max_decision_rounds": 300,
@@ -109,9 +114,18 @@ def load_llm_override(path):
                     "credential_policy": "Environment-variable name only; inline credentials and authenticated URLs rejected"}
 
 
-def make_config(base, scenario, architecture):
+def make_config(base, scenario, architecture, variant=None):
     from fairy.experiments.suite_inventory import config_for_scenario
     cfg = deepcopy(base)
+    variant = variant or architecture
+    if variant not in VARIANTS or VARIANTS[variant][0] != architecture:
+        raise ValueError("Variant does not match its execution architecture")
+    # Both pure strategies execute the same Jev agent; only its input-state
+    # strategy differs. Other architectures keep their existing context path.
+    if architecture == "jev":
+        cfg["state_strategy"] = VARIANTS[variant][1]
+        if variant == "jev_task_history":
+            cfg["implementation_version"] = "jev_task_history_v1_observed"
     cfg.update(scenario_id=scenario["scenario_id"], architecture=architecture,
                seed=1904, scenario_kwargs={}, init_kwargs={},
                clock_source=scenario["clock_source"], global_live_ledger=str(LEDGER))
@@ -168,13 +182,32 @@ def _redact_streams():
     sys.stdout, sys.stderr = Redacted(sys.stdout), Redacted(sys.stderr)
 
 
-def prepare(out, include_legacy=False, llm_config_path=None):
+def select_scope(inventory, levels=None, variants=None):
+    levels = tuple(LEVELS if levels is None else levels)
+    variants = tuple(ARCHITECTURES if variants is None else variants)
+    for label, selected, available in (("levels", levels, LEVELS), ("variants", variants, VARIANTS)):
+        if not selected or len(set(selected)) != len(selected) or any(v not in available for v in selected):
+            raise ValueError(f"Invalid {label}: {selected!r}")
+    scenarios = sorted((r for r in inventory if r["level"] in levels),
+                       key=lambda r: (r["scenario_id"] != HN58, r["level"], r["scenario_id"]))
+    if not scenarios:
+        raise ValueError("Selected levels contain no scenarios")
+    return scenarios, levels, variants
+
+
+def variant_of(row):
+    """Legacy records had architecture only; its name is also their variant."""
+    return row.get("variant", row.get("architecture"))
+
+
+def prepare(out, include_legacy=False, llm_config_path=None, *, levels=None, variants=None,
+            authorization_text=None):
     from fairy.experiments.suite_inventory import discover_scenarios
     override, override_record = load_llm_override(llm_config_path) if llm_config_path is not None else (None, None)
     assert not git("status", "--porcelain"), "Freeze a clean version before preparing"
-    out.mkdir(parents=True, exist_ok=False)
     inventory = discover_scenarios(include_legacy=include_legacy)
-    scenarios = sorted(inventory, key=lambda r: (r["scenario_id"] != HN58, r["level"], r["scenario_id"]))
+    scenarios, levels, variants = select_scope(inventory, levels, variants)
+    out.mkdir(parents=True, exist_ok=False)
     write_json(out / "scenario_inventory.json", scenarios)
     historical = {}
     for base in (ROOT / "runs/agent_comparison", ROOT / "runs/semantic_audit"):
@@ -193,23 +226,29 @@ def prepare(out, include_legacy=False, llm_config_path=None):
         write_json(out / "llm_override.json", override_record)
     slots = []
     for index, row in enumerate(scenarios):
-        # Rotate architecture order across scenarios to avoid one fixed ordering.
-        order = ARCHITECTURES[index % 3:] + ARCHITECTURES[:index % 3]
-        for architecture in order:
-            slot = f"{row['scenario_id']}__{architecture}__seed1904"
-            cfg = make_config(bases[architecture], row, architecture)
+        # Rotate variant order across scenarios to avoid one fixed ordering.
+        offset = index % len(variants)
+        order = variants[offset:] + variants[:offset]
+        for variant in order:
+            architecture, state_strategy = VARIANTS[variant]
+            slot = f"{row['scenario_id']}__{variant}__seed1904"
+            cfg = make_config(bases[architecture], row, architecture, variant)
             if override is not None and architecture in ("llm_native", "hybrid"):
                 cfg["configuration_note"] = "LLM provider configuration explicitly replaced from frozen override; current task-briefing and numeric-candidate fixes apply; prompt, K, report template, loop and Jev provider preserved."
             write_json(out / "configs" / f"{slot}.json", cfg)
             slots.append({"slot": slot, "ledger_slot": f"{out.name}__{slot}",
-                          "architecture": architecture, "scenario_id": row["scenario_id"],
+                          "architecture": architecture, "variant": variant, "state_strategy": state_strategy,
+                          "scenario_id": row["scenario_id"],
                           "level": row["level"], "config_hash": digest(cfg)})
     prereg = {"experiment_id": out.name, "registered_at": now(), "code_commit": git("rev-parse", "HEAD"),
-              "scope": "all current registered L1/L2 plus formal L3; legacy optional and labelled",
+              "scope": "Selected current registered levels and implementation variants; legacy optional and labelled",
+              "levels": list(levels), "variants": list(variants),
               "include_legacy": include_legacy, "scenario_counts": dict(Counter(r["level"] for r in scenarios)),
               "scenario_count": len(scenarios), "planned_samples": len(slots), "repeats": 1, "seed": 1904,
               "pythonhashseed": "1904", "remote_seed": "not supplied", "slots": slots,
               "limits": LIMITS, "maximum_concurrency": 3, "max_parallel_per_architecture": 1,
+              "max_parallel_per_variant": 1,
+              "scheduling_note": "Both pure Jev state variants share one serial architecture lane; service concurrency remains unchanged",
               "evaluation": "HN58 keeps exact semantic_v2; all other task_success unknown, native validator and workflow scores retained without invented thresholds",
               "rules": ["No replacement samples, including failures and interrupted slots", "No model action replacement or automatic repair",
                         "Freeze current task inputs, numeric candidate strategy and LLM timeout before samples; keep prompt/K/report template/agent loop/model sampling unchanged during the batch",
@@ -227,9 +266,10 @@ def prepare(out, include_legacy=False, llm_config_path=None):
                             "status": subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT.parent/name, text=True).strip()}
                            for name in ("jev-mvp", "llm-jev-hybrid", "hn58-reproduce")]
     write_json(out / "preregistration.json", prereg)
-    write_json(out / "budget_authorization.json", {"authorized": True, "user_instruction": "放开预算执行一次覆盖三种实现以及所有L1,L2,L3场景的实验",
+    write_json(out / "budget_authorization.json", {"authorized": True,
+               "user_instruction": authorization_text or "Operator-authorized fresh batch; selected levels and variants recorded in preregistration",
                "ledger_id": before["ledger_id"], "preserve_existing_rows_and_counts": True,
-               "old_max_episodes": before["max_episodes"], "new_max_episodes": len(before["episodes"]) + len(slots),
+               "old_max_episodes": before["max_episodes"], "new_max_episodes": max(before["max_episodes"], len(before["episodes"]) + len(slots)),
                "old_max_http_attempts": before["max_http_attempts"],
                "new_max_http_attempts": max(before["max_http_attempts"], before["http_attempts"] + len(slots)*LIMITS["max_http_attempts"]),
                "single_episode_limits_before": bases["hybrid"]["experiment_limits"], "single_episode_limits_after": LIMITS})
@@ -275,7 +315,8 @@ def preflight_child(out, scenario_id):
     def deny(*args, **kwargs): raise AssertionError("Offline fixture preflight: network denied")
     socket.socket.connect = deny; socket.socket.connect_ex = deny; socket.create_connection = deny
     row = next(r for r in load(out / "scenario_inventory.json") if r["scenario_id"] == scenario_id)
-    cfg = load(out / "configs" / f"{scenario_id}__jev__seed1904.json")
+    slot = next(r for r in load(out / "preregistration.json")["slots"] if r["scenario_id"] == scenario_id)
+    cfg = load(out / "configs" / f"{slot['slot']}.json")
     result = preflight_one(row, cfg)
     result["passed"] = result.get("status") == "passed"
     write_json(out / "preflight" / f"{scenario_id}.json", result)
@@ -422,9 +463,13 @@ def _run_locked(out):
                               "http": e.get("model_http_attempts", 0), "remaining": len(pending), "active": len(active)}, ensure_ascii=False), flush=True)
             summarize(out, finished=False)
         write_json(out / "progress.json", {"at": now(), "pending": len(pending), "active": [r["slot"] for _, r, _, _ in active.values()],
+                   "finished": not pending and not active, "status": "completed" if not pending and not active else "running",
                    "completed_records": len(list((out / "results").glob("*.json"))), "planned": len(pre["slots"]), "service_blockers": blocked})
         if active:
             time.sleep(1)
+    # Also publish completion when resuming an already fully recorded batch.
+    write_json(out / "progress.json", {"at": now(), "pending": 0, "active": [], "finished": True, "status": "completed",
+               "completed_records": len(list((out / "results").glob("*.json"))), "planned": len(pre["slots"]), "service_blockers": blocked})
     write_json(out / "budget_after.json", ledger.snapshot())
     summarize(out, finished=True)
     original = load(out / "preservation_before.json")["files"]
@@ -451,7 +496,9 @@ def summarize(out, finished=False):
     for p in sorted((out / "results").glob("*.json")):
         r = load(p); e = r.get("evaluation", r)
         metrics = load(Path(r["path"]) / "metrics.json") if r.get("path") and (Path(r["path"]) / "metrics.json").exists() else {}
+        variant = variant_of(r)
         rows.append({"scenario_id": r["scenario_id"], "level": r["level"], "architecture": r["architecture"],
+                     "variant": variant, "state_strategy": r.get("state_strategy", VARIANTS[variant][1]),
                      "execution_status": e.get("execution_status"), "live_integration_success": e.get("live_integration_success"),
                      "task_success": e.get("task_success"), "native_contract_success": e.get("native_contract_success", (e.get("native_validation") or {}).get("success")),
                      "stop_reason": e.get("stop_reason"), "failure_layer": e.get("failure_layer"),
@@ -462,17 +509,19 @@ def summarize(out, finished=False):
                      "replay_verification": (e.get("replay_verification") or {}).get("passed"),
                      "path": r.get("path"), "record": str(p)})
     groups = {}
+    variants = pre.get("variants") or list(dict.fromkeys(variant_of(r) for r in pre["slots"] if variant_of(r))) or list(ARCHITECTURES)
     for level in sorted({r["level"] for r in pre["slots"]}):
-        for arch in ARCHITECTURES:
-            selected = [r for r in rows if r["level"] == level and r["architecture"] == arch]
-            groups[f"{level}/{arch}"] = {"recorded": len(selected), "status_counts": dict(Counter(r["execution_status"] for r in selected)),
+        for variant in variants:
+            selected = [r for r in rows if r["level"] == level and r["variant"] == variant]
+            groups[f"{level}/{variant}"] = {"architecture": VARIANTS[variant][0], "state_strategy": VARIANTS[variant][1],
+                "recorded": len(selected), "status_counts": dict(Counter(r["execution_status"] for r in selected)),
                 "task_true": sum(r["task_success"] is True for r in selected), "task_false": sum(r["task_success"] is False for r in selected),
                 "task_unknown": sum(r["task_success"] is None for r in selected),
                 "integration_true": sum(r["live_integration_success"] is True for r in selected),
                 "http_attempts": sum(r["model_http_attempts"] for r in selected)}
     summary = {"experiment_id": out.name, "updated_at": now(), "finished": finished,
                "planned": len(pre["slots"]), "recorded": len(rows), "groups": groups, "rows": rows,
-               "interpretation": "One sample per scenario/architecture. Unknown task_success is not failure or success. Bounded stops are censored runs. No reliable model-price estimate."}
+               "interpretation": "One sample per scenario/implementation variant. Unknown task_success is not failure or success. Bounded stops are censored runs. No reliable model-price estimate."}
     write_json(out / "comparison.json", summary)
     if rows:
         with (out / "comparison.csv").open("w", encoding="utf-8-sig", newline="") as f:
@@ -486,12 +535,19 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--include-legacy", action="store_true")
     parser.add_argument("--llm-config", type=Path, help="Public LLM-only JSON override for a new batch (prepare default: configs/llm/qwen_current.json); credentials use api_key_env")
+    parser.add_argument("--levels", nargs="+", choices=LEVELS, help="Prepare selected levels (default: L1 L2 L3)")
+    parser.add_argument("--variants", nargs="+", choices=tuple(VARIANTS), help="Prepare selected variants (default: llm_native jev hybrid)")
+    parser.add_argument("--authorization-text", help="Exact user authorization for this fresh batch")
     parser.add_argument("--slot")
     args = parser.parse_args(); out = args.output.resolve()
     if args.llm_config is not None and args.action != "prepare":
         parser.error("--llm-config is only valid when preparing a new batch")
+    if args.action != "prepare" and any(value is not None for value in (args.levels, args.variants, args.authorization_text)):
+        parser.error("--levels, --variants and --authorization-text are only valid for prepare")
     if args.action == "prepare":
-        prepare(out, args.include_legacy, llm_config_path=args.llm_config or ROOT / "configs/llm/qwen_current.json")
+        selection = {key: value for key, value in (("levels", args.levels), ("variants", args.variants),
+                                                   ("authorization_text", args.authorization_text)) if value is not None}
+        prepare(out, args.include_legacy, llm_config_path=args.llm_config or ROOT / "configs/llm/qwen_current.json", **selection)
     elif args.action == "preflight": preflight(out)
     elif args.action == "preflight-child": preflight_child(out, args.slot)
     elif args.action == "run": run(out)
