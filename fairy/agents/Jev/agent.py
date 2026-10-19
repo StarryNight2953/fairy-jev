@@ -9,9 +9,9 @@ from fairy.scenarios.workflow import Workflow, WorkflowStep
 from fairy.experiments.budget import BudgetStop
 
 from .client import DecisionError
-from .state import VisibleState
+from .state import TASK_HISTORY_STRATEGY, VisibleState, validate_state_strategy
 from .tools import ToolExecutor, validate_arguments
-from .trace import digest
+from .trace import canonical, digest
 
 DEFAULT_BUDGETS = {"max_steps": 40, "max_tool_calls": 40, "max_decision_calls": 80,
                    "wall_timeout_seconds": 7200, "repeated_parameter_failure_limit": 3}
@@ -21,6 +21,7 @@ class JevAgent:
     def __init__(self, catalog, backend, resolver, trace, config=None, *, runtime=None):
         self.catalog, self.backend, self.resolver, self.trace = catalog, backend, resolver, trace
         self.config = config or {}
+        self.state_strategy = validate_state_strategy(self.config)
         self.runtime = runtime
         self.budgets = {**DEFAULT_BUDGETS, **self.config.get("budgets", {})}
         if any(float(value) <= 0 for value in self.budgets.values()):
@@ -59,11 +60,19 @@ class JevAgent:
         """Optional architecture hook, after polling and before the frozen state."""
 
     def _decision_state(self, visible):
-        """Pure Jev preserves its existing projection; candidates use visible."""
+        """Select only model input; candidates always use the original visible."""
+        if self.state_strategy == TASK_HISTORY_STRATEGY:
+            return self.state.task_history_snapshot(visible["current_time"])
         return visible
 
     def _decision_metadata(self, state):
-        return {}
+        serialized = canonical(state)
+        return {"state_strategy": self.state_strategy, "state_measurements": {
+            "canonical_chars": len(serialized), "utf8_bytes": len(serialized.encode("utf-8")),
+            "raw_tool_observations": sum(bool(row.get("tool_name")) for row in self.state.observations),
+            "raw_environment_observations": sum(not row.get("tool_name") for row in self.state.observations),
+            "raw_controller_feedback": len(self.state.feedback),
+        }}
 
     def add_system_context(self, content):
         if content not in self.state.system_context:
@@ -168,7 +177,7 @@ class JevAgent:
         self.state.task = input
         self._started = time.perf_counter()
         self.trace.emit("run_start", backend=self.backend.name, budgets=self.budgets,
-                        task=input, catalog_hash=self.catalog.hash)
+                        task=input, catalog_hash=self.catalog.hash, state_strategy=self.state_strategy)
         try:
             for step in range(1, int(self.budgets["max_steps"])+1):
                 if self._limit(tool=True):

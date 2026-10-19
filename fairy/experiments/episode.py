@@ -22,6 +22,7 @@ from fairy.agents.Jev.environment import create_fixture, snapshot_environment
 from .evaluation import evaluate_task, apply_semantic_contract, semantic_first_issue
 from fairy.agents.Jev.replay import replay_run
 from fairy.agents.Jev.scripted import ScriptedPolicy
+from fairy.agents.Jev.state import DEFAULT_STATE_STRATEGY, TASK_HISTORY_STRATEGY, validate_state_strategy
 from fairy.agents.Jev.tools import ToolCatalog
 from fairy.agents.Jev.trace import TraceWriter, digest, write_json
 from fairy.scenarios.workflow import Workflow
@@ -158,6 +159,12 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
     episode_started=time.monotonic()
     architecture=architecture or config.get("architecture","jev")
     if architecture not in IMPLEMENTATIONS:raise ValueError("unknown architecture")
+    pure_state_strategy = validate_state_strategy(config)
+    if architecture != "jev" and pure_state_strategy != DEFAULT_STATE_STRATEGY:
+        raise ValueError("state_strategy=task_history_v1 is supported only by pure Jev")
+    state_strategy = pure_state_strategy if architecture == "jev" else "hybrid_packet_v1" if architecture == "hybrid" else "native_messages_v1"
+    implementation_version = ("jev_task_history_v1_observed" if architecture == "jev" and pure_state_strategy == TASK_HISTORY_STRATEGY
+                              else config.get("implementation_version", IMPLEMENTATIONS[architecture]))
     task_evaluator, first_issue, evaluator_version, evaluator_path = evaluation_adapter(config)
     run_id=datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")+f"_{architecture}_{mode}_"+uuid4().hex[:8]
     output=Path(output_dir).resolve()/run_id
@@ -169,7 +176,8 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
     runtime=EpisodeRuntime(trace,config.get("experiment_limits"),ledger=ledger)
     manifest={"run_id":run_id,"experiment_id":experiment_id,"slot":slot,"stage":stage,"mode":mode,
         "external_blockers":external_blockers or [],
-        "architecture":architecture,"implementation_version":config.get("implementation_version",IMPLEMENTATIONS[architecture]),
+        "architecture":architecture,"implementation_version":implementation_version,
+        "state_strategy":state_strategy,
         "backend":"scripted" if mode=="scripted" else "llm_native" if architecture=="llm_native" else "typesafe_sdk",
         **source_identity(trace),"config":trace.sanitize(config),"config_hash":digest(trace.sanitize(config)),
         "sdk_version":importlib.metadata.version("typesafe-sdk"),"openai_sdk_version":importlib.metadata.version("openai"),

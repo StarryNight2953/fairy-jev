@@ -3,6 +3,18 @@ from __future__ import annotations
 
 from copy import deepcopy
 
+DEFAULT_STATE_STRATEGY = "visible_state_v1"
+TASK_HISTORY_STRATEGY = "task_history_v1"
+STATE_STRATEGIES = (DEFAULT_STATE_STRATEGY, TASK_HISTORY_STRATEGY)
+
+
+def validate_state_strategy(config):
+    """Return the pure-Jev model projection, rejecting unknown configuration."""
+    strategy = (config or {}).get("state_strategy", DEFAULT_STATE_STRATEGY)
+    if strategy not in STATE_STRATEGIES:
+        raise ValueError(f"Unknown pure Jev state_strategy: {strategy!r}; expected one of {STATE_STRATEGIES}")
+    return strategy
+
 
 class VisibleState:
     def __init__(self, *, max_observations=24, max_recent_actions=6, max_feedback=12):
@@ -23,6 +35,37 @@ class VisibleState:
 
     def add_feedback(self, feedback):
         self.feedback.append(deepcopy(feedback))
+
+    def task_history_snapshot(self, current_time):
+        """Project each raw tool observation once, without history reduction.
+
+        This alternative changes the model input only. The bounded ``snapshot``
+        remains the candidate resolver's evidence contract. Observation IDs
+        preserve ordering between actions and separately listed notifications;
+        timestamps and all controller feedback remain visible as well.
+        """
+        actions, notifications = [], []
+        for row in self.observations:
+            if row.get("tool_name"):
+                action = {
+                    "observation_id": row["observation_id"],
+                    "action": row["tool_name"],
+                    "arguments": row.get("arguments", {}),
+                    "result": row.get("result"),
+                    "status": row.get("status"),
+                    "sim_time_before": row.get("sim_time_before"),
+                    "sim_time_after": row.get("sim_time_after"),
+                }
+                for field in ("error", "error_stage", "executed"):
+                    if row.get(field) is not None:
+                        action[field] = row[field]
+                actions.append(action)
+            else:
+                # These are public environment observations, not simulator state.
+                notifications.append(row)
+        return deepcopy({"task": self.task, "current_time": current_time,
+            "system_context": self.system_context, "actions_so_far": actions,
+            "environment_notifications": notifications, "controller_feedback": self.feedback})
 
     def snapshot(self, current_time):
         # Retain latest facts, not an ever-growing series of repeated reports/reads.

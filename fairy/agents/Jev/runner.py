@@ -19,6 +19,7 @@ from .environment import create_fixture, snapshot_environment
 from .evaluation import evaluate_task
 from .replay import replay_run
 from .scripted import ScriptedPolicy
+from .state import validate_state_strategy
 from .tools import ToolCatalog
 from .trace import TraceWriter, digest, write_json
 
@@ -168,6 +169,7 @@ def _summary(output, evaluation):
 
 
 def run_mode(mode, config, output_dir, *, workflow_path=None):
+    state_strategy = validate_state_strategy(config)
     started = time.perf_counter()
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S") + "_" + mode + "_" + uuid.uuid4().hex[:8]
     output = Path(output_dir).resolve() / run_id
@@ -202,6 +204,7 @@ def run_mode(mode, config, output_dir, *, workflow_path=None):
     workflow = Workflow()
     manifest = {"run_id": run_id, "mode": mode, "backend": "scripted" if mode == "scripted" else "typesafe_sdk" if mode in {"live", "sdk-smoke"} else "inventory",
                 "config": config, "commit": _commit(), "sdk_version": _sdk_version(), "model": config.get("model"),
+                "state_strategy": state_strategy,
                 "config_hash": digest(config), "parameter_catalog_hash": digest(config.get("candidate_catalog", {})),
                 "budgets": {**DEFAULT_BUDGETS, **config.get("budgets", {})},
                 "implementation_hashes": _implementation_hashes(), "history_policy": config.get("history", {}),

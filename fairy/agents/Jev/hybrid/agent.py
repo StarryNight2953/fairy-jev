@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from ..agent import JevAgent
 from ..trace import digest
+from ..state import DEFAULT_STATE_STRATEGY, validate_state_strategy
 from .context import PacketContext, StateBudgetExceeded, request_size
 from .updater import LLMUpdateError
 
@@ -15,7 +16,10 @@ class HybridJevAgent(JevAgent):
     """
 
     def __init__(self, catalog, backend, resolver, trace, config=None, *, runtime=None, updater=None):
+        if validate_state_strategy(config) != DEFAULT_STATE_STRATEGY:
+            raise ValueError("state_strategy=task_history_v1 is supported only by pure Jev")
         super().__init__(catalog, backend, resolver, trace, config, runtime=runtime)
+        self.state_strategy = "hybrid_packet_v1"
         if updater is None:
             raise ValueError("hybrid requires an explicit LLM or offline scripted updater")
         self.updater = updater
