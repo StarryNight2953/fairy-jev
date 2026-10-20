@@ -160,9 +160,11 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
     architecture=architecture or config.get("architecture","jev")
     if architecture not in IMPLEMENTATIONS:raise ValueError("unknown architecture")
     from fairy.agents.Jev.harvest_contract import validate_harvest_policy
+    from fairy.agents.Jev.report_observations import validate_report_policy
     harvest_policy = validate_harvest_policy(config)
-    if harvest_policy and architecture == "llm_native":
-        raise ValueError("harvest_state_policy applies only to Jev parameter selection")
+    report_policy = validate_report_policy(config)
+    if (harvest_policy or report_policy) and architecture == "llm_native":
+        raise ValueError("Observed tool adapter policies apply only to Jev parameter selection")
     if architecture == "llm_native" and mode == "live":
         if offline_native_llm is not None:
             raise ValueError("A live native CLI run cannot inject a model client")
@@ -209,6 +211,9 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
     if harvest_policy:
         manifest.update(harvest_state_policy=harvest_policy,
                         harvest_state_contract_hash=file_hash(ROOT/"fairy/agents/Jev/harvest_contract.py"))
+    if report_policy:
+        manifest.update(report_observation_policy=report_policy,
+                        report_observation_hash=file_hash(ROOT/"fairy/agents/Jev/report_observations.py"))
     evaluation={"architecture":architecture,"implementation_version":manifest["implementation_version"],"execution_status":"blocked",
         "live_integration_success":None,"task_success":None,"scripted_task_success":None,"native_validation":None,
         "task_assertions":{},"assertions":{},"stop_reason":None,"failure_layer":None}

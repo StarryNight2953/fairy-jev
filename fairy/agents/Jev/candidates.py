@@ -334,6 +334,8 @@ class CandidateResolver:
         self.entries = {entry["name"]: entry for entry in catalog_entries if entry.get("visible", True)}
         self.catalog = config.get("candidate_catalog", {})
         self.parameter_strategy = validate_parameter_strategy(config)
+        from .report_observations import validate_report_policy
+        self.report_observation_policy = validate_report_policy(config)
 
     @property
     def adapters_enabled(self):
@@ -460,8 +462,16 @@ class CandidateResolver:
             has_irrigation = any(r["tool_name"].split("__")[-1] in _IRRIGATION for r in visible_records(state))
             report = factual_report(state)
             if self.adapters_enabled:
-                report = tool_adapters.factual_report(state) + ("\n灌溉专项记录：" + report if has_irrigation else "")
-            values.append((report, "deterministic_template:visible_executed_facts"))
+                if has_irrigation and self.report_observation_policy:
+                    from .report_observations import render_irrigation_rechecks
+                    report = render_irrigation_rechecks(state, self.catalog.get("ridge_bounds", {}).get("values"))
+                    report = tool_adapters.factual_report(state) + "\n" + report
+                else:
+                    report = tool_adapters.factual_report(state) + ("\n灌溉专项记录：" + report if has_irrigation else "")
+            report_ref = (f"deterministic_template:{self.report_observation_policy}"
+                          if self.adapters_enabled and has_irrigation and self.report_observation_policy
+                          else "deterministic_template:visible_executed_facts")
+            values.append((report, report_ref))
         values.extend((v, f"declared_catalog:tool_values.{name}.{key}") for v in self.catalog.get("tool_values", {}).get(name, {}).get(key, {}).get("values", []))
         values.extend(task_numeric_values(name, parameter, state.get("task", "")))
         unique = {}
