@@ -8,6 +8,7 @@ from collections import Counter
 from pathlib import Path
 
 from .trace import digest
+from .parameter_contracts import audit_parameter_contracts
 
 
 _STATE_KEYS = {"task", "current_time", "observations", "recent_actions", "action_facts",
@@ -103,7 +104,7 @@ def verify_run(run_dir: str | Path) -> dict:
             check(bool(event.get("instructions")), "explicit_decision_instructions", event)
             stage, state = event.get("decision_stage"), event.get("state", {})
             check(not _forbidden_paths(state), "no_private_state_fields", event, _forbidden_paths(state))
-            if stage in {"tool", "parameters"}:
+            if stage in {"tool", "parameters"} or stage.startswith("parameter_"):
                 check(set(state) <= _STATE_KEYS, "visible_state_shape", event, sorted(set(state)-_STATE_KEYS))
                 check(state.get("task") == task, "visible_task_preserved", event)
                 check(event.get("catalog_hash") == catalog.get("catalog_hash"), "decision_catalog_hash", event)
@@ -183,7 +184,7 @@ def verify_run(run_dir: str | Path) -> dict:
                   "generation_order_and_hash", event)
             for candidate in candidates.values():
                 check(all(ref.startswith(("visible_task:", "tool_signature:", "tool_result:", "tool_arguments:",
-                                          "declared_catalog:", "public_catalog:", "deterministic_template:"))
+                                          "declared_catalog:", "public_catalog:", "deterministic_template:", "model_selection:"))
                           for ref in candidate.get("source_refs", [])), "candidate_sources_are_public_or_declared", event)
         elif kind == "tool_start":
             call_id, step_id = event.get("tool_call_id"), event.get("step_id")
@@ -200,7 +201,9 @@ def verify_run(run_dir: str | Path) -> dict:
                 entry = by_name.get(event.get("tool_name"), {})
                 candidates = generated["generation"]["candidates"]
                 if entry.get("parameters"):
-                    check(len(ids) == 2 and all(i in decisions for i in ids), "two_decisions_for_parameterized_call", event)
+                    prefix_ids = generated["generation"].get("prefix_decision_ids", [])
+                    check(len(ids) == 2 + len(prefix_ids) and ids[1:-1] == prefix_ids
+                          and all(i in decisions for i in ids), "two_decisions_for_parameterized_call", event)
                     answer = decisions.get(ids[-1] if ids else None, {})
                     check(answer.get("status") == "ok" and answer.get("decision_stage") == "parameters", "successful_parameter_selection_before_execution", event)
                     chosen = candidates.get(answer.get("selected_option"), {})
@@ -243,6 +246,7 @@ def verify_run(run_dir: str | Path) -> dict:
     check(any(event.get("event") == "evaluation" and event.get("result") == evaluation for event in events), "evaluation_saved_in_trace")
     if backend == "scripted":
         check(evaluation.get("live_integration_success") is None and evaluation.get("task_success") is None, "scripted_success_separate_from_jev")
+    issues.extend(audit_parameter_contracts(events, by_name, manifest.get("config", {})))
     return {"passed": not issues, "run_dir": str(root), "run_id": manifest.get("run_id"), "mode": mode,
             "backend": backend, "scope": "Offline artifact integrity and visible-input provenance; does not re-evaluate task success or inspect secret values",
             "counts": {"events": len(events), "visible_native_tools": len(visible), "full_menu_choices": len(menu),

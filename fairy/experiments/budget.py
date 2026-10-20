@@ -81,6 +81,15 @@ class LiveLedger:
         with self._locked() as data:
             next(r for r in data["episodes"] if r["run_id"] == run_id)["status"] = status
 
+    def mark_native_cli(self, run_id):
+        """Preserve historical counts; explicitly mark uninstrumented new use."""
+        with self._locked() as data:
+            row = next(r for r in data["episodes"] if r["run_id"] == run_id)
+            row.update(launch_mode="fairy_native_cli_v1", http_attempts=None,
+                       http_accounting="unobserved_native_sdk", status="running")
+            data["http_attempts_complete"] = False
+            data["http_attempts_scope"] = "observed requests only; excludes uninstrumented native CLI episodes"
+
     def snapshot(self):
         with self._locked() as data:
             return json.loads(json.dumps(data))

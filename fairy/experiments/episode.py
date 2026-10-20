@@ -159,7 +159,16 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
     episode_started=time.monotonic()
     architecture=architecture or config.get("architecture","jev")
     if architecture not in IMPLEMENTATIONS:raise ValueError("unknown architecture")
+    if architecture == "llm_native" and mode == "live":
+        if offline_native_llm is not None:
+            raise ValueError("A live native CLI run cannot inject a model client")
+        from .native_cli import run_native_cli
+        return run_native_cli(config, output_dir, stage=stage, experiment_id=experiment_id,
+                              slot=slot, ledger=ledger, require_clean=require_clean,
+                              external_blockers=external_blockers)
     pure_state_strategy = validate_state_strategy(config)
+    from fairy.agents.Jev.parameter_contracts import validate_parameter_strategy
+    parameter_strategy = validate_parameter_strategy(config)
     if architecture != "jev" and pure_state_strategy != DEFAULT_STATE_STRATEGY:
         raise ValueError("state_strategy=task_history_v1 is supported only by pure Jev")
     state_strategy = pure_state_strategy if architecture == "jev" else "hybrid_packet_v1" if architecture == "hybrid" else "native_messages_v1"
@@ -178,6 +187,8 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         "external_blockers":external_blockers or [],
         "architecture":architecture,"implementation_version":implementation_version,
         "state_strategy":state_strategy,
+        "parameter_strategy":parameter_strategy if architecture != "llm_native" else "native_generated_arguments",
+        "parameter_contract_hash":file_hash(ROOT/"fairy/agents/Jev/parameter_contracts.py") if architecture != "llm_native" else None,
         "backend":"scripted" if mode=="scripted" else "llm_native" if architecture=="llm_native" else "typesafe_sdk",
         **source_identity(trace),"config":trace.sanitize(config),"config_hash":digest(trace.sanitize(config)),
         "sdk_version":importlib.metadata.version("typesafe-sdk"),"openai_sdk_version":importlib.metadata.version("openai"),
@@ -332,6 +343,11 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
 
 def verify_and_replay(output, config):
     output=Path(output)
+    manifest=json.loads((output/"manifest.json").read_text())
+    if manifest.get("launch_mode") == "fairy_native_cli_v1":
+        # The original CLI already wrote its workflow, runtime log and report.
+        # Do not synthesize a comparison trace or replay via a different engine.
+        return json.loads((output/"evaluation.json").read_text())
     from .verification import verify_episode
     verification=verify_episode(output)
     write_json(output/"verification.json",verification)

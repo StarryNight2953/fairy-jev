@@ -12,6 +12,8 @@ import re
 from typing import Any
 
 from .tools import validate_arguments
+from . import tool_adapters
+from .parameter_contracts import CONTRACT_PARAMETER_STRATEGY, ADAPTER_PARAMETER_STRATEGY, CONDITIONAL_STRATEGIES, range_contract, range_values, validate_parameter_strategy
 
 
 _RANGE = re.compile(r"(?:(?:ridges?|垄)\s*)?(\d+)\s*[-–—~至到]\s*(\d+)(?:\s*垄)?", re.I)
@@ -331,6 +333,14 @@ class CandidateResolver:
     def __init__(self, catalog_entries: list[dict], config: dict):
         self.entries = {entry["name"]: entry for entry in catalog_entries if entry.get("visible", True)}
         self.catalog = config.get("candidate_catalog", {})
+        self.parameter_strategy = validate_parameter_strategy(config)
+
+    @property
+    def adapters_enabled(self):
+        return self.parameter_strategy == ADAPTER_PARAMETER_STRATEGY
+
+    def precondition_failure(self, tool_name, state):
+        return tool_adapters.precondition(tool_name, state) if self.adapters_enabled else None
 
     def _strategy(self, entry):
         parameters = entry["parameters"]
@@ -376,14 +386,39 @@ class CandidateResolver:
                         sources[key] += ["visible_task:quantity", "declared_catalog:numeric_midpoint_if_capacity"]
             rows.append({"tool_name": name, "parameter_category": "no_parameters" if not entry["parameters"] else "required" if required else "optional_only",
                          "required_parameters": required, "optional_parameters": optional,
-                         "resolver_id": self._strategy(entry), "implementation_status": "implemented",
+                         "resolver_id": self._strategy(entry), "implementation_status": "resolver_available_not_semantically_certified",
                          "value_sources": sources, "units": units,
                          "limits": {"max_candidates": 255, "max_pass_width": self.catalog.get("max_pass_width", {}).get(name)},
                          "finite_catalog_not_exhaustive": True, "candidate_strategy_version": CANDIDATE_STRATEGY_VERSION})
+        if self.parameter_strategy in CONDITIONAL_STRATEGIES:
+            for row in rows:
+                try:
+                    contract = range_contract(self.entries[row["tool_name"]], self.catalog, self.parameter_strategy)
+                    row["parameter_contract"] = contract
+                    row["parameter_strategy"] = self.parameter_strategy if contract else "complete_calls_v1"
+                    row["contract_status"] = "declared_not_task_validated" if contract else "legacy_complete_calls"
+                except ValueError as exc:
+                    row["parameter_strategy"] = self.parameter_strategy
+                    row["contract_status"] = "invalid_configuration"
+                    row["contract_error"] = str(exc)
+        for row in rows:
+            row["feedback_adapter_version"] = tool_adapters.VERSION if self.adapters_enabled else None
+            row["checked_constraint_scope"] = {
+                "range_order": bool(row.get("parameter_contract")),
+                "charging": self.adapters_enabled and row["tool_name"].split("__")[-1] in tool_adapters.INSPECTIONS,
+                "visible_fertilizer": self.adapters_enabled and row["tool_name"] == "TractorApp__apply_fertilizer",
+                "all_resource_constraints": False,
+                "task_completion": False,
+            }
         return rows
 
     def _range_options(self, state, tool_name):
         options = []
+        if self.adapters_enabled:
+            data = tool_adapters.coverage(tool_name, state)
+            for pair in tool_adapters.intervals(data["remaining"]):
+                for source in data["source_refs"]:
+                    options.append((pair, source))
         for pair in extract_task_parameters(state.get("task", ""))["ranges"]:
             options.append((pair, "visible_task:ranges"))
         for row in visible_records(state):
@@ -422,7 +457,11 @@ class CandidateResolver:
         elif key in {"hours", "duration_hours"} and method in _IRRIGATION:
             values.extend((v, "declared_catalog:irrigation_hours") for v in self.catalog.get("irrigation_hours", {}).get("values", []))
         elif key == "content":
-            values.append((factual_report(state), "deterministic_template:visible_executed_facts"))
+            has_irrigation = any(r["tool_name"].split("__")[-1] in _IRRIGATION for r in visible_records(state))
+            report = factual_report(state)
+            if self.adapters_enabled:
+                report = tool_adapters.factual_report(state) + ("\n灌溉专项记录：" + report if has_irrigation else "")
+            values.append((report, "deterministic_template:visible_executed_facts"))
         values.extend((v, f"declared_catalog:tool_values.{name}.{key}") for v in self.catalog.get("tool_values", {}).get(name, {}).get(key, {}).get("values", []))
         values.extend(task_numeric_values(name, parameter, state.get("task", "")))
         unique = {}
@@ -461,10 +500,24 @@ class CandidateResolver:
                 "task_spacing_scope_policy": "Only task-derived spacing is bound to a single adjacent public ridge range; ambiguous scope stays unbound",
                 "task_spacing_scope_filtered_candidates": 0}
 
-    def generate(self, tool_name: str, visible_state: dict) -> dict:
+    def generate(self, tool_name: str, visible_state: dict, *, selected_ranges=None, selected_arguments=None, prefix_decision_ids=()) -> dict:
+        """Generate full calls, optionally conditioned on traced range choices.
+
+        selected_ranges is supplied only by the opt-in tool contract planner;
+        callers omitting it retain the original complete-call candidate space.
+        """
         if tool_name not in self.entries:
             return {"status": "unsupported", "candidates": {}, "missing_fields": [], "reason": "tool absent from visible catalog"}
+        blocked = self.precondition_failure(tool_name, visible_state)
+        if blocked:
+            return blocked
         entry = self.entries[tool_name]
+        if selected_arguments is not None:
+            contract = range_contract(entry, self.catalog, self.parameter_strategy)
+            if (not self.adapters_enabled or not contract or contract.get("kind") != "single_ridge"
+                    or set(selected_arguments) != {"ridge_id"} or type(selected_arguments["ridge_id"]) is not int
+                    or selected_arguments["ridge_id"] not in range_values(contract, "ridge_id", {})):
+                return {"status": "unsupported", "candidates": {}, "reason": "invalid conditional single-ridge prefix", "missing_fields": []}
         parameters = entry["parameters"]
         base = {"tool_name": tool_name, "resolver_id": self._strategy(entry), "missing_fields": [], "reason": None,
                 "candidate_strategy_version": CANDIDATE_STRATEGY_VERSION}
@@ -472,7 +525,7 @@ class CandidateResolver:
             return {**base, "status": "ready", "candidates": {"args_000": {"arguments": {}, "source_refs": ["tool_signature:no_parameters"]}}, "candidate_count": 1}
         method = tool_name.split("__")[-1]
         if method in {"advance_time", "wait_for_notification"}:
-            waits = visible_wait_seconds(visible_state)
+            waits = tool_adapters.wait_values(visible_state) if self.adapters_enabled else visible_wait_seconds(visible_state)
             waits += task_wait_seconds(visible_state.get("task", ""))
             key = "wait_seconds" if method == "advance_time" else "notification_timeout"
             waits += [(v, f"declared_catalog:{key}") for v in self.catalog.get(key, {}).get("values", [])]
@@ -486,7 +539,18 @@ class CandidateResolver:
             pair_names = ("start", "end") if {"start", "end"} <= names else ("start_ridge", "end_ridge") if {"start_ridge", "end_ridge"} <= names else None
             groups, group_indices = [], {}
             if pair_names:
-                ranges = self._range_options(visible_state, tool_name)
+                ranges = self._range_options(visible_state, tool_name) if selected_ranges is None else selected_ranges
+                if selected_ranges is not None:
+                    try:
+                        contract = range_contract(entry, self.catalog, self.parameter_strategy)
+                        if self.parameter_strategy not in CONDITIONAL_STRATEGIES or contract is None:
+                            raise ValueError("conditional ranges require an enabled tool contract")
+                        for pair, _ in ranges:
+                            if (len(pair) != 2 or type(pair[1]) is not int or pair[1] not in range_values(
+                                    contract, pair_names[1], {pair_names[0]: pair[0]})):
+                                raise ValueError("conditional range violates declared bounds/order/width")
+                    except (ValueError, TypeError, KeyError) as exc:
+                        return {**base, "status": "unsupported", "candidates": {}, "reason": str(exc)}
                 if not ranges:
                     return {**base, "status": "needs_context", "candidates": {}, "missing_fields": list(pair_names), "reason": "no public legal range"}
                 groups.append([({pair_names[0]: pair[0], pair_names[1]: pair[1]}, [ref]) for pair, ref in ranges])
@@ -494,6 +558,8 @@ class CandidateResolver:
                 key = parameter["name"]
                 if pair_names and key in pair_names: continue
                 values = self._values(tool_name, parameter, visible_state)
+                if selected_arguments is not None and key in selected_arguments:
+                    values = [(selected_arguments[key], ["model_selection:" + ",".join(prefix_decision_ids)])]
                 if not values:
                     base["missing_fields"].append(key)
                 group_indices[key] = len(groups)
@@ -503,6 +569,7 @@ class CandidateResolver:
             base["numeric_enrichment"] = self._add_numeric_midpoints(tool_name, parameters, groups, group_indices)
             raw = ((dict(pair for args, _ in combo for pair in args.items()), [ref for _, refs in combo for ref in refs]) for combo in itertools.product(*groups))
         candidates, deduped = {}, {}
+        rejected = []
         for arguments, refs in raw:
             if not _task_spacing_scope_matches(arguments, refs, visible_state.get("task", "")):
                 base["numeric_enrichment"]["task_spacing_scope_filtered_candidates"] += 1
@@ -513,6 +580,14 @@ class CandidateResolver:
                 arguments = validate_arguments(entry, arguments)
             except ValueError as exc:
                 return {**base, "status": "unsupported", "candidates": {}, "reason": f"invalid declared candidate: {exc}"}
+            if self.adapters_enabled:
+                if method == "apply_pesticide_manual" and not 1 <= arguments["ridge_count"] <= 2:
+                    rejected.append({"arguments": arguments, "reason": "public_tool_contract:ridge_count_1_or_2"})
+                    continue
+                check = tool_adapters.resource_check(tool_name, arguments, visible_state)
+                if check and check["status"] == "known_insufficient":
+                    rejected.append({"arguments": arguments, "reason": "visible_resource_insufficient", "evidence": check})
+                    continue
             marker = json.dumps(arguments, sort_keys=True, ensure_ascii=False)
             if marker in deduped:
                 existing = candidates[deduped[marker]]["source_refs"]
@@ -524,6 +599,13 @@ class CandidateResolver:
             candidate_id = f"args_{len(candidates):03d}"
             deduped[marker] = candidate_id
             candidates[candidate_id] = {"arguments": arguments, "source_refs": list(dict.fromkeys(refs))}
+            if self.adapters_enabled:
+                annotation = tool_adapters.annotate(tool_name, arguments, visible_state)
+                if annotation:candidates[candidate_id]["coverage_evidence"] = annotation
+                if check:candidates[candidate_id]["resource_evidence"] = check
+        if self.adapters_enabled:
+            base["feedback_adapter_version"] = tool_adapters.VERSION
+            base["rejected_candidates"] = rejected
         if not candidates:
             return {**base, "status": "needs_context", "candidates": {}, "reason": "no legal candidates from visible data and declared catalog"}
         return {**base, "status": "ready", "candidates": candidates, "candidate_count": len(candidates)}

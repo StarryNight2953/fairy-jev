@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .runner import run_mode
 from .state import STATE_STRATEGIES
+from .parameter_contracts import PARAMETER_STRATEGIES
 
 
 def main():
@@ -15,12 +16,16 @@ def main():
     parser.add_argument("--config", required=True)
     parser.add_argument("--state-strategy", choices=STATE_STRATEGIES,
                         help="Pure Jev state projection; omitted preserves the config/default strategy")
+    parser.add_argument("--parameter-strategy", choices=PARAMETER_STRATEGIES,
+                        help="Complete calls or conditional tool contracts; independent of the state strategy")
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--workflow")
     args = parser.parse_args()
     config = json.loads(Path(args.config).read_text(encoding="utf-8"))
     if args.state_strategy is not None:
         config["state_strategy"] = args.state_strategy
+    if args.parameter_strategy is not None:
+        config["parameter_strategy"] = args.parameter_strategy
     if args.architecture == "hybrid" and args.mode in {"scripted", "live"}:
         from fairy.experiments.episode import run_episode, verify_and_replay
         output, result = run_episode(config, args.output_dir, architecture="hybrid", mode=args.mode)

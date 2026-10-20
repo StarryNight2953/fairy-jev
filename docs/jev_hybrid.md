@@ -1,5 +1,33 @@
 # FAIRY LLM、Jev 与同步混合 Agent
 
+## 2026-10-20：原生 LLM 切换为原生 CLI 启动和日志
+
+新的 live `llm_native` 统一走 `python -m fairy.cli --agent`（与 `fairy-run` 同一入口），版本为 `fairy_native_cli_v1`。`episode.run_episode` 在创建比较框架的 fixture、TraceWriter、EpisodeRuntime 之前分流；`full_suite` 和 `agent_comparison` 都使用此入口。旧 observed adapter 仅供已有离线回归和历史证据解释，不再构造真实模型客户端。Jev 与 Hybrid 的运行路径保持原样。
+
+子进程内由原生 CLI 创建模型、场景、Agent、Engine，执行原生 Loop 和原生验收，未安装 HTTP transport observer、工具包装器、比较框架 deadline 或重试策略。批量框架仅启动进程、转发显式终止信号、读取落盘文件。每次使用新目录，CLI 的工作目录也是独立空目录，避免其相对路径清理影响仓库中的历史 exports。启动命令、工作目录及非敏感环境覆盖记录在 `manifest.json`。
+
+模型/provider/endpoint、temperature、输出 token 上限和 parallel tool calls 映射为原生 CLI 参数；1800 秒请求超时与 thinking 设置使用原生已支持的 `FAIRY_LLM_REQUEST_TIMEOUT_S`、`FAIRY_VLLM_ENABLE_THINKING`。认证直接使用原生 provider 的环境变量（本地 vLLM 无设置时由原生客户端使用 `EMPTY`）；不再调用 comparison credentials 适配器，也不把密钥放入命令或 manifest。场景 seed 和 checkpoint 初始时刻通过公开 `--scenario-kwargs` 传入，不再构建比较 fixture 后修改 Engine。
+
+原生默认单场时限为 7200 秒、工具次数为 300；它们由原生 Loop 的检查机制执行，不保证强制打断在途请求。需要改动时在新配置中显式写 `native_cli.timeout_seconds` / `native_cli.max_tool_calls`，映射到 CLI 同名参数。比较配置中的 `experiment_limits`、`budgets` 不应用于原生进程；请求次数不再被比较框架拦截。SDK 和 Agent 重试遵循当前仓库原生实现。
+
+每个新运行目录保留原生文件：
+
+| 文件 | 来源与用途 |
+| --- | --- |
+| `<scenario>.run_report.json` | 原生报告：状态、时长、用量、验收、产物路径，优先阅读 |
+| `<scenario>.runtime_log.jsonl` | 原生完整运行日志：messages、模型调用、工具调用和错误 |
+| `<scenario>.progress.jsonl` | 原生运行期间追加的进度事件；不包含完整 messages |
+| `<scenario>.agent_workflow.json` | 原生保存的工具执行工作流 |
+| `console.log` | 原生 CLI 的 stdout/stderr |
+
+外层 `manifest.json`、`evaluation.json`、`metrics.json` 仅用于定位与汇总，不覆盖上述文件。不生成比较格式 `trace.jsonl`，也不自动运行比较框架的 replay。CLI 失败或被中断时保留已产生的文件，不追加重跑。
+
+原生 SDK 的真实 HTTP 尝试次数（含内部重试）未被观测，统一记为 `null`；原生报告的 `llm_call_count` 不能替代该计数。共享 ledger 保留历史数据并登记新 episode，将新增原生 HTTP 标为未知、累计 HTTP 标为不完整，不把未知使用量当作零。原生 `evaluation.validation` 完整保留；旧自定义任务断言与集成覆盖未运行，因此对应 `task_success` / `live_integration_success` 为 `null`。特别是 `Engine.evaluate` 对无 validator 结果也可能返回 success，不能直接当作严格任务成功。后续如需统一任务验收，应从保存的原生日志另做明确标识的离线分析。
+
+此切换用于排除启动和观测层的干扰，尚不能证明历史延迟由该层造成。本次只做禁止联网的离线验证，没有重启已停止的实验。
+
+## 以下为 2026-10-18 历史交付
+
 用户随后指定本地 Qwen 服务，已另建配置和不可移动标签完成原生 LLM 的1次smoke及3次正式运行。最新结果见 [本地 Qwen 续跑报告](jev_hybrid_qwen.md)；下文保留最初 DeepSeek 配置阶段的历史交付事实。
 
 本阶段只比较 `scenario_l1_three_cultivar_hn58_action_ready_irrigation`，实现名为 `hybrid_sync_v1`。LLM 周期性整理任务理解、证据与条件性计划，Jev 从完整工具菜单和既有参数候选中作出实际选择。K=4 是本次固定工程配置，尚无证据说明它最优。

@@ -34,7 +34,10 @@ def test_make_config_preserves_decision_controls_and_input(architecture):
         assert config[key] == original[key]
     assert config["architecture"] == architecture and config["seed"] == 1904
     assert config["scenario_id"] == scenario["scenario_id"]
-    assert config["evaluation_profile"] == config["evaluator_version"] == "scenario_native_v1"
+    expected_profile = "fairy_cli_native_report" if architecture == "llm_native" else "scenario_native_v1"
+    assert config["evaluation_profile"] == config["evaluator_version"] == expected_profile
+    if architecture == "llm_native":
+        assert config["implementation_version"] == "fairy_native_cli_v1"
     config["candidate_catalog"]["ranges"]["values"].append([1, 2])
     config["hybrid"]["update_interval"] = 100
     assert base == original
