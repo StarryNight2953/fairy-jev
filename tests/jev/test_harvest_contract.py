@@ -1,9 +1,13 @@
 """Offline evidence lifecycle and conditional range coverage checks."""
 from copy import deepcopy
+import json
+from pathlib import Path
 import socket
 import pytest
 
-from fairy.agents.Jev.harvest_contract import harvest_range_menu, observed_unplanted
+from fairy.agents.Jev.harvest_contract import (
+    VERSION, HARVEST, bind_harvest_contract, harvest_range_menu, validate_harvest_policy,
+)
 
 
 @pytest.fixture(autouse=True)
@@ -136,3 +140,190 @@ def test_input_immutable_and_chronology_not_silently_reordered():
 def test_bad_declared_contract_rejected(bounds, width):
     with pytest.raises(ValueError):
         harvest_range_menu([], bounds, width)
+
+
+@pytest.mark.parametrize("config", [
+    {"harvest_state_policy": "unrecognized"},
+    {"harvest_state_policy": VERSION},
+    {"harvest_state_policy": VERSION, "parameter_strategy": "tool_contracts_v1"},
+])
+def test_unrecognized_or_incompatible_policy_fails_before_decisions(config):
+    with pytest.raises(ValueError):
+        validate_harvest_policy(config)
+
+
+def test_absent_policy_leaves_contract_exact_and_other_tools_untouched():
+    contract = {"tool_name": HARVEST}
+    assert validate_harvest_policy({}) is None
+    assert bind_harvest_contract(contract, [harvest()], None) is contract
+    other = {"tool_name": "Robot0__inspect_emergence"}
+    assert bind_harvest_contract(other, [harvest()], VERSION) is other
+
+
+def run_harvest_agent(tmp_path, *, enabled=True, architecture="jev",
+                      state_strategy="task_history_v1", all_excluded=False):
+    """Scripted choices, actual native harvests; no provider or hidden-state edit."""
+    from fairy.agents.Jev.agent import JevAgent
+    from fairy.agents.Jev.candidates import CandidateResolver
+    from fairy.agents.Jev.client import ScriptedBackend
+    from fairy.agents.Jev.environment import create_fixture, public_task
+    from fairy.agents.Jev.hybrid.agent import HybridJevAgent
+    from fairy.agents.Jev.tools import ToolCatalog
+    from fairy.agents.Jev.trace import TraceWriter
+
+    config = json.loads(Path("configs/jev/hn58_jev_tool_adapters_v2.json").read_text())
+    config.update(scenario_id="scenario_l1_hb_coldspring_heihe50_harvest_store_ready",
+                  state_strategy=state_strategy)
+    if enabled:
+        config["harvest_state_policy"] = VERSION
+    scenario, engine, _ = create_fixture(config)
+    catalog = ToolCatalog(scenario.apps)
+    trace = TraceWriter(tmp_path / "trace.jsonl", "offline-native-harvest")
+    calls, rounds = [], [0]
+
+    def policy(state, stage, instructions, options):
+        calls.append({"stage": stage, "state": deepcopy(state), "options": deepcopy(options)})
+        if stage == "tool":
+            rounds[0] += 1
+            return HARVEST if all_excluded or rounds[0] <= 2 else "FINISH"
+        if stage == "parameter_start_ridge":
+            return "value_0" if "value_0" in options else "value_4"
+        # Select one whole declared pass; no alteration of returned arguments.
+        return max(options, key=lambda key: options[key]["arguments"]["end_ridge"])
+
+    class OfflineUpdater:
+        def update(self, data):
+            material = {"brief": "Use returned crop facts when selecting the next range.",
+                        "evidence_refs": data["input_event_ids"]}
+            trace.emit("scripted_context_update", input=data, material=material)
+            return material
+
+    cls = HybridJevAgent if architecture == "hybrid" else JevAgent
+    kwargs = {"updater": OfflineUpdater()} if architecture == "hybrid" else {}
+    agent = cls(catalog, ScriptedBackend(policy), CandidateResolver(catalog.entries, config),
+                trace, config, **kwargs)
+    agent.set_time_manager(engine.time_manager)
+    if all_excluded:
+        # Synthetic *unit* input to exercise the no-candidate branch, not evidence
+        # of an actual all-field harvest or a real runtime success.
+        injected = [False]
+        def inject_once():
+            if not injected[0]:
+                trace.emit("tool_end", tool_name=HARVEST, executed=True, status="ok",
+                           result={"status": "ok", "harvested_ridges": list(range(64))})
+                injected[0] = True
+        agent.poll_environment = inject_once
+    agent.run(public_task(engine))
+    trace.close()
+    return agent, trace, calls, catalog, config
+
+
+@pytest.mark.parametrize("architecture,state_strategy", [
+    ("jev", "visible_state_v1"), ("jev", "task_history_v1"), ("hybrid", "visible_state_v1"),
+])
+def test_actual_native_harvest_removes_used_range_from_next_choice(tmp_path, architecture, state_strategy):
+    from fairy.agents.Jev.parameter_contracts import audit_parameter_contracts
+    agent, trace, calls, catalog, config = run_harvest_agent(
+        tmp_path, architecture=architecture, state_strategy=state_strategy)
+    tools = [e for e in trace.events if e["event"] == "tool_end"]
+    assert agent.stop_reason == "model_finish"
+    assert len(tools) == 2 and all(t["status"] == "ok" for t in tools)
+    assert tools[0]["result"]["harvested_ridges"] == [0, 1, 2, 3]
+    assert tools[1]["result"]["harvested_ridges"] == [4, 5, 6, 7]
+    prefixes = [c for c in calls if c["stage"] == "parameter_start_ridge"]
+    assert "value_0" in prefixes[0]["options"] and "value_0" not in prefixes[1]["options"]
+    assert len(calls) == 7  # No extra refresh/repair/model calls.
+    assert not audit_parameter_contracts(trace.events, catalog.by_name, config)
+    plans = [e for e in trace.events if e["event"] == "parameter_plan"]
+    fact = plans[1]["contract"]["observed_state"]
+    assert fact["excluded_ridges"] == [0, 1, 2, 3]
+    assert fact["source_evidence"] == [{
+        "event_id": tools[0]["event_id"], "result_path": "harvested_ridges",
+        "basis": "successful_harvest", "ridges": [0, 1, 2, 3],
+    }]
+    # Choices within the round use the exact same frozen model state.
+    assert calls[0]["state"] == calls[1]["state"] == calls[2]["state"]
+    assert calls[3]["state"] == calls[4]["state"] == calls[5]["state"]
+
+
+def test_disabled_policy_preserves_repeat_choice_and_native_error(tmp_path):
+    from fairy.agents.Jev.parameter_contracts import audit_parameter_contracts
+    agent, trace, calls, catalog, config = run_harvest_agent(tmp_path, enabled=False)
+    tools = [e for e in trace.events if e["event"] == "tool_end"]
+    assert len(tools) == 2 and tools[0]["status"] == "ok" and tools[1]["status"] == "error"
+    assert tools[1]["result"]["error"] == "All ridges must be planted before harvest"
+    assert not audit_parameter_contracts(trace.events, catalog.by_name, config)
+    assert all("observed_state" not in e["contract"] for e in trace.events if e["event"] == "parameter_plan")
+
+
+def test_all_excluded_feedback_uses_existing_repeat_limit_without_tool_or_finish(tmp_path):
+    agent, trace, calls, _, _ = run_harvest_agent(tmp_path, all_excluded=True)
+    assert agent.stop_reason == "repeated_parameter_failure"
+    assert len(calls) == 3 and all(c["stage"] == "tool" for c in calls)
+    assert not any(e["event"] in {"tool_start", "model_finish"} for e in trace.events)
+    feedback = [e for e in trace.events if e["event"] == "controller_feedback"]
+    assert len(feedback) == 3 and all(e["status"] == "needs_context" for e in feedback)
+    assert calls[1]["state"]["controller_feedback"]  # Visible to subsequent choice.
+
+
+def test_trace_audit_reconstructs_evidence_and_rejects_removed_plan_or_constraints(tmp_path):
+    from fairy.agents.Jev.parameter_contracts import audit_parameter_contracts
+    _, trace, _, catalog, config = run_harvest_agent(tmp_path)
+    changed = deepcopy(trace.events)
+    plans = [e for e in changed if e["event"] == "parameter_plan"]
+    plans[1]["contract"]["observed_state"]["excluded_ridges"] = []
+    assert "parameter_contract_matches_configuration" in {
+        i["check"] for i in audit_parameter_contracts(changed, catalog.by_name, config)
+    }
+    changed = [e for e in trace.events if e["event"] != "parameter_plan"]
+    assert "harvest_execution_requires_observed_contract" in {
+        i["check"] for i in audit_parameter_contracts(changed, catalog.by_name, config)
+    }
+    changed = deepcopy(trace.events)
+    final = [e for e in changed if e["event"] == "parameter_candidates"][1]
+    first = next(iter(final["generation"]["candidates"].values()))
+    first["arguments"] = {"start_ridge": 0, "end_ridge": 3}
+    assert "complete_candidate_preserves_prefix_and_contract" in {
+        i["check"] for i in audit_parameter_contracts(changed, catalog.by_name, config)
+    }
+
+
+@pytest.mark.parametrize("architecture,state_strategy", [
+    ("jev", "task_history_v1"), ("hybrid", "visible_state_v1"),
+])
+def test_full_episode_artifact_verification_and_action_replay(tmp_path, monkeypatch, architecture, state_strategy):
+    from fairy.experiments import episode
+
+    class TwoHarvests:
+        def __init__(self):
+            self.rounds = 0
+
+        def __call__(self, state, stage, instructions, options):
+            if stage == "tool":
+                self.rounds += 1
+                return HARVEST if self.rounds <= 2 else "FINISH"
+            if stage == "parameter_start_ridge":
+                return "value_0" if "value_0" in options else "value_4"
+            return max(options, key=lambda key: options[key]["arguments"]["end_ridge"])
+
+    monkeypatch.setattr(episode, "ScriptedPolicy", TwoHarvests)
+    config = json.loads(Path("configs/jev/hn58_jev_tool_adapters_v2.json").read_text())
+    config.update(
+        scenario_id="scenario_l1_hb_coldspring_heihe50_harvest_store_ready",
+        harvest_state_policy=VERSION, state_strategy=state_strategy,
+        evaluation_profile="scenario_native_v1",
+    )
+    path, result = episode.run_episode(config, tmp_path, architecture=architecture, mode="scripted")
+    assert result["stop_reason"] == "model_finish", result
+    assert result["task_success"] is result["live_integration_success"] is None
+    checked = episode.verify_and_replay(path, config)
+    assert checked["trace_verification"]["passed"], checked["trace_verification"]
+    assert checked["replay_verification"]["passed"], checked["replay_verification"]
+    assert checked["trace_verification"]["counts"]["http_attempts"] == 0
+    manifest = json.loads((path / "manifest.json").read_text())
+    assert manifest["harvest_state_policy"] == VERSION
+    assert len(manifest["harvest_state_contract_hash"]) == 64
+    events = [json.loads(line) for line in (path / "trace.jsonl").read_text().splitlines()]
+    native = [e for e in events if e["event"] == "tool_end"]
+    assert len(native) == 2 and all(e["status"] == "ok" for e in native)
+    assert [e["result"]["harvested_ridges"] for e in native] == [[0, 1, 2, 3], [4, 5, 6, 7]]

@@ -12,6 +12,7 @@ from .client import DecisionError
 from .state import TASK_HISTORY_STRATEGY, VisibleState, validate_state_strategy
 from .tools import ToolExecutor, validate_arguments
 from .trace import canonical, digest
+from .harvest_contract import bind_harvest_contract, validate_harvest_policy
 from .parameter_contracts import (
     CONTRACT_PARAMETER_STRATEGY, CONDITIONAL_STRATEGIES, completion_ranges, prefix_candidates, range_contract,
     validate_contract_arguments, validate_parameter_strategy,
@@ -27,6 +28,7 @@ class JevAgent:
         self.config = config or {}
         self.state_strategy = validate_state_strategy(self.config)
         self.parameter_strategy = validate_parameter_strategy(self.config)
+        self.harvest_state_policy = validate_harvest_policy(self.config)
         self.runtime = runtime
         self.budgets = {**DEFAULT_BUDGETS, **self.config.get("budgets", {})}
         if any(float(value) <= 0 for value in self.budgets.values()):
@@ -184,6 +186,7 @@ class JevAgent:
             return blocked
         try:
             contract = range_contract(self.catalog.by_name[tool_name], self.resolver.catalog, self.parameter_strategy)
+            contract = bind_harvest_contract(contract, self.trace.events, self.harvest_state_policy)
         except ValueError as exc:
             return {"status": "needs_context", "candidates": {}, "reason": str(exc)}
         if contract is None:
@@ -237,7 +240,8 @@ class JevAgent:
         self._started = time.perf_counter()
         self.trace.emit("run_start", backend=self.backend.name, budgets=self.budgets,
                         task=input, catalog_hash=self.catalog.hash, state_strategy=self.state_strategy,
-                        parameter_strategy=self.parameter_strategy)
+                        parameter_strategy=self.parameter_strategy,
+                        **({"harvest_state_policy": self.harvest_state_policy} if self.harvest_state_policy else {}))
         try:
             for step in range(1, int(self.budgets["max_steps"])+1):
                 if self._limit(tool=True):

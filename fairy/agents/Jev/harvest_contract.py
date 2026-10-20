@@ -1,7 +1,7 @@
-"""Offline prototype of a visible-evidence harvest parameter contract.
+"""Opt-in visible-evidence harvest parameter contract.
 
-Not connected to the live Agent or CandidateResolver. Callers supply ordered
-public trace events and declared ridge bounds/pass width, never an app instance.
+Callers supply ordered public trace events and declared ridge bounds/pass width,
+never an app instance. Existing configurations leave this policy disabled.
 This excludes known unplanted ridges; it does not prove harvest readiness.
 """
 from __future__ import annotations
@@ -12,6 +12,44 @@ VERSION = "harvest_observed_state_v1"
 HARVEST = "TractorApp__harvest"
 RESETS = {"TractorApp__plant_seeds", "TractorApp__replant_seeds"}
 READS = {"FarmWorldApp__get_ridge_range_state", "FarmWorldApp__get_overview"}
+
+
+def validate_harvest_policy(config):
+    policy = config.get("harvest_state_policy")
+    if policy not in (None, VERSION):
+        raise ValueError(f"Unknown harvest_state_policy: {policy!r}")
+    if policy and config.get("parameter_strategy") != "tool_contracts_v2":
+        raise ValueError("harvest_state_policy requires tool_contracts_v2")
+    return policy
+
+
+def bind_harvest_contract(contract, events, policy):
+    """Bind immutable, compact evidence to the selected harvest tool only.
+
+    Used by both the runtime planner and offline verifier. The latter supplies
+    the actual preceding trace, not any planner-claimed eligibility facts.
+    """
+    if not policy or not contract or contract.get("tool_name") != HARVEST:
+        return contract
+    if policy != VERSION:
+        raise ValueError("Unknown harvest state policy")
+    facts = observed_unplanted(events, contract["ridge_bounds"])
+    grouped = {}
+    for ridge, evidence in facts["evidence"].items():
+        key = (evidence["event_id"], evidence["result_path"], evidence["basis"])
+        grouped.setdefault(key, []).append(int(ridge))
+    source_evidence = [
+        {"event_id": eid, "result_path": path, "basis": basis, "ridges": ridges}
+        for (eid, path, basis), ridges in sorted(grouped.items())
+    ]
+    bound = deepcopy(contract)
+    bound["observed_state"] = {
+        "policy": policy, "excluded_ridges": facts["excluded_ridges"],
+        "source_evidence": source_evidence,
+        "scope": facts["scope"],
+    }
+    bound["scope"] += "; also excludes ridges known unplanted from preceding public feedback"
+    return bound
 
 
 def _ids(value, lo, hi):
@@ -59,7 +97,7 @@ def observed_unplanted(events, ridge_bounds):
             raise ValueError("Need strictly increasing event_id within one episode")
         previous = eid
         kind = event.get("event")
-        if kind in {"episode_start", "environment_notification", "crop_state_invalidated"}:
+        if kind in {"run_start", "episode_start", "environment_notification", "crop_state_invalidated"}:
             forget(set(known), event, kind)
             continue
         if kind != "tool_end" or event.get("executed") is not True:
@@ -151,5 +189,5 @@ def harvest_range_menu(events, ridge_bounds, max_pass_width):
         "start_candidates": [int(start) for start in ends],
         "end_candidates_by_start": ends, "facts": facts,
         "reason": None if ends else "No range remains under current visible unplanted evidence",
-        "runtime_enabled": False,
+        "runtime_enabled": False,  # This helper only enumerates; runtime uses bind_harvest_contract.
     }

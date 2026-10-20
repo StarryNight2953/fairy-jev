@@ -159,6 +159,10 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
     episode_started=time.monotonic()
     architecture=architecture or config.get("architecture","jev")
     if architecture not in IMPLEMENTATIONS:raise ValueError("unknown architecture")
+    from fairy.agents.Jev.harvest_contract import validate_harvest_policy
+    harvest_policy = validate_harvest_policy(config)
+    if harvest_policy and architecture == "llm_native":
+        raise ValueError("harvest_state_policy applies only to Jev parameter selection")
     if architecture == "llm_native" and mode == "live":
         if offline_native_llm is not None:
             raise ValueError("A live native CLI run cannot inject a model client")
@@ -202,6 +206,9 @@ def run_episode(config, output_dir, *, architecture=None, mode="live", stage="de
         "randomness":{"scenario_seed":config.get("seed"),"remote_sampling_seed":"not supplied; cannot promise remote determinism","clock":"checkpoint initial time; wall-derived subsecond progression remains"},
         "global_live_ledger":str(ledger.path) if ledger else None,
         "tool_visibility_rule":"FARM_AGENT_HIDDEN_TOOL_NAMES","budgets":config.get("budgets",{}),"experiment_limits":runtime.limits}
+    if harvest_policy:
+        manifest.update(harvest_state_policy=harvest_policy,
+                        harvest_state_contract_hash=file_hash(ROOT/"fairy/agents/Jev/harvest_contract.py"))
     evaluation={"architecture":architecture,"implementation_version":manifest["implementation_version"],"execution_status":"blocked",
         "live_integration_success":None,"task_success":None,"scripted_task_success":None,"native_validation":None,
         "task_assertions":{},"assertions":{},"stop_reason":None,"failure_layer":None}

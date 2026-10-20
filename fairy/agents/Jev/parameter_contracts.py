@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from .tools import validate_arguments
 from .trace import digest
+from .harvest_contract import HARVEST, bind_harvest_contract, validate_harvest_policy
 
 DEFAULT_PARAMETER_STRATEGY = "complete_calls_v1"
 CONTRACT_PARAMETER_STRATEGY = "tool_contracts_v1"
@@ -102,7 +103,17 @@ def range_values(contract, parameter, bound):
             hi = min(hi, lo + contract["max_pass_width"] - 1)
     else:
         raise ValueError("parameter is not part of the range contract")
-    return range(lo, hi + 1)
+    values = range(lo, hi + 1)
+    observed = contract.get("observed_state")
+    if observed:
+        if contract["tool_name"] != HARVEST:
+            raise ValueError("Harvest state constraint bound to a different tool")
+        excluded = set(observed["excluded_ridges"])
+        if parameter == start:
+            return [value for value in values if value not in excluded]
+        # An endpoint must not span a hole even when both endpoints are allowed.
+        return [value for value in values if not set(range(lo, value + 1)) & excluded]
+    return values
 
 
 def prefix_candidates(contract, parameter, bound, decision_ids):
@@ -113,6 +124,9 @@ def prefix_candidates(contract, parameter, bound, decision_ids):
     if len(values) > 255:
         return {**base, "status": "candidate_limit_exceeded", "candidates": {},
                 "candidate_count_at_least": len(values), "reason": "Range dimension exceeds 255; no silent truncation"}
+    if not values:
+        return {**base, "status": "needs_context", "candidates": {},
+                "reason": "No range remains under current visible unplanted evidence"}
     refs = contract["source_refs"] + [f"model_selection:{d}" for d in decision_ids]
     return {**base, "status": "ready", "reason": None, "candidates": {
         f"value_{value}": {"arguments": {parameter: value}, "source_refs": refs}
@@ -152,17 +166,21 @@ def audit_parameter_contracts(events, entries, config):
     execution is valid only after every linked choice has succeeded in order.
     """
     issues, plans, starts, choices, menus, generations = [], {}, {}, {}, {}, {}
+    policy = validate_harvest_policy(config)
 
     def check(ok, code, event):
         if not ok:
             issues.append({"check": code, "event_id": event.get("event_id"), "detail": None})
 
-    for event in events:
+    for position, event in enumerate(events):
         kind, step = event.get("event"), event.get("step_id")
-        if kind == "parameter_plan":
+        if kind == "run_start" and policy:
+            check(event.get("harvest_state_policy") == policy, "harvest_policy_matches_configuration", event)
+        elif kind == "parameter_plan":
             contract = event.get("contract", {})
             try:
                 expected = range_contract(entries[event["tool_name"]], config.get("candidate_catalog", {}), validate_parameter_strategy(config))
+                expected = bind_harvest_contract(expected, events[:position], policy)
             except (KeyError, ValueError, TypeError):
                 expected = None
             source = choices.get(event.get("tool_decision_id"), {})
@@ -232,7 +250,11 @@ def audit_parameter_contracts(events, entries, config):
                     valid = False
                 check(valid and all(args.get(k) == v for k, v in plan["bound"].items()),
                       "complete_candidate_preserves_prefix_and_contract", event)
-        elif kind == "tool_start" and step in plans:
+        elif kind == "tool_start":
+            if policy and event.get("tool_name") == HARVEST:
+                check(step in plans, "harvest_execution_requires_observed_contract", event)
+            if step not in plans:
+                continue
             plan = plans[step]
             ids = event.get("decision_ids", [])
             answer = choices.get(ids[-1] if ids else None, {})
