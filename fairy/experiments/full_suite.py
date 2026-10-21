@@ -137,6 +137,10 @@ def make_config(base, scenario, architecture, variant=None):
     cfg["candidate_strategy_version"] = CANDIDATE_STRATEGY_VERSION
     cfg["effective_limit_note"] = "User-authorized 7200s episode wall limit; existing attempt counts retained; fixed before samples; no retry episodes."
     cfg["configuration_note"] = "Current source includes task-briefing fixes and visible numeric candidate enrichment; prompt, K, report template, loop and model sampling preserved."
+    if architecture == "llm_native":
+        cfg["implementation_version"] = "fairy_native_cli_v1"
+        cfg["effective_limit_note"] = "Original FAIRY CLI owns limits (defaults: 300 tools, 7200s); comparison experiment_limits/budgets do not apply."
+        cfg["evaluation_profile"] = cfg["evaluator_version"] = "fairy_cli_native_report"
     return config_for_scenario(scenario, cfg)
 
 
@@ -249,14 +253,14 @@ def prepare(out, include_legacy=False, llm_config_path=None, *, levels=None, var
               "limits": LIMITS, "maximum_concurrency": 3, "max_parallel_per_architecture": 1,
               "max_parallel_per_variant": 1,
               "scheduling_note": "Both pure Jev state variants share one serial architecture lane; service concurrency remains unchanged",
-              "evaluation": "HN58 keeps exact semantic_v2; all other task_success unknown, native validator and workflow scores retained without invented thresholds",
+              "evaluation": "Native LLM uses original FAIRY CLI reports (custom task_success unknown). Jev/Hybrid HN58 retain semantic_v2; other tasks retain native validation without invented thresholds.",
               "rules": ["No replacement samples, including failures and interrupted slots", "No model action replacement or automatic repair",
                         "Freeze current task inputs, numeric candidate strategy and LLM timeout before samples; keep prompt/K/report template/agent loop/model sampling unchanged during the batch",
                         "No oracle action execution; static oracle used only after execution for existing descriptive metrics",
                         "L1/L2 checkpoint clocks, L3 declared clocks", "Service access errors stop dependent future slots; no route changes"],
               "known_existing_limitations": ["Jev report candidate is irrigation-specific", "Finite candidate values can omit other tasks' required values",
                         "Default waits may be too short for full-season tasks", "Weak or absent validators do not establish task completion",
-                        "Native round count is descriptive; its unchanged loop is bounded by HTTP/tools/wall time"],
+                        "Native CLI owns retry/tool/wall limits; HTTP attempts and custom task acceptance are unobserved"],
               "cost": {"status": "unknown", "no_verified_price_schedule": True}}
     if override_record is not None:
         prereg["llm_override"] = override_record
@@ -355,22 +359,29 @@ def child(out, slot):
     output, evaluation = run_episode(cfg, out / "live", architecture=row["architecture"], stage="full_suite_once",
                                      experiment_id=out.name, slot=row["ledger_slot"], ledger=ledger, require_clean=True)
     evaluation = load(output / "evaluation.json")  # Disk copy is already secret-sanitized.
+    native_cli = load(output / "manifest.json").get("launch_mode") == "fairy_native_cli_v1"
+    from .native_cli import native_service_blockers
     # Write the live result before offline verification, so a replay defect never
     # discards or triggers a rerun of the real episode.
     record = {**row, "path": str(output), "finished_at": now(), "evaluation": evaluation,
-              "service_blockers": service_blockers(reads_events(output / "trace.jsonl"))}
+              "service_blockers": native_service_blockers(output) if native_cli else service_blockers(reads_events(output / "trace.jsonl"))}
     manifest, fixture = load(output / "manifest.json"), load(out / "preflight" / f"{row['scenario_id']}.json")
     record["fixture_identity_matches_preflight"] = {
         "catalog": manifest.get("catalog_hash") == fixture.get("catalog_sha256"),
         "checkpoint": manifest.get("checkpoint_hash") == identity.get("checkpoint_sha256"),
         "initial_time": manifest.get("effective_start_time") == identity.get("effective_start_time")}
+    if native_cli:
+        record["fixture_identity_matches_preflight"] = {
+            "status": "not_instrumented", "reason": "Native CLI owns scenario setup; see command and native report"}
+        record["native_artifacts"] = manifest["native_artifacts"]
+        record["service_access_observation"] = "Native console/report only; no HTTP observer"
     write_json(out / "results" / f"{slot}.json", record)
     try:
         evaluation = verify_and_replay(output, cfg)
     except Exception as exc:
         record["verification_error"] = f"{type(exc).__name__}: {exc}"
     record["evaluation"] = evaluation
-    record["service_blockers"] = service_blockers(reads_events(output / "trace.jsonl"))
+    record["service_blockers"] = native_service_blockers(output) if native_cli else service_blockers(reads_events(output / "trace.jsonl"))
     write_json(out / "results" / f"{slot}.json", record)
 
 
@@ -440,7 +451,7 @@ def _run_locked(out):
         for pid, (proc, row, stream, started_at) in list(active.items()):
             # Whole live episode is bounded internally. This outer deadline only
             # handles an initialization/finalization/replay hang.
-            if proc.poll() is None and time.monotonic()-started_at > LIMITS["wall_timeout_seconds"] + 600:
+            if row["architecture"] != "llm_native" and proc.poll() is None and time.monotonic()-started_at > LIMITS["wall_timeout_seconds"] + 600:
                 proc.terminate()
                 try:
                     proc.wait(timeout=5)
@@ -485,7 +496,8 @@ def interrupted_record(out, row, ledger):
         ledger.finish(reserved["run_id"], "interrupted_not_retried")
     return {**row, "execution_status": "interrupted_not_retried", "path": str(path) if path else None,
             "model_http_attempts": reserved["http_attempts"] if reserved else 0,
-            "tool_call_count": sum(e.get("event") == "tool_end" and bool(e.get("executed")) for e in events),
+            "tool_call_count": (None if reserved and reserved.get("launch_mode") == "fairy_native_cli_v1"
+                                else sum(e.get("event") == "tool_end" and bool(e.get("executed")) for e in events)),
             "task_success": None, "live_integration_success": None,
             "service_blockers": service_blockers(events), "partial_evidence_preserved": True}
 
@@ -518,7 +530,10 @@ def summarize(out, finished=False):
                 "task_true": sum(r["task_success"] is True for r in selected), "task_false": sum(r["task_success"] is False for r in selected),
                 "task_unknown": sum(r["task_success"] is None for r in selected),
                 "integration_true": sum(r["live_integration_success"] is True for r in selected),
-                "http_attempts": sum(r["model_http_attempts"] for r in selected)}
+                "http_attempts": (None if any(r["model_http_attempts"] is None for r in selected)
+                                  else sum(r["model_http_attempts"] for r in selected)),
+                "observed_http_attempts": sum(r["model_http_attempts"] or 0 for r in selected),
+                "http_unknown_runs": sum(r["model_http_attempts"] is None for r in selected)}
     summary = {"experiment_id": out.name, "updated_at": now(), "finished": finished,
                "planned": len(pre["slots"]), "recorded": len(rows), "groups": groups, "rows": rows,
                "interpretation": "One sample per scenario/implementation variant. Unknown task_success is not failure or success. Bounded stops are censored runs. No reliable model-price estimate."}

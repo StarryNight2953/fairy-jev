@@ -20,6 +20,7 @@ from .evaluation import evaluate_task
 from .replay import replay_run
 from .scripted import ScriptedPolicy
 from .state import validate_state_strategy
+from .parameter_contracts import validate_parameter_strategy
 from .tools import ToolCatalog
 from .trace import TraceWriter, digest, write_json
 
@@ -205,6 +206,7 @@ def run_mode(mode, config, output_dir, *, workflow_path=None):
     manifest = {"run_id": run_id, "mode": mode, "backend": "scripted" if mode == "scripted" else "typesafe_sdk" if mode in {"live", "sdk-smoke"} else "inventory",
                 "config": config, "commit": _commit(), "sdk_version": _sdk_version(), "model": config.get("model"),
                 "state_strategy": state_strategy,
+                "parameter_strategy": validate_parameter_strategy(config),
                 "config_hash": digest(config), "parameter_catalog_hash": digest(config.get("candidate_catalog", {})),
                 "budgets": {**DEFAULT_BUDGETS, **config.get("budgets", {})},
                 "implementation_hashes": _implementation_hashes(), "history_policy": config.get("history", {}),

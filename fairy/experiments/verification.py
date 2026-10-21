@@ -228,7 +228,9 @@ def verify_episode(run_dir):
                 check(bool(choice_ids) and choice_ids[0] == generation.get("tool_decision_id"), "tool_choice_link", event)
                 check(event.get("tool_name") == generation.get("tool_name"), "execute_selected_tool", event)
                 parameterized = bool(by_name.get(event.get("tool_name"), {}).get("parameters"))
-                check(len(choice_ids) == (2 if parameterized else 1), "argument_choice_presence", event)
+                prefix_ids = generation.get("generation", {}).get("prefix_decision_ids", [])
+                check(len(choice_ids) == (2 + len(prefix_ids) if parameterized else 1)
+                      and (not parameterized or choice_ids[1:-1] == prefix_ids), "argument_choice_presence", event)
                 candidate = decisions.get(choice_ids[-1] if choice_ids else None, {}).get("selected_option") if parameterized else "args_000"
                 selected = generation.get("generation", {}).get("candidates", {}).get(candidate, {})
                 check(event.get("arguments") == selected.get("arguments"), "execute_exact_selected_arguments", event)
@@ -284,6 +286,8 @@ def verify_episode(run_dir):
         "hybrid_cross_update": "not_applicable" if not is_hybrid else ("passed" if len(packets) >= 2 else "uncovered"),
         "material_state_replay": "not_applicable" if not is_hybrid else ("passed" if state_replays else "uncovered"),
     }
+    from fairy.agents.Jev.parameter_contracts import audit_parameter_contracts
+    issues.extend(audit_parameter_contracts(events, by_name, manifest.get("effective_config") or manifest.get("config") or {}))
     return {"passed": not issues, "issues": issues, "coverage": coverage,
         "architecture": architecture, "run_id": manifest.get("run_id"),
         "checks_performed": dict(performed), "counts": {"http_attempts": len(http_starts),

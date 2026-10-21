@@ -81,6 +81,45 @@ set +a
 
 SDK 配置使用 `base_url=https://api.typesafe.ai`、`model=jev-1.13.0`、`timeout=30`、`retry=RetryPolicy(max_retries=0)`、`compression=False`。官方 SDK 参数名称是 `retry`，其 timeout 约束 HTTP 操作。当前默认上下文上限为每问题 32k、每请求 64k token，Choice 最多 255 项；本实现没有开启 long-context 请求头。以上契约于 2026-10-17 对照[官方同步客户端](https://docs.typesafe.ai/sdk/python/api/clients/sync)、[Choice](https://docs.typesafe.ai/primitives/choice)、[Models](https://docs.typesafe.ai/models) 与 [API reference](https://docs.typesafe.ai/api)核验。
 
+## 可选的工具契约参数策略（2026-10-20）
+
+以上完整组合流程仍是默认 `parameter_strategy=complete_calls_v1`。新增
+`tool_contracts_v1` 借鉴参考项目的逐参数选择，但将范围约束直接用于生成候选。
+它与 `state_strategy` 独立，可以用于原纯Jev、`task_history_v1` 和Hybrid。
+既有实验配置和历史产物没有切换策略，停止的实验不会自动恢复。
+
+`parameter_contracts.py` 为范围查询、Robot巡查、Drone调查、灌溉、水肥和Tractor范围作业
+登记明确的端点参数契约，运行时按完整工具名绑定。先在公开 `ridge_bounds` 中选择起点；
+终点必须不早于已选起点、不超过田块边界。配置已声明该工具 `max_pass_width` 时，
+还限制一次作业的宽度。例如选择 `start=20` 后不再提供 `end=5`；Tractor收获宽度为4时，
+终点为20–23。Robot的内部8垄常量未被导入，也没有将它伪称为已有公开能力。
+
+纯范围工具的请求顺序为工具 → 起点 → 完整起止范围，共3次Choice；带其他参数的工具为
+工具 → 起点 → 终点 → 范围固定后的剩余参数组合，共4次Choice。剩余参数继续采用既有的
+单位匹配、任务数值、默认值和联合候选规则；未登记范围契约的工具继续走默认完整组合路径。
+起点菜单包含全部公开合法垄号，因此即使任务只写0–63，也能表达后续8–15，无须事先列出
+每个完整范围。是否选择剩余区域仍由Jev决定，生成器不自动推进、不禁止复查、不替换动作。
+
+这版只保证端点顺序、公开边界、已声明单次宽度及签名类型；不保证药量、配额、电量、
+跨参数资源约束或整个任务成功。支持表明确标注 `declared_not_task_validated`；它不是任务
+覆盖证明。每个Choice仍受255项限制，超限明确停止，不截断；历史state长度问题也仍独立存在。
+模型请求可能比旧策略增加，原有请求次数和时间预算未扩大。
+
+只进行离线scripted验证的使用方式：
+
+```bash
+python -m fairy.agents.Jev --mode scripted \
+  --config configs/jev/hn58_irrigation.json \
+  --parameter-strategy tool_contracts_v1 \
+  --output-dir runs/jev/tool_contracts_scripted
+```
+
+也可在传给 `run_episode` 的配置中设置 `"parameter_strategy": "tool_contracts_v1"`。
+`parameter_plan`、`parameter_stage_candidates` 和各阶段 `decision_start/end` 保存契约、
+条件菜单及模型选择；最终 `parameter_candidates` 保存完整实参和前序decision IDs。
+原生工具只执行一次，且关联整条决策链。两套离线完整性校验器检查条件菜单、冻结state、
+前序参数保留和实际执行参数；部分选择后超时或预算耗尽不会执行工具。
+
 ## 可见状态、预算与完整记录
 
 模型状态只包含可见 briefing、系统上下文、模拟时间、已返回的工具结果、环境通知、动作事实和 controller feedback。Engine 增加 `add_system_context` / `on_environment_event` 中立 hook；原有 Agent 继续走 messages 回退路径。通知的 Workflow 节点由选中的路径写入一次。briefing 提取跳过 oracle 事件。

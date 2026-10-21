@@ -26,6 +26,10 @@ class ScriptedPolicy:
         region, hours = target["target_range"], target["irrigation_hours"]
         if region is None or hours is None:
             raise ValueError("scripted policy requires visible target range and duration")
+        if question_id in {"parameter_start", "parameter_start_ridge", "parameter_end", "parameter_end_ridge"}:
+            parameter = question_id.removeprefix("parameter_")
+            value = region[0] if parameter in {"start", "start_ridge"} else region[1]
+            return next(key for key, candidate in options.items() if candidate["arguments"] == {parameter: value})
         for candidate_id, candidate in options.items():
             args = candidate["arguments"]
             if self.selected == "FarmWorldApp__get_ridge_range_state" and args == {"start": region[0], "end": region[1]}:

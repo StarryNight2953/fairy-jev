@@ -88,12 +88,12 @@ def run_stage(comparison,base,stage):
             require_clean=stage=='formal',offline_native_llm=native,external_blockers=access_by_architecture.get(architecture))
         result=verify_and_replay(output,cfg)
         summary={k:result.get(k) for k in ('execution_status','task_success','scripted_task_success','live_integration_success','stop_reason','failure_layer','model_http_attempts','model_request_count','tool_call_count','wall_elapsed_seconds')}
-        record={'slot':slot,'architecture':architecture,'seed':seed,'path':str(output),**summary,'evaluation_sha256':file_hash(output/'evaluation.json'),'manifest_sha256':file_hash(output/'manifest.json'),'trace_sha256':file_hash(output/'trace.jsonl'),'verification_passed':result['trace_verification']['passed'],'replay_passed':result.get('replay_verification',{}).get('passed')}
+        record={'slot':slot,'architecture':architecture,'seed':seed,'path':str(output),**summary,'evaluation_sha256':file_hash(output/'evaluation.json'),'manifest_sha256':file_hash(output/'manifest.json'),'trace_sha256':file_hash(output/'trace.jsonl'),'verification_passed':result.get('trace_verification',{}).get('passed'),'replay_passed':result.get('replay_verification',{}).get('passed')}
         index['runs'].append(record)
         if ledger:index['live_budget']=ledger.snapshot()
         write_json(index_path,index)
         print(json.dumps(record,ensure_ascii=False),flush=True)
-        if stage=='formal' and (result['execution_status']=='integration_error' or not result['trace_verification']['passed'] or result.get('replay_verification',{}).get('passed') is False):
+        if stage=='formal' and (result['execution_status']=='integration_error' or result.get('trace_verification',{}).get('passed') is False or result.get('replay_verification',{}).get('passed') is False):
             stopped=True
             index['batch_stopped']={'slot':slot,'reason':'integration_or_recording_defect','path':str(output)}
             write_json(index_path,index)
@@ -116,12 +116,12 @@ def report(comparison):
     for architecture in ('llm_native','jev','hybrid'):
         group=[r for r in rows if r['architecture']==architecture]
         live=[r for r in group if r['execution_status']!='blocked']
-        seconds=[r['wall_elapsed_seconds'] for r in live]
-        groups[architecture]={'planned':3,'executed':len(live),'blocked':len(group)-len(live),'task_successes':sum(r['task_success'] is True for r in live),'integration_successes':sum(r['live_integration_success'] is True for r in live),'wall_seconds':{'median':statistics.median(seconds) if seconds else None,'min':min(seconds) if seconds else None,'max':max(seconds) if seconds else None},'total_http_attempts':sum(r['model_http_attempts'] for r in live),'total_native_attempts':sum(r['tool_call_count'] for r in live),'cost_status':'unavailable'}
+        seconds=[r['wall_elapsed_seconds'] for r in live if r['wall_elapsed_seconds'] is not None]
+        groups[architecture]={'planned':3,'executed':len(live),'blocked':len(group)-len(live),'task_successes':sum(r['task_success'] is True for r in live),'integration_successes':sum(r['live_integration_success'] is True for r in live),'wall_seconds':{'median':statistics.median(seconds) if seconds else None,'min':min(seconds) if seconds else None,'max':max(seconds) if seconds else None},'total_http_attempts':None if any(r['model_http_attempts'] is None for r in live) else sum(r['model_http_attempts'] for r in live),'total_native_attempts':None if any(r['tool_call_count'] is None for r in live) else sum(r['tool_call_count'] for r in live),'cost_status':'unavailable'}
     result={'experiment_id':comparison['experiment_id'],'formal_rows':rows,'groups':groups,'indices':{k:str(out/f'{k}_index.json') for k in indices},'interpretation':'Descriptive three-repetition whole-architecture comparison; no stable success-rate or isolated Jev causal contribution claim. Failed episodes are included.','price_status':'unavailable'}
     write_json(out/'comparison_report.json',result)
     lines=['# HN58 three-architecture comparison','',result['interpretation'],'','| Slot | Architecture | Task | Integration | Stop | HTTP | Tools | Wall s |','|---|---|---|---|---|---:|---:|---:|']
-    for r in rows:lines.append(f"| {r['slot']} | {r['architecture']} | {r['task_success']} | {r['live_integration_success']} | {r['stop_reason']} | {r['model_http_attempts']} | {r['tool_call_count']} | {r['wall_elapsed_seconds']:.3f} |")
+    for r in rows:lines.append(f"| {r['slot']} | {r['architecture']} | {r['task_success']} | {r['live_integration_success']} | {r['stop_reason']} | {r['model_http_attempts']} | {r['tool_call_count']} | {r['wall_elapsed_seconds']} |")
     lines+=['','Costs unavailable; see JSON for reported token usage and per-role latency.','',json.dumps(groups,ensure_ascii=False,indent=2)]
     (out/'comparison_report.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps({'report':str(out/'comparison_report.json'),'groups':groups},ensure_ascii=False,indent=2))

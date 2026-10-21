@@ -14,8 +14,6 @@ from fairy.agents.Jev.tools import ToolCatalog, result_is_error
 from fairy.controllers.agent_builder import build_controller_agent
 from fairy.controllers.agent_config import get_farm_world_system_prompt
 
-from .transports import build_instrumented_llm
-
 
 def attach_native_observers(agent, runtime, catalog):
     """Attach to one agent instance; normal FAIRY callers are unaffected."""
@@ -143,11 +141,11 @@ def attach_native_observers(agent, runtime, catalog):
 
 
 def run_native(scenario, engine, config, runtime, *, llm=None):
-    """Return agent/workflow/stop reason using the original controller's loop."""
+    """Legacy offline fixture harness; live baselines use fairy.cli directly."""
     from .budget import BudgetStop
 
-    llm_config = config.get("llm", config.get("llm_native", {}))
-    llm = llm or build_instrumented_llm(llm_config, runtime, "llm_native_decision")
+    if llm is None:
+        raise ValueError("Live native execution must use fairy.cli; this harness requires an offline client")
     parallel = bool(getattr(llm, "parallel_tool_calls", True))
     agent = build_controller_agent(config.get("controller", "farm_baseline_react"), llm=llm,
         toolsets=scenario.apps,

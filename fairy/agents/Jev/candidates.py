@@ -12,6 +12,7 @@ import re
 from typing import Any
 
 from .tools import validate_arguments
+from .parameter_contracts import CONTRACT_PARAMETER_STRATEGY, range_contract, range_values, validate_parameter_strategy
 
 
 _RANGE = re.compile(r"(?:(?:ridges?|垄)\s*)?(\d+)\s*[-–—~至到]\s*(\d+)(?:\s*垄)?", re.I)
@@ -331,6 +332,7 @@ class CandidateResolver:
     def __init__(self, catalog_entries: list[dict], config: dict):
         self.entries = {entry["name"]: entry for entry in catalog_entries if entry.get("visible", True)}
         self.catalog = config.get("candidate_catalog", {})
+        self.parameter_strategy = validate_parameter_strategy(config)
 
     def _strategy(self, entry):
         parameters = entry["parameters"]
@@ -380,6 +382,17 @@ class CandidateResolver:
                          "value_sources": sources, "units": units,
                          "limits": {"max_candidates": 255, "max_pass_width": self.catalog.get("max_pass_width", {}).get(name)},
                          "finite_catalog_not_exhaustive": True, "candidate_strategy_version": CANDIDATE_STRATEGY_VERSION})
+        if self.parameter_strategy == CONTRACT_PARAMETER_STRATEGY:
+            for row in rows:
+                try:
+                    contract = range_contract(self.entries[row["tool_name"]], self.catalog)
+                    row["parameter_contract"] = contract
+                    row["parameter_strategy"] = self.parameter_strategy if contract else "complete_calls_v1"
+                    row["contract_status"] = "declared_not_task_validated" if contract else "legacy_complete_calls"
+                except ValueError as exc:
+                    row["parameter_strategy"] = self.parameter_strategy
+                    row["contract_status"] = "invalid_configuration"
+                    row["contract_error"] = str(exc)
         return rows
 
     def _range_options(self, state, tool_name):
@@ -461,7 +474,12 @@ class CandidateResolver:
                 "task_spacing_scope_policy": "Only task-derived spacing is bound to a single adjacent public ridge range; ambiguous scope stays unbound",
                 "task_spacing_scope_filtered_candidates": 0}
 
-    def generate(self, tool_name: str, visible_state: dict) -> dict:
+    def generate(self, tool_name: str, visible_state: dict, *, selected_ranges=None) -> dict:
+        """Generate full calls, optionally conditioned on traced range choices.
+
+        selected_ranges is supplied only by the opt-in tool contract planner;
+        callers omitting it retain the original complete-call candidate space.
+        """
         if tool_name not in self.entries:
             return {"status": "unsupported", "candidates": {}, "missing_fields": [], "reason": "tool absent from visible catalog"}
         entry = self.entries[tool_name]
@@ -486,7 +504,18 @@ class CandidateResolver:
             pair_names = ("start", "end") if {"start", "end"} <= names else ("start_ridge", "end_ridge") if {"start_ridge", "end_ridge"} <= names else None
             groups, group_indices = [], {}
             if pair_names:
-                ranges = self._range_options(visible_state, tool_name)
+                ranges = self._range_options(visible_state, tool_name) if selected_ranges is None else selected_ranges
+                if selected_ranges is not None:
+                    try:
+                        contract = range_contract(entry, self.catalog)
+                        if self.parameter_strategy != CONTRACT_PARAMETER_STRATEGY or contract is None:
+                            raise ValueError("conditional ranges require an enabled tool contract")
+                        for pair, _ in ranges:
+                            if (len(pair) != 2 or type(pair[1]) is not int or pair[1] not in range_values(
+                                    contract, pair_names[1], {pair_names[0]: pair[0]})):
+                                raise ValueError("conditional range violates declared bounds/order/width")
+                    except (ValueError, TypeError, KeyError) as exc:
+                        return {**base, "status": "unsupported", "candidates": {}, "reason": str(exc)}
                 if not ranges:
                     return {**base, "status": "needs_context", "candidates": {}, "missing_fields": list(pair_names), "reason": "no public legal range"}
                 groups.append([({pair_names[0]: pair[0], pair_names[1]: pair[1]}, [ref]) for pair, ref in ranges])

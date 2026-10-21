@@ -107,6 +107,11 @@ def service_blockers_from_smoke(index, *, target_configs=None, available_credent
         try:
             manifest = _json(root / "manifest.json")
             evaluation = _json(root / "evaluation.json")
+            if manifest.get("launch_mode") == "fairy_native_cli_v1":
+                observations.append({"source_architecture": architecture, "source_run": str(root),
+                    "classification": "native_cli_http_unobserved", "persistent_block": False,
+                    "detail": "Original native logs are retained; HTTP access status is not instrumented."})
+                continue
             trace_path = root / "trace.jsonl"
             events = [json.loads(line) for line in trace_path.read_text(encoding="utf-8").splitlines() if line.strip()]
         except (OSError, ValueError) as error:
